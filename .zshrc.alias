@@ -1,0 +1,59 @@
+alias mkdir='mkdir -p'
+alias r='rails'
+alias cot='open -g -a "CotEditor"'
+alias v='vim'
+alias e='exit'
+alias e=':q'
+alias gr="grep -r"
+alias o="open"
+alias l="ls -al"
+alias c="clear"
+alias be="bundle exec"
+
+# git
+alias g='git'
+alias gs='git status'
+alias gci='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias ga='git add'
+alias gb='git branch'
+alias gl='git log'
+alias gcom='git checkout master'
+alias gg="git grep --line-number --heading --break -e"
+alias gp="git pull"
+alias gf="git fetch --prune"
+alias gcod="git checkout develop"
+alias gcp="git cherry-pick"
+alias t='tig'
+
+# tmux
+alias tmux="tmux -2"
+alias tm="tmux"
+alias tml="tmux ls"
+alias tma="tmux attach -t"
+alias tmr="tmux rename -t"
+
+# sudo の後のコマンドでaliasを有効にする
+alias sudo='sudo '
+
+# .. で一つ上にいけるので、同じように
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# global
+alias -g L='| less'
+alias -g G='| grep'
+
+# C で標準出力をクリップボードにコピーする
+# mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
+if which pbcopy >/dev/null 2>&1 ; then
+    # Mac
+    alias -g C='| pbcopy'
+elif which xsel >/dev/null 2>&1 ; then
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip >/dev/null 2>&1 ; then
+    # Cygwin
+    alias -g C='| putclip'
+fi
