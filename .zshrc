@@ -8,7 +8,7 @@ source ~/dotfiles/.zshrc.alias
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
 
 # powerline
-source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 export SVN_EDITOR=vim
 
