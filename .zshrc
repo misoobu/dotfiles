@@ -2,7 +2,7 @@
 source ~/dotfiles/.zshrc.alias
 
 # node
-[ -d $HOME/.nvm ] && source $HOME/.nvm/nvm.sh
+[ -d ~/.nvm ] && source ~/.nvm/nvm.sh
 
 # ruby
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
@@ -11,6 +11,7 @@ if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
 source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 export SVN_EDITOR=vim
+
 
 # ここから参考: https://gist.github.com/mollifier/4979906
 
