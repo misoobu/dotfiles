@@ -9,6 +9,9 @@ alias o="open"
 alias l="ls -al"
 alias c="clear"
 alias be="bundle exec"
+alias h="history"
+alias ha="history-all"
+alias so="source"
 
 # git
 alias g='git'

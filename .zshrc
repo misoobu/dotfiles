@@ -105,3 +105,9 @@ function cd() {
 function title {
   echo -ne "\033]0;"$*"\007"
 }
+
+# 全履歴
+function history-all {
+  history -E 1
+}
+
