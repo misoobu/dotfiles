@@ -1,6 +1,7 @@
 alias mkdir='mkdir -p'
 alias r='rails'
-alias cot='open -g -a "CotEditor"'
+alias cot='open -a CotEditor'
+alias atm='open -a Atom'
 alias v='vim'
 alias e='exit'
 alias :q='exit'
