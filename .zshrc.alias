@@ -1,12 +1,9 @@
 alias mkdir='mkdir -p'
 alias r='rails'
-alias cot='open -a CotEditor'
-alias atm='open -a Atom'
 alias v='vim'
 alias e='exit'
 alias :q='exit'
 alias gr="grep -r"
-alias o="open"
 alias l="ls -al"
 alias c="clear"
 alias be="bundle exec"
@@ -49,6 +46,12 @@ alias ....='cd ../../..'
 # global
 alias -g L='| less'
 alias -g G='| grep'
+
+# mac
+alias pbc='pbcopy'
+alias cot='open -a CotEditor'
+alias atm='open -a Atom'
+alias o="open"
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
