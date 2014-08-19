@@ -21,8 +21,12 @@ set hlsearch
 " 行番号表示
 set number
 
-" 自動的にインデントする
+" インデント
+set expandtab
+set tabstop=2
+set shiftwidth=2
 set autoindent
+set smartindent
 
 " ハイライトを有効にする
 syntax on
