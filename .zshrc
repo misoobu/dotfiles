@@ -23,6 +23,8 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
+REPORTTIME=5
+
 # for zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
