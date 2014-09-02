@@ -28,6 +28,7 @@ alias gcod="git checkout develop"
 alias gcp="git cherry-pick"
 alias t='tig'
 alias gn="git now --all --stat"
+alias gre="git rebase"
 
 # tmux
 alias tmux="tmux -2"
