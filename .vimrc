@@ -73,3 +73,9 @@ let g:syntastic_auto_loc_list=2
 
 NeoBundle 'tpope/vim-fugitive'
 
+NeoBundle 'scrooloose/nerdtree'
+" 隠しファイルをデフォルトで表示させる
+let NERDTreeShowHidden = 1
+" Ctrl+eで開く
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
