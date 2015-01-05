@@ -65,7 +65,16 @@ let g:Powerline_symbols = 'fancy'
 set noshowmode
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+
 
 NeoBundle 'scrooloose/syntastic.git'
 let g:syntastic_enable_signs=1
@@ -78,4 +87,6 @@ NeoBundle 'scrooloose/nerdtree'
 let NERDTreeShowHidden = 1
 " Ctrl+eで開く
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+NeoBundle 'lambdalisue/unite-grep-vcs'
 
