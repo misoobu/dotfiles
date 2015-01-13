@@ -8,7 +8,7 @@ source ~/dotfiles/.zshrc.alias
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
 
 # powerline
-[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+# [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 export SVN_EDITOR=vim
 export EDITOR=vim
@@ -19,6 +19,8 @@ export EDITOR=vim
 
 # 環境変数
 export LANG=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
