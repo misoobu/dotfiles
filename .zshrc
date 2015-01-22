@@ -8,26 +8,24 @@ source ~/dotfiles/.zshrc.alias
 if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
 
 # powerline
-# [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 export SVN_EDITOR=vim
-export EDITOR=vim
-
-#source ~/.tmuxinator/tmuxinator.zsh
+# export EDITOR=vim
 
 # ここから参考: https://gist.github.com/mollifier/4979906
 
 # 環境変数
+export LC_ALL=ja_JP.UTF-8
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-REPORTTIME=5
+REPORTTIME=10
 
 # for zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -116,14 +114,4 @@ function title {
 function history-all {
   history -E 1
 }
-
-:
-function role() {
-    dzbx-tool host --list --appname=$1 --rolename=$2
-}
-
-function app() {
-    dzbx-tool host --list --appname=$1
-}
-:
 

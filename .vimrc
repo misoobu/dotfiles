@@ -124,3 +124,6 @@ colorscheme molokai
 
 " 256色
 set t_Co=256
+
+set noswapfile
+
