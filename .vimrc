@@ -56,7 +56,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR> " Ctrl+eで開く
 " NeoBundle 'alpaca-tc/alpaca_powertabline'
 " NeoBundle 'Shougo/neosnippet.vim'
 " NeoBundle 'Shougo/neosnippet-snippets'
-" NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 " NeoBundle 'flazz/vim-colorschemes'
 
 " You can specify revision/branch/tag.
