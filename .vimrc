@@ -33,30 +33,59 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
 set noshowmode
 
-NeoBundle 'tomasr/molokai'
-
-NeoBundle 'Shougo/unite.vim'
-
 NeoBundle 'scrooloose/syntastic.git'
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
-
-NeoBundle 'tpope/vim-fugitive'
-
-" gitの差分を表示するぜ
-NeoBundle 'airblade/vim-gitgutter'
-" nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
-" nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
 
 NeoBundle 'scrooloose/nerdtree'
 let NERDTreeShowHidden = 1 " 隠しファイルをデフォルトで表示させる
 nnoremap <silent><C-e> :NERDTreeToggle<CR> " Ctrl+eで開く
 
+NeoBundle 'Shougo/unite.vim'
+" insert modeで開始
+let g:unite_enable_start_insert = 1
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+" grep検索
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+" カーソル位置の単語をgrep検索
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+" grep検索結果の再呼出
+nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+NeoBundle 'tpope/vim-rails'
+autocmd User Rails nmap :<C-u>Econtroller :<C-u>Ec
+autocmd User Rails nmap :<C-u>Emodel :<C-u>Em
+autocmd User Rails nmap :<C-u>Eview :<C-u>Ev
+autocmd User Rails nmap :<C-u>RScontroller :<C-u>RSc
+autocmd User Rails nmap :<C-u>RSmodel :<C-u>RSm
+autocmd User Rails nmap :<C-u>RSview :<C-u>RSv
+autocmd User Rails nmap :<C-u>RVcontroller :<C-u>RVc
+autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
+autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
+
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'slim-template/vim-slim'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'szw/vim-tags'
+NeoBundle 'basyura/unite-rails'
 " NeoBundle 'lambdalisue/unite-grep-vcs'
 " NeoBundle 'alpaca-tc/alpaca_powertabline'
 " NeoBundle 'Shougo/neosnippet.vim'
 " NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'ctrlpvim/ctrlp.vim'
 " NeoBundle 'flazz/vim-colorschemes'
 
 " You can specify revision/branch/tag.
