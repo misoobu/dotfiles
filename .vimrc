@@ -156,3 +156,6 @@ set t_Co=256
 
 set noswapfile
 
+" インサートモード時にバックスペースを使う
+set backspace=indent,eol,start
+
