@@ -1,15 +1,16 @@
 alias mkdir='mkdir -p'
-alias r='rails'
 alias v='vim'
 alias e='exit'
 alias :q='exit'
 alias gr="grep -r"
 alias l="ls -al"
 alias c="clear"
-alias be="bundle exec"
 alias h="history"
 alias ha="history-all"
 alias so="source"
+alias bin/rails='rails'
+alias bin/rake='rake'
+alias be="bundle exec"
 
 # git
 alias g='git'
@@ -33,6 +34,11 @@ alias gsmu="git submodule update"
 alias cdr="cd resources"
 alias gpom="git push origin master"
 alias gpod="git push origin develop"
+
+# hub
+alias h="hub"
+alias hb="hub browse"
+alias hc="hub compare"
 
 # tmux
 alias tmux="tmux -2"
@@ -62,6 +68,7 @@ alias pbc='pbcopy'
 alias cot='open -a CotEditor'
 alias atm='open -a Atom'
 alias o="open"
+alias f="o ."
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
