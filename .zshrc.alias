@@ -1,33 +1,33 @@
-alias mkdir='mkdir -p'
-alias v='vim'
-alias e='exit'
-alias :q='exit'
+alias mkdir="mkdir -p"
+alias v="vim"
+alias e="exit"
+alias :q="exit"
 alias gr="grep -r"
 alias l="ls -al"
 alias c="clear"
 alias h="history"
 alias ha="history-all"
 alias so="source"
-alias bin/rails='rails'
-alias bin/rake='rake'
+alias bin/rails="rails"
+alias bin/rake="rake"
 alias be="bundle exec"
 
 # git
-alias g='git'
-alias gs='git status'
-alias gci='git commit'
-alias gco='git checkout'
-alias gd='git diff'
-alias ga='git add'
-alias gb='git branch'
-alias gl='git log'
-alias gcom='git checkout master'
+alias g="git"
+alias gs="git status"
+alias gci="git commit"
+alias gco="git checkout"
+alias gd="git diff"
+alias ga="git add"
+alias gb="git branch"
+alias gl="git log"
+alias gcom="git checkout master"
 alias gg="git grep --line-number --heading --break -e"
 alias gp="git pull"
 alias gf="git fetch --prune"
 alias gcod="git checkout develop"
 alias gcp="git cherry-pick"
-alias t='tig'
+alias t="tig"
 alias gn="git now --all --stat"
 alias gre="git rebase"
 alias gsmu="git submodule update"
@@ -51,22 +51,22 @@ alias tmr="tmux rename -t"
 alias peco="p"
 
 # sudo の後のコマンドでaliasを有効にする
-alias sudo='sudo '
+alias sudo="sudo "
 
 # .. で一つ上にいけるので、同じように
-alias ...='cd ../..'
-alias ....='cd ../../..'
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 # global
-alias -g L='| less'
-alias -g G='| grep'
 alias -g B='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
 alias -g LR='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)/\1 \0/"`'
+alias -g L="| less"
+alias -g G="| grep"
 
 # mac
-alias pbc='pbcopy'
-alias cot='open -a CotEditor'
-alias atm='open -a Atom'
+alias pbc="pbcopy"
+alias cot="open -a CotEditor"
+alias atm="open -a Atom"
 alias o="open"
 alias f="o ."
 
@@ -74,11 +74,11 @@ alias f="o ."
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
 if which pbcopy >/dev/null 2>&1 ; then
     # Mac
-    alias -g C='| pbcopy'
+    alias -g C="| pbcopy"
 elif which xsel >/dev/null 2>&1 ; then
     # Linux
-    alias -g C='| xsel --input --clipboard'
+    alias -g C="| xsel --input --clipboard"
 elif which putclip >/dev/null 2>&1 ; then
     # Cygwin
-    alias -g C='| putclip'
+    alias -g C="| putclip"
 fi
