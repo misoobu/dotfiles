@@ -8,8 +8,7 @@ alias c="clear"
 alias h="history"
 alias ha="history-all"
 alias so="source"
-alias bin/rails="rails"
-alias bin/rake="rake"
+alias r="bin/rails"
 alias be="bundle exec"
 
 # git
