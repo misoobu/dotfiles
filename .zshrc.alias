@@ -10,6 +10,7 @@ alias ha="history-all"
 alias so="source"
 alias r="bin/rails"
 alias be="bundle exec"
+alias ag='ag --pager="less -R"'
 
 # git
 alias g="git"
@@ -47,7 +48,7 @@ alias tma="tmux attach -t"
 alias tmr="tmux rename -t"
 
 # peco
-alias peco="p"
+alias p="peco"
 
 # sudo の後のコマンドでaliasを有効にする
 alias sudo="sudo "

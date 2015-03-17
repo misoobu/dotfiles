@@ -34,8 +34,10 @@ let g:Powerline_symbols = 'fancy'
 set noshowmode
 
 NeoBundle 'scrooloose/syntastic.git'
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
+" let g:syntastic_enable_signs=1
+" let g:syntastic_auto_loc_list=2
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+let g:syntastic_ruby_checkers = ['rubocop']
 
 NeoBundle 'scrooloose/nerdtree'
 let NERDTreeShowHidden = 1 " 隠しファイルをデフォルトで表示させる
@@ -82,6 +84,8 @@ NeoBundle 'vim-scripts/dbext.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'szw/vim-tags'
 NeoBundle 'basyura/unite-rails'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tyru/open-browser-github.vim'
 " NeoBundle 'lambdalisue/unite-grep-vcs'
 " NeoBundle 'alpaca-tc/alpaca_powertabline'
 " NeoBundle 'Shougo/neosnippet.vim'
