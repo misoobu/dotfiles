@@ -74,7 +74,8 @@ autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
 autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'tomasr/molokai'
+" NeoBundle 'tomasr/molokai'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'slim-template/vim-slim'
@@ -153,7 +154,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " set virtualedit=all
 
 " カラースキーマ
-colorscheme molokai
+colorscheme Tomorrow-Night-Bright
 
 " 256色
 set t_Co=256
