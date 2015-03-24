@@ -1,8 +1,8 @@
 source ~/dotfiles/.zshrc.alias
 [ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
 
-# node
-[ -d ~/.nvm ] && source ~/.nvm/nvm.sh
+# node.js
+export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # powerline
 [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
