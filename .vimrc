@@ -27,10 +27,17 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 
-NeoBundle 'Lokaltog/powerline'
+" NeoBundle 'Lokaltog/powerline'
+" set laststatus=2
+" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+" let g:Powerline_symbols = 'fancy'
+" set noshowmode
+
+NeoBundle 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled=1
+let g:airline_theme='laederon'
+let g:airline_powerline_fonts=1
 set laststatus=2
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
 set noshowmode
 
 NeoBundle 'scrooloose/syntastic.git'
