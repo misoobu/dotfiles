@@ -86,7 +86,7 @@ setopt auto_menu
 setopt extended_glob
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
+# bindkey '^R' history-incremental-pattern-search-backward
 
 # OS 別の設定
 case ${OSTYPE} in
