@@ -146,3 +146,6 @@ set noswapfile
 " インサートモード時にバックスペースを使う
 set backspace=indent,eol,start
 
+" カーソル行のハイライト
+set cursorline
+
