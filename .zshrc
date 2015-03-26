@@ -4,9 +4,6 @@ source ~/dotfiles/.zshrc.alias
 # node
 [ -d ~/.nvm ] && source ~/.nvm/nvm.sh
 
-# ruby
-if which rbenv > /dev/null; then eval "$(rbenv init - zsh)"; fi
-
 # powerline
 [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
