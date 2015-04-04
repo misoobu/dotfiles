@@ -74,6 +74,10 @@ autocmd User Rails nmap :<C-u>RVcontroller :<C-u>RVc
 autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
 autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 
+NeoBundle 'godlygeek/tabular' " for vim-markdown
+NeoBundle 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled=1
+
 NeoBundle 'Shougo/neomru.vim'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
