@@ -11,6 +11,7 @@ alias so="source"
 alias r="bin/rails"
 alias be="bundle exec"
 alias ag='ag --pager="less -R"'
+alias gl="gulp"
 
 # git
 alias g="git"
@@ -20,7 +21,6 @@ alias gco="git checkout"
 alias gd="git diff"
 alias ga="git add"
 alias gb="git branch"
-alias gl="git log"
 alias gcom="git checkout master"
 alias gg="git grep --line-number --heading --break -e"
 alias gp="git pull"
