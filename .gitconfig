@@ -1,0 +1,5 @@
+[user]
+	email = misoobu@me.com
+	name = misoobu
+[core]
+	excludesfile = ~/.gitignore
