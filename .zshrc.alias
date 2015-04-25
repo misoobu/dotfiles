@@ -12,6 +12,8 @@ alias r="bin/rails"
 alias be="bundle exec"
 alias ag='ag --pager="less -R"'
 alias gl="gulp"
+alias bn="bundle"
+alias pb="pbpaste | pbcopy"
 
 # git
 alias g="git"
@@ -68,7 +70,7 @@ alias pbc="pbcopy"
 alias cot="open -a CotEditor"
 alias atm="open -a Atom"
 alias o="open"
-alias f="o ."
+alias f="open ."
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
