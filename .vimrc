@@ -112,9 +112,7 @@ NeoBundleCheck
 " その他設定 ----------------------------------------------------------
 
 " クリップボードを共有
-" set clipboard+=unnamed
-" macのクリップボードを使う
-" set clipboard=unnamed
+set clipboard+=unnamed
 
 " 100ミリ秒以内に入力がないと、単体の入力として判定する
 set timeoutlen=100
