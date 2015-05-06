@@ -78,6 +78,9 @@ NeoBundle 'godlygeek/tabular' " for vim-markdown
 NeoBundle 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled=1
 
+NeoBundle 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_modules$'}
+
 NeoBundle 'Shougo/neomru.vim'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -87,7 +90,6 @@ NeoBundle 'slim-template/vim-slim'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
 NeoBundle 'rking/ag.vim'
-NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'vim-scripts/dbext.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'szw/vim-tags'
