@@ -64,6 +64,10 @@ autocmd User Rails nmap :<C-u>RVcontroller :<C-u>RVc
 autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
 autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 
+NeoBundle 'Yggdroot/indentLine'
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree']
+let g:indentLine_color_term = 239
+
 NeoBundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_modules$'}
 
@@ -80,7 +84,6 @@ NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'szw/vim-tags'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'tyru/open-browser.vim'
