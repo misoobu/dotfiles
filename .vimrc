@@ -74,10 +74,6 @@ autocmd User Rails nmap :<C-u>RVcontroller :<C-u>RVc
 autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
 autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 
-NeoBundle 'godlygeek/tabular' " for vim-markdown
-NeoBundle 'plasticboy/vim-markdown'
-let g:vim_markdown_folding_disabled=1
-
 NeoBundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_modules$'}
 
