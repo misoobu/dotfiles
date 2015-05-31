@@ -93,6 +93,8 @@ NeoBundle 'basyura/unite-rails'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/open-browser-github.vim'
 NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'elzr/vim-json'
+let g:vim_json_syntax_conceal=0
 NeoBundle 'mxw/vim-jsx'
 
 " You can specify revision/branch/tag.
