@@ -1,4 +1,4 @@
-" NeoBundle Scripts ----------------------------------------------------------
+" start NeoBundle -----
 
 if has('vim_starting')
   if &compatible
@@ -27,12 +27,6 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 
-" NeoBundle 'Lokaltog/powerline'
-" set laststatus=2
-" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-" let g:Powerline_symbols = 'fancy'
-" set noshowmode
-
 NeoBundle 'bling/vim-airline'
 let g:airline#extensions#tabline#enabled=1
 let g:airline_theme='laederon'
@@ -41,29 +35,18 @@ set laststatus=2
 set noshowmode
 
 NeoBundle 'scrooloose/syntastic.git'
-" let g:syntastic_enable_signs=1
-" let g:syntastic_auto_loc_list=2
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby', 'javascript'] }
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_javascript_checkers = ['jsxhint']
 
 NeoBundle 'scrooloose/nerdtree'
-let NERDTreeShowHidden = 1 " 隠しファイルをデフォルトで表示させる
-nnoremap <silent><C-e> :NERDTreeToggle<CR> " Ctrl+eで開く
+let NERDTreeShowHidden = 1
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 NeoBundle 'Shougo/unite.vim'
-" insert modeで開始
 let g:unite_enable_start_insert = 1
-" 大文字小文字を区別しない
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
-" grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-" カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
-" grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
-" unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
@@ -84,6 +67,9 @@ autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 NeoBundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_modules$'}
 
+NeoBundle 'elzr/vim-json'
+let g:vim_json_syntax_conceal=0
+
 NeoBundle 'Shougo/neomru.vim'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
@@ -100,8 +86,6 @@ NeoBundle 'basyura/unite-rails'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/open-browser-github.vim'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'elzr/vim-json'
-let g:vim_json_syntax_conceal=0
 NeoBundle 'mxw/vim-jsx'
 
 " You can specify revision/branch/tag.
@@ -118,7 +102,7 @@ filetype plugin indent on
 NeoBundleCheck
 
 
-" その他設定 ----------------------------------------------------------
+" end NeoBundle -----
 
 " クリップボードを共有
 set clipboard+=unnamed
@@ -144,7 +128,7 @@ set hlsearch
 set number
 
 " インデント
-set autoindent   " 開業時の半角スペース
+set autoindent   " 改行時の半角スペース
 set shiftwidth=2 " 改行時の半カススペースの文字数
 set expandtab    " ソフトタブを有効にする
 set tabstop=2    " ソフトタブは、半角スペース2文字
@@ -157,10 +141,6 @@ set showmatch
 
 " 末尾の空白削除
 autocmd BufWritePre * :%s/\s\+$//e
-
-
-" 文字がない場所にもカーソルを移動できるようにする
-" set virtualedit=all
 
 " カラースキーマ
 colorscheme Tomorrow-Night-Bright
