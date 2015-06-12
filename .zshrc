@@ -1,5 +1,5 @@
-# alias
 source ~/dotfiles/.zshrc.alias
+[ -d ~/.zshrc.secret ] && source ~/.zshrc.secret
 
 # node
 [ -d ~/.nvm ] && source ~/.nvm/nvm.sh
@@ -8,9 +8,6 @@ source ~/dotfiles/.zshrc.alias
 [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 export SVN_EDITOR=vim
-# export EDITOR=vim
-
-# ここから参考: https://gist.github.com/mollifier/4979906
 
 # 環境変数
 export LC_ALL=ja_JP.UTF-8
