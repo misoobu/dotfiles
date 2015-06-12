@@ -36,6 +36,7 @@ alias gsmu="git submodule update"
 alias cdr="cd resources"
 alias gpom="git push origin master"
 alias gpod="git push origin develop"
+alias gx="git add . && git commit -m 'tmp' && git reset --hard HEAD~"
 
 # hub
 alias h="hub"
