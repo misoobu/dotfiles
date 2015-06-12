@@ -74,6 +74,7 @@ let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_mod
 NeoBundle 'elzr/vim-json'
 let g:vim_json_syntax_conceal=0
 
+NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Shougo/neomru.vim'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
