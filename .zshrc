@@ -79,9 +79,6 @@ setopt auto_menu
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-# ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-# bindkey '^R' history-incremental-pattern-search-backward
-
 # OS 別の設定
 case ${OSTYPE} in
     darwin*)
@@ -102,11 +99,6 @@ function cd() {
 # iTerm2のタブ名を変更する
 function title {
   echo -ne "\033]0;"$*"\007"
-}
-
-# 全履歴
-function history-all {
-  history -E 1
 }
 
 function peco-select-history() {
