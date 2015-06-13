@@ -47,22 +47,12 @@ NeoBundle 'Shougo/unite.vim'
 let g:unite_enable_start_insert = 1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
+nnoremap <silent><C-g> :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
   let g:unite_source_grep_recursive_opt = ''
 endif
-
-NeoBundle 'tpope/vim-rails'
-autocmd User Rails nmap :<C-u>Econtroller :<C-u>Ec
-autocmd User Rails nmap :<C-u>Emodel :<C-u>Em
-autocmd User Rails nmap :<C-u>Eview :<C-u>Ev
-autocmd User Rails nmap :<C-u>RScontroller :<C-u>RSc
-autocmd User Rails nmap :<C-u>RSmodel :<C-u>RSm
-autocmd User Rails nmap :<C-u>RSview :<C-u>RSv
-autocmd User Rails nmap :<C-u>RVcontroller :<C-u>RVc
-autocmd User Rails nmap :<C-u>RVmodel :<C-u>RVm
-autocmd User Rails nmap :<C-u>RVview :<C-u>RVv
 
 NeoBundle 'Yggdroot/indentLine'
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree']
@@ -76,21 +66,20 @@ let g:vim_json_syntax_conceal=0
 
 NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Shougo/neomru.vim'
-" NeoBundle 'tomasr/molokai'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
+" NeoBundle 'tomasr/molokai'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'vim-scripts/dbext.vim'
+NeoBundle 'szw/vim-tags'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tyru/open-browser-github.vim'
+
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'szw/vim-tags'
-NeoBundle 'basyura/unite-rails'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'tyru/open-browser-github.vim'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'mxw/vim-jsx'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
