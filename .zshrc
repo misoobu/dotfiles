@@ -7,6 +7,10 @@ source ~/dotfiles/.zshrc.alias
 # powerline
 [ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
+if [ -e /usr/local/share/zsh-completions ]; then
+  fpath=(/usr/local/share/zsh-completions $fpath)
+fi
+
 export SVN_EDITOR=vim
 
 # 環境変数
