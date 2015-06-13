@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: homebrew, homebrew-bundle
+
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.zsh_profile ~/.zsh_profile
@@ -12,3 +14,4 @@ ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/.gemrc ~/.gemrc
 
 [ ! -d ~/.vim/bundle ] && mkdir -p ~/.vim/bundle && git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+
