@@ -19,4 +19,7 @@ brew 'tree'
 brew 'vim'
 brew 'zsh'
 brew 'zsh-completions'
+brew 'httpie'
+brew 'wget'
+brew 'jq'
 
