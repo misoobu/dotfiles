@@ -1,5 +1,6 @@
 alias mkdir="mkdir -p"
 alias v="vim"
+alias vl="vim -c \"normal '0\""
 alias e="exit"
 alias :q="exit"
 alias l="ls -al"
