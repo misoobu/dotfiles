@@ -48,6 +48,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 nnoremap <silent><C-g> :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent><C-c> :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
