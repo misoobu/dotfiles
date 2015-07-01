@@ -49,6 +49,10 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 nnoremap <silent><C-g> :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent><C-c> :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
+au FileType unite nnoremap <silent> <buffer> <expr> <C-x> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-x> unite#do_action('split')
+au FileType unite nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-v> unite#do_action('vsplit')
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
