@@ -71,8 +71,6 @@ NeoBundle 'chriskempson/vim-tomorrow-theme'
 " NeoBundle 'tomasr/molokai'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'vim-scripts/dbext.vim'
-NeoBundle 'szw/vim-tags'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tyru/open-browser-github.vim'
 
