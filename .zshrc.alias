@@ -64,6 +64,7 @@ alias -g G="| grep"
 
 # mac
 alias pbc="pbcopy"
+alias pbp="pbpaste"
 alias pb="pbpaste | pbcopy"
 alias cot="open -a CotEditor"
 alias o="open"
