@@ -1,5 +1,5 @@
 source ~/dotfiles/.zshrc.alias
-[ -d ~/.zshrc.secret ] && source ~/.zshrc.secret
+[ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
 
 # node
 [ -d ~/.nvm ] && source ~/.nvm/nvm.sh
