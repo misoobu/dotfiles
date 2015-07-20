@@ -133,3 +133,8 @@ function find-pr-open() {
   open "https://github.com/${repo}/pull/${pr}"
 }
 
+function agvim () {
+  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+alias agv='agvim'
+
