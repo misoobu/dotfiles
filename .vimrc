@@ -100,6 +100,8 @@ NeoBundleCheck
 
 " end NeoBundle -----
 
+nmap q :q<CR>
+
 " クリップボードを共有
 set clipboard+=unnamed
 
