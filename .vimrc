@@ -69,6 +69,10 @@ let g:ctrlp_custom_ignore = {'dir': '\.git$\|\.svn$\|bower_components$\|node_mod
 NeoBundle 'elzr/vim-json'
 let g:vim_json_syntax_conceal=0
 
+NeoBundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+
 NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
