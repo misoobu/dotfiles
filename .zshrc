@@ -158,3 +158,17 @@ function peco-find-file() {
 zle -N peco-find-file
 bindkey '^q' peco-find-file
 
+_orig_bundle=$(which bundle)
+function bundle() {
+    if [ "$1" = "cd" ]; then
+        local gem
+        if [ "$2" ]; then
+            gem=$2
+        else
+            gem=$($_orig_bundle list | awk '{ print $2 }' | percol)
+        fi
+        cd $($_orig_bundle show $gem)
+    else
+        $_orig_bundle $*
+    fi
+}
