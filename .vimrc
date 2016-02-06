@@ -73,6 +73,14 @@ NeoBundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-s2)
 
+NeoBundle 'szw/vim-tags'
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -f .tags -R . 2>/dev/null"
+let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R -f .Gemfile.lock.tags `bundle show --paths` 2>/dev/null"
+set tags+=.tags
+set tags+=.Gemfile.lock.tags
+" tagsジャンプの時に複数ある時は一覧表示
+nnoremap <C-]> g<C-]>
+
 NeoBundle 'Lokaltog/powerline'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
