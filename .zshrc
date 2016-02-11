@@ -12,6 +12,7 @@ if [ -e /usr/local/share/zsh-completions ]; then
 fi
 
 export SVN_EDITOR=vim
+export EDITOR=vim
 
 # 環境変数
 export LC_ALL=ja_JP.UTF-8
