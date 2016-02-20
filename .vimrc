@@ -152,6 +152,7 @@ NeoBundle 'mxw/vim-jsx'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
+NeoBundle 'vim-ruby/vim-ruby'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
