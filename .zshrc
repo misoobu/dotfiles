@@ -26,6 +26,8 @@ SAVEHIST=1000000
 
 REPORTTIME=10
 
+bindkey -e
+
 # for zsh-completions
 fpath=(/usr/local/share/zsh-completions $fpath)
 
