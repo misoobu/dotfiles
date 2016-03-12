@@ -12,6 +12,7 @@ ln -sf ~/dotfiles/.tigrc ~/.tigrc
 ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/.gitignore ~/.gitignore
 ln -sf ~/dotfiles/.gemrc ~/.gemrc
+ln -sf ~/dotfiles/.pryrc ~/.pryrc
 mkdir ~/.bundle
 ln -sf ~/dotfiles/.bundle_config ~/.bundle/config
 
