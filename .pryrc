@@ -9,7 +9,7 @@ version << "[ruby:#{RUBY_VERSION}]"
 version << "\001\e[0m\002"
 
 if defined? Rails
-  version << "\001\e[0;32m\002"
+  version << "\001\e[0;33m\002"
   version << "[rails:#{Rails.version}]"
   version << "\001\e[0m\002"
 end
