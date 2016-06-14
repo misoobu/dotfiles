@@ -136,6 +136,12 @@ function find-pr-open() {
   open "https://github.com/${repo}/pull/${pr}"
 }
 
+function find-mr-open() {
+  local pr="$(find-pr $1 $2 | awk '{print $NF}' | sed 's/\!//')"
+  local repo="$(git config --get remote.origin.url | sed 's/ssh:\/\/git@git.drecom.jp:10022\///' | sed 's/\.git$//')"
+  open "http://git.drecom.jp/${repo}/merge_requests/${pr}"
+}
+
 function agvim () {
   vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
 }

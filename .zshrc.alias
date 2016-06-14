@@ -10,8 +10,11 @@ alias r="bin/rails"
 alias brake="bin/rake"
 alias brails="bin/rails"
 alias be="bundle exec"
+alias bbe="bundle exec"
 alias gl="gulp"
 alias bn="bundle"
+alias dk="docker"
+alias dkc="docker-compose"
 
 # git
 alias g="git"
@@ -88,3 +91,9 @@ elif which putclip >/dev/null 2>&1 ; then
     # Cygwin
     alias -g C="| putclip"
 fi
+
+function peco-ssh() {
+  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
+  ssh $SSH
+}
+alias sshp="peco-ssh"
