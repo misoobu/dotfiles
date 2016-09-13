@@ -225,3 +225,4 @@ set backspace=indent,eol,start
 set cursorline
 
 au BufNewFile,BufRead *.dig            setf yaml
+set breakindent
