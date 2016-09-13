@@ -189,3 +189,5 @@ fi
 [ -d ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/dist/autosuggestions.zsh
 [ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 [ -d ~/.zsh/zsh-autosuggestions ] && autosuggest_start
+
+set breakindent

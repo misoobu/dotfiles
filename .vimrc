@@ -224,3 +224,4 @@ set backspace=indent,eol,start
 " カーソル行のハイライト
 set cursorline
 
+au BufNewFile,BufRead *.dig            setf yaml
