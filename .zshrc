@@ -13,6 +13,7 @@ fi
 
 export SVN_EDITOR=vim
 export EDITOR=vim
+export LESS='-i -M -R'
 
 # 環境変数
 export LC_ALL=ja_JP.UTF-8
