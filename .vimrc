@@ -153,6 +153,9 @@ NeoBundle 'slim-template/vim-slim'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tomlion/vim-solidity'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Quramy/tsuquyomi'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -222,7 +225,19 @@ set noswapfile
 set backspace=indent,eol,start
 
 " カーソル行のハイライト
-set cursorline
+" set cursorline
 
 au BufNewFile,BufRead *.dig            setf yaml
 set breakindent
+
+if system("uname")=="Darwin\n"
+    " Mac の辞書.appで開く {{{
+    " 引数に渡したワードを検索
+    command! -nargs=1 Dic      call system('open '.shellescape('dict://'.<q-args>))
+    " カーソル下のワードを検索
+    command! -nargs=0 DicC call system('open '.shellescape('dict://'.shellescape(expand('<cword>'))))
+    " 辞書.app を閉じる
+    command! -nargs=0 DicClose call system("osascript -e 'tell application \"Dictionary\" to quit'")
+    " 辞書にフォーカスを当てる
+    command! -nargs=0 DicFocus call system("osascript -e 'tell application \"Dictionary\" to activate'")
+endif

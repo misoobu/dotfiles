@@ -1,11 +1,18 @@
+eval "$(rbenv init -)"
+
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which plenv > /dev/null; then eval "$(plenv init - zsh)"; fi
+
+export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+
 source ~/dotfiles/.zshrc.alias
 [ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
 
-# node
-[ -d ~/.nvm ] && source ~/.nvm/nvm.sh
+# node.js
+export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # powerline
-[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
+#[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
 
 if [ -e /usr/local/share/zsh-completions ]; then
   fpath=(/usr/local/share/zsh-completions $fpath)
@@ -183,9 +190,9 @@ function bundle() {
     fi
 }
 
-if [ -z $TMUX ]; then
-  tm
-fi
+#if [ -z $TMUX ]; then
+#  tm
+#fi
 
 [ -d ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/dist/autosuggestions.zsh
 [ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
