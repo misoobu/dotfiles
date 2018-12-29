@@ -1,28 +1,31 @@
-alias mkdir="mkdir -p"
-alias v="vim"
-alias vl="vim -c \"normal '0\""
+# system
+alias mkdirp="mkdir -p"
 alias e="exit"
-alias :q="exit"
-alias l="ls -al"
+alias l="ls -al -F"
 alias c="clear"
 alias so="source"
-alias r="bin/rails"
-alias brake="bin/rake"
-alias brails="bin/rails"
-alias be="bundle exec"
-alias bbe="bin/bundle exec"
-alias bber="bin/bundle exec rspec"
-alias gl="gulp"
-alias bn="bundle"
-alias dk="docker"
-alias dkc="docker-compose"
+alias pbc="pbcopy"
+alias pbp="pbpaste"
+alias pb="pbpaste | pbcopy" # for reset style
+alias o="open"
+alias ...="cd ../.." # make same as ..
+alias ....="cd ../../.."
+alias -g L="| less"
+alias -g G="| grep"
+alias -g C="| pbcopy"
+
+# vim
+alias v="vim"
+alias vl="vim -c \"normal '0\"" # open last-finished file
 
 # git
 alias g="git"
 alias gs="git status"
 alias gci="git commit"
+alias gcia="git commit --amend"
 alias gco="git checkout"
 alias gd="git diff"
+alias gdc="git diff --cached"
 alias ga="git add"
 alias gb="git branch"
 alias gcom="git checkout master"
@@ -32,17 +35,14 @@ alias gps="git push"
 alias gf="git fetch --prune --all"
 alias gcod="git checkout develop"
 alias gcp="git cherry-pick"
-alias t="tig"
-alias gn="git now --all --stat"
 alias grb="git rebase"
 alias grbm="gf && git rebase origin/master"
 alias gsmu="git submodule update"
 alias gpom="git push origin master"
 alias gpod="git push origin develop"
-alias gx="git add . && git commit -m 'gx!' && git reset --hard HEAD~"
-
-# svn
-alias svnd="svn diff | vim -R -"
+alias gx="git add . && git commit -m 'gx' && git reset --hard HEAD~"
+alias -g GB='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
+alias -g GRB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)/\1 \0/"`'
 
 # hub
 alias h="hub"
@@ -50,52 +50,18 @@ alias hb="hub browse"
 alias hc="hub compare"
 
 # tmux
-alias tmux="tmux -2"
-alias tm="tmux"
+alias tm="tmux -2"
 alias tml="tmux ls"
 alias tma="tmux attach -t"
 alias tmr="tmux rename -t"
 
-# peco
-alias p="peco"
+# docker
+alias dk="docker"
+alias dkc="docker-compose"
 
-# sudo の後のコマンドでaliasを有効にする
-alias sudo="sudo "
-
-# .. で一つ上にいけるので、同じように
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
-# global
-alias -g GB='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
-alias -g LR='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)/\1 \0/"`'
-alias -g L="| less"
-alias -g G="| grep"
-alias -g J="| jq ."
-
-# mac
-alias pbc="pbcopy"
-alias pbp="pbpaste"
-alias pb="pbpaste | pbcopy"
+# miscellaneous
+alias t="tig"
 alias cot="open -a CotEditor"
-alias o="open"
-alias f="open ."
-
-# C で標準出力をクリップボードにコピーする
-# mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
-if which pbcopy >/dev/null 2>&1 ; then
-    # Mac
-    alias -g C="| pbcopy"
-elif which xsel >/dev/null 2>&1 ; then
-    # Linux
-    alias -g C="| xsel --input --clipboard"
-elif which putclip >/dev/null 2>&1 ; then
-    # Cygwin
-    alias -g C="| putclip"
-fi
-
-function peco-ssh() {
-  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
-  ssh $SSH
-}
+alias av='agvim'
 alias sshp="peco-ssh"
+alias -g J="| jq ."

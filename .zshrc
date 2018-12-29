@@ -1,33 +1,16 @@
-eval "$(rbenv init -)"
-
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which plenv > /dev/null; then eval "$(plenv init - zsh)"; fi
-
-export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+export RBENV_ROOT=/usr/local/var/rbenv # TODO: not needed normally...
+if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
+if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+if which pyenv  > /dev/null; then eval "$(pyenv init -)";  fi
 
 source ~/dotfiles/.zshrc.alias
 [ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
 
-# node.js
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-# powerline
-#[ -d ~/.vim/bundle/powerline ] && source ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
-
-if [ -e /usr/local/share/zsh-completions ]; then
-  fpath=(/usr/local/share/zsh-completions $fpath)
-fi
-
-export SVN_EDITOR=vim
 export EDITOR=vim
-export LESS='-i -M -R'
-
-# 環境変数
-export LC_ALL=ja_JP.UTF-8
+export LESS='-iMR'
+export CLICOLOR=1
 export LANG=ja_JP.UTF-8
-export LC_CTYPE=ja_JP.UTF-8
 
-# ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -36,9 +19,6 @@ REPORTTIME=10
 
 bindkey -e
 
-# for zsh-completions
-fpath=(/usr/local/share/zsh-completions $fpath)
-
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
@@ -46,10 +26,6 @@ select-word-style default
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
-
-# 補完機能を有効にする
-autoload -Uz compinit
-compinit -u
 
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -94,27 +70,8 @@ setopt auto_menu
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
 
-# OS 別の設定
-case ${OSTYPE} in
-    darwin*)
-        #Mac用の設定
-        export CLICOLOR=1
-        alias ls='ls -G -F'
-        ;;
-    linux*)
-        #Linux用の設定
-        ;;
-esac
-
-# cdコマンド実行後、lsを実行する
-function cd() {
-  builtin cd $@ && ls;
-}
-
-# iTerm2のタブ名を変更する
-function title {
-  echo -ne "\033]0;"$*"\007"
-}
+# ls after cd
+function chpwd() { ls -F }
 
 function peco-select-history() {
     local tac
@@ -144,16 +101,9 @@ function find-pr-open() {
   open "https://github.com/${repo}/pull/${pr}"
 }
 
-function find-mr-open() {
-  local pr="$(find-pr $1 $2 | awk '{print $NF}' | sed 's/\!//')"
-  local repo="$(git config --get remote.origin.url | sed 's/ssh:\/\/git@git.drecom.jp:10022\///' | sed 's/\.git$//')"
-  open "http://git.drecom.jp/${repo}/merge_requests/${pr}"
-}
-
 function agvim () {
   vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
 }
-alias agv='agvim'
 
 function peco-find-file() {
     if git rev-parse 2> /dev/null; then
@@ -175,25 +125,48 @@ function peco-find-file() {
 zle -N peco-find-file
 bindkey '^q' peco-find-file
 
-_orig_bundle=$(which bundle)
-function bundle() {
-    if [ "$1" = "cd" ]; then
-        local gem
-        if [ "$2" ]; then
-            gem=$2
-        else
-            gem=$($_orig_bundle list | awk '{ print $2 }' | percol)
-        fi
-        cd $($_orig_bundle show $gem)
-    else
-        $_orig_bundle $*
-    fi
+function bundle_cd() {
+  local gem
+  if [ "$1" ]; then
+    gem=$1
+  else
+    gem=$(bundle list | awk '{ print $1 }' | peco)
+  fi
+  cd $(bundle show $gem)
 }
 
-#if [ -z $TMUX ]; then
-#  tm
-#fi
+function peco-ssh() {
+  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
+  ssh $SSH
+}
 
-[ -d ~/.zsh/zsh-autosuggestions ] && source ~/.zsh/zsh-autosuggestions/dist/autosuggestions.zsh
-[ -d /usr/local/share/zsh-syntax-highlighting ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -d ~/.zsh/zsh-autosuggestions ] && autosuggest_start
+if [ -e ~/.zsh/zsh-completions ]; then
+  fpath=(~/.zsh/zsh-completions/src $fpath)
+fi
+[ -d ~/.zsh/zsh-autosuggestions ]     && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -d ~/.zsh/zsh-syntax-highlighting ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Visual
+autoload -Uz colors # black red green yellow blue magenta cyan white
+colors
+setopt prompt_subst
+
+autoload -Uz vcs_info # %b ブランチ情報 / %a アクション名(mergeなど) / %c changes / %u uncommit
+zstyle ':vcs_info:git:*' check-for-changes true    # formats 設定項目で %c,%u が使用可
+zstyle ':vcs_info:git:*' stagedstr "%F{green}!"    # commit されていないファイルがある
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"    # add されていないファイルがある
+zstyle ':vcs_info:*' formats "%F{white}%c%u(%b)%f" # 通常
+zstyle ':vcs_info:*' actionformats '[%b|%a]'       # rebase 途中,merge コンフリクト等 formats 外の表示
+precmd () { vcs_info }
+
+function prompt-git-info-MSB {
+  if [ ! -e  ".git" ]; then
+    return
+  fi
+  echo "${vcs_info_msg_0_} " # このケツスペースの為
+}
+
+PROMPT='%{$fg[yellow]%}%m %~ %{$reset_color%}`prompt-git-info-MSB`%{$fg[yellow]%}%? %# %{$reset_color%}'
+
+# Lunch tmux on startup
+[ -z $TMUX ] && tmux -2
