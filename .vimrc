@@ -153,6 +153,9 @@ NeoBundle 'slim-template/vim-slim'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'wavded/vim-stylus'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tomlion/vim-solidity'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Quramy/tsuquyomi'
 
 " You can specify revision/branch/tag.
 NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
@@ -222,7 +225,7 @@ set noswapfile
 set backspace=indent,eol,start
 
 " カーソル行のハイライト
-set cursorline
+" set cursorline
 
 if system("uname")=="Darwin\n"
     " Mac の辞書.appで開く {{{
