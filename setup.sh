@@ -14,5 +14,3 @@ ln -sf ~/dotfiles/.gemrc ~/.gemrc
 ln -sf ~/dotfiles/.pryrc ~/.pryrc
 mkdir ~/.bundle
 ln -sf ~/dotfiles/.bundle_config ~/.bundle/config
-
-[ ! -d ~/.vim/bundle ] && mkdir -p ~/.vim/bundle && git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
