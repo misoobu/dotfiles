@@ -85,7 +85,7 @@ function peco-select-history() {
         awk '!a[$0]++' | \
         peco --query "$LBUFFER")
     CURSOR=$#BUFFER
-    zle clear-screen
+    zle redisplay
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
@@ -139,6 +139,14 @@ function peco-ssh() {
   SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
   ssh $SSH
 }
+
+function ghq_peco_cd() {
+  BUFFER="cd $(ghq root)/$(ghq list | peco)"
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N ghq_peco_cd
+bindkey '^g' ghq_peco_cd
 
 if [ -e ~/.zsh/zsh-completions ]; then
   fpath=(~/.zsh/zsh-completions/src $fpath)
