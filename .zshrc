@@ -90,21 +90,6 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-function find-pr() {
-  local parent=$2||'master'
-  git log $1..$2 --merges --ancestry-path --reverse --oneline | head -n1
-}
-
-function find-pr-open() {
-  local pr="$(find-pr $1 $2 | awk '{print substr($5, 2)}')"
-  local repo="$(git config --get remote.origin.url | sed 's/git@github.com://' | sed 's/\.git$//')"
-  open "https://github.com/${repo}/pull/${pr}"
-}
-
-function agvim () {
-  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
-}
-
 function peco-find-file() {
     if git rev-parse 2> /dev/null; then
         source_files=$(git ls-files)
@@ -125,6 +110,23 @@ function peco-find-file() {
 zle -N peco-find-file
 bindkey '^q' peco-find-file
 
+function ghq_peco_cd() {
+  BUFFER="cd $(ghq root)/$(ghq list | peco)"
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N ghq_peco_cd
+bindkey '^g' ghq_peco_cd
+
+function peco-ssh() {
+  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
+  ssh $SSH
+}
+
+function agvim () {
+  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+
 function bundle_cd() {
   local gem
   if [ "$1" ]; then
@@ -134,19 +136,6 @@ function bundle_cd() {
   fi
   cd $(bundle show $gem)
 }
-
-function peco-ssh() {
-  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
-  ssh $SSH
-}
-
-function ghq_peco_cd() {
-  BUFFER="cd $(ghq root)/$(ghq list | peco)"
-  CURSOR=$#BUFFER
-  zle redisplay
-}
-zle -N ghq_peco_cd
-bindkey '^g' ghq_peco_cd
 
 if [ -e ~/.zsh/zsh-completions ]; then
   fpath=(~/.zsh/zsh-completions/src $fpath)
@@ -171,7 +160,7 @@ function prompt-git-info-MSB {
   if [ ! -e  ".git" ]; then
     return
   fi
-  echo "${vcs_info_msg_0_} " # このケツスペースの為
+  echo "${vcs_info_msg_0_} " # for this tail-space
 }
 
 PROMPT='%{$fg[yellow]%}%m %~ %{$reset_color%}`prompt-git-info-MSB`%{$fg[yellow]%}%? %# %{$reset_color%}'
