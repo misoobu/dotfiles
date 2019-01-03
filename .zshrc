@@ -83,7 +83,7 @@ function peco-select-history() {
     BUFFER=$(\history -n 1 | \
         eval $tac | \
         awk '!a[$0]++' | \
-        peco --query "$LBUFFER")
+        peco --query "$LBUFFER" --prompt '[select history]')
     CURSOR=$#BUFFER
     zle redisplay
 }
@@ -96,7 +96,7 @@ function peco-find-file() {
     else
         source_files=$(find . -type f)
     fi
-    selected_files=$(echo $source_files | peco --prompt "[find file]")
+    selected_files=$(echo $source_files | peco --prompt "[select file]")
 
     result=''
     for file in $selected_files; do
@@ -110,13 +110,13 @@ function peco-find-file() {
 zle -N peco-find-file
 bindkey '^q' peco-find-file
 
-function ghq_peco_cd() {
-  BUFFER="cd $(ghq root)/$(ghq list | peco)"
+function peco-select-ghq() {
+  BUFFER="$(ghq root)/$(ghq list | peco --prompt '[select ghq repo]')"
   CURSOR=$#BUFFER
   zle redisplay
 }
-zle -N ghq_peco_cd
-bindkey '^g' ghq_peco_cd
+zle -N peco-select-ghq
+bindkey '^g' peco-select-ghq
 
 function peco-ssh() {
   SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
