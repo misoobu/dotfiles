@@ -92,7 +92,7 @@ bindkey '^r' peco-select-history
 
 function peco-find-file() {
     if git rev-parse 2> /dev/null; then
-        source_files=$(git ls-files)
+        source_files=$(git ls-files -co --exclude-standard)
     else
         source_files=$(find . -type f)
     fi

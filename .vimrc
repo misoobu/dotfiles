@@ -52,8 +52,8 @@ call plug#end()
 
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-let g:ctrlp_custom_ignore = {'dir': '\.git$\|node_modules$'}
-let g:ctrlp_show_hidden = 1
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
 set laststatus=2
 set noshowmode
 let g:lightline = {'colorscheme': 'one'}
