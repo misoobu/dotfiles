@@ -163,7 +163,7 @@ function prompt-git-info-MSB {
   echo "${vcs_info_msg_0_} " # for this tail-space
 }
 
-PROMPT='%{$fg[yellow]%}%m %~ %{$reset_color%}`prompt-git-info-MSB`%{$fg[yellow]%}%? %# %{$reset_color%}'
+PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}`prompt-git-info-MSB`%{$fg[yellow]%}%# %{$reset_color%}'
 
 # Lunch tmux on startup
 [ -z $TMUX ] && tmux -2
