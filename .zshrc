@@ -111,8 +111,11 @@ zle -N peco-find-file
 bindkey '^q' peco-find-file
 
 function peco-select-ghq() {
-  BUFFER="$(ghq root)/$(ghq list | peco --prompt '[select ghq repo]')"
-  CURSOR=$#BUFFER
+  selected_repo=$(ghq list | peco --prompt '[select ghq repo]')
+  if [ -n "$selected_repo" ]; then
+    BUFFER="$(ghq root)/${selected_repo}"
+    CURSOR=$#BUFFER
+  fi
   zle redisplay
 }
 zle -N peco-select-ghq
