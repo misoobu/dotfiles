@@ -39,10 +39,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" After an addition of plugin, exec :PlugInstall
+" After an addition of plugins, exec :PlugInstall
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
@@ -50,16 +57,45 @@ Plug 'itchyny/lightline.vim'
 Plug 'fortes/vim-escuro'
 
 Plug 'tomlion/vim-solidity'
-Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+
+Plug 'Quramy/tsuquyomi'
 
 call plug#end()
 
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
+
 set laststatus=2
 set noshowmode
 let g:lightline = {'colorscheme': 'one'}
 set timeoutlen=50 " for lightline
+
 colorscheme escuro
+
+let g:tsuquyomi_completion_detail = 1                     " This option may make completion slow
+autocmd FileType typescript setlocal completeopt-=preview " because I can see details from menu (see below)
+autocmd FileType typescript nmap t :<C-u>echo tsuquyomi#hint()<CR>
+" autocmd CompleteDone * pclose
+
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_remove_duplicates = 1
+command LI :split | :LspImplementation
+if executable('typescript-language-server') " npm install -g typescript-language-server
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'typescript-language-server',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+    \ 'whitelist': ['typescript', 'typescript.tsx'],
+    \ })
+endif
+" if executable('solargraph') " gem install solargraph && solargraph download-core
+"   au User lsp_setup call lsp#register_server({
+"     \ 'name': 'solargraph',
+"     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+"     \ 'initialization_options': {"diagnostics": "true"},
+"     \ 'whitelist': ['ruby'],
+"     \ })
+" endif
