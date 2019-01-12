@@ -18,14 +18,18 @@ set wrapscan   " Repeat search after the end of the file
 set incsearch  " incremental search
 set hlsearch   " Highlight searched-words
 
-" Use q to quit vim
+" Utils
 nmap q :q<CR>
+nmap m :w<CR>
+noremap <silent><C-c> :vimgrep /<C-r><C-w>/ `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
+command -nargs=1 GG :vimgrep /<args>/ `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
 
 " Others
 set noswapfile
-set backspace=indent,eol,start     " Make backspace usable at insert mode
-set clipboard+=unnamed             " Share clipboard with OS
-autocmd BufWritePre * :%s/\s\+$//e " Remove tail-spaces
+set backspace=indent,eol,start                                   " Make backspace usable at insert mode
+set clipboard+=unnamed                                           " Share clipboard with OS
+autocmd BufWritePre * :%s/\s\+$//e                               " Remove tail-spaces
+autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
 
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
