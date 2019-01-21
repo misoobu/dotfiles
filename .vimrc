@@ -19,9 +19,9 @@ set incsearch  " incremental search
 set hlsearch   " Highlight searched-words
 
 " Utils
-nmap q :q<CR>
-nmap m :w<CR>
-noremap <silent><C-c> :vimgrep /<C-r><C-w>/ `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
+nnoremap q :q<CR>
+nnoremap m :w<CR>
+nnoremap <C-c> :vimgrep /<C-r><C-w>/ `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
 command -nargs=1 GG :vimgrep /<args>/ `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
 
 " Others
@@ -64,7 +64,7 @@ Plug 'Quramy/tsuquyomi'
 call plug#end()
 
 let NERDTreeShowHidden = 1
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
+nnoremap <C-e> :NERDTreeToggle<CR>
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
@@ -76,14 +76,17 @@ set timeoutlen=50 " for lightline
 
 colorscheme escuro
 
-let g:tsuquyomi_completion_detail = 1                     " This option may make completion slow
-autocmd FileType typescript setlocal completeopt-=preview " because I can see details from menu (see below)
-autocmd FileType typescript nmap t :<C-u>echo tsuquyomi#hint()<CR>
-" autocmd CompleteDone * pclose
+let g:tsuquyomi_disable_default_mappings = 1
+let g:tsuquyomi_completion_detail = 1                         " This option may make completion slow
+autocmd FileType typescript     setlocal completeopt-=preview " because I can see details from menu (see below)
+autocmd FileType typescript.tsx setlocal completeopt-=preview
+autocmd FileType typescript     nnoremap <C-h> :echo tsuquyomi#hint()<CR>
+autocmd FileType typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
+autocmd FileType typescript     nnoremap <C-i> :split \| :TsuDefinition<CR>
+autocmd FileType typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
 
 let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_remove_duplicates = 1
-command LI :split | :LspImplementation
 if executable('typescript-language-server') " npm install -g typescript-language-server
   au User lsp_setup call lsp#register_server({
     \ 'name': 'typescript-language-server',
@@ -91,11 +94,12 @@ if executable('typescript-language-server') " npm install -g typescript-language
     \ 'whitelist': ['typescript', 'typescript.tsx'],
     \ })
 endif
-" if executable('solargraph') " gem install solargraph && solargraph download-core
-"   au User lsp_setup call lsp#register_server({
-"     \ 'name': 'solargraph',
-"     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-"     \ 'initialization_options': {"diagnostics": "true"},
-"     \ 'whitelist': ['ruby'],
-"     \ })
-" endif
+if executable('solargraph') " gem install solargraph && solargraph download-core
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'solargraph',
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+    \ 'initialization_options': {"diagnostics": "true"},
+    \ 'whitelist': ['ruby'],
+    \ })
+endif
+autocmd FileType ruby setlocal completeopt-=preview
