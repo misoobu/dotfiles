@@ -10,7 +10,6 @@ brew 'rbenv'
 brew 'ruby-build'
 
 brew 'peco'
-brew 'the_silver_searcher'
 brew 'tmux'
 brew 'tree'
 brew 'vim'

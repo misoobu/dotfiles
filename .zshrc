@@ -126,8 +126,11 @@ function peco-ssh() {
   ssh $SSH
 }
 
-function agvim () {
-  vim $(ag $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+function ggvim () {
+  found=$(git grep --line-number -e $1 | peco --prompt '[select line to open]')
+  if [ -n "$found" ]; then
+    vim $(print "$found" | awk -F : '{print "-c " $2 " " $1}')
+  fi
 }
 
 function bundle_cd() {

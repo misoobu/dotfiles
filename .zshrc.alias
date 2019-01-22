@@ -65,6 +65,6 @@ alias dkc="docker-compose"
 # miscellaneous
 alias t="tig"
 alias cot="open -a CotEditor"
-alias av='agvim'
+alias ggv='ggvim'
 alias sshp="peco-ssh"
 alias -g J="| jq ."
