@@ -74,38 +74,38 @@ setopt extended_glob
 function chpwd() { ls -F }
 
 function peco-select-history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(\history -n 1 | \
-        eval $tac | \
-        awk '!a[$0]++' | \
-        peco --query "$LBUFFER" --prompt '[select history]')
-    CURSOR=$#BUFFER
-    zle redisplay
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(\history -n 1 | \
+    eval $tac | \
+    awk '!a[$0]++' | \
+    peco --query "$LBUFFER" --prompt '[select history]')
+  CURSOR=$#BUFFER
+  zle redisplay
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
 function peco-find-file() {
-    if git rev-parse 2> /dev/null; then
-        source_files=$(git ls-files -co --exclude-standard)
-    else
-        source_files=$(find . -type f)
-    fi
-    selected_files=$(echo $source_files | peco --prompt "[select file]")
+  if git rev-parse 2> /dev/null; then
+    source_files=$(git ls-files -co --exclude-standard)
+  else
+    source_files=$(find . -type f)
+  fi
+  selected_files=$(echo $source_files | peco --prompt "[select file]")
 
-    result=''
-    for file in $selected_files; do
-        result="${result}$(echo $file | tr '\n' ' ')"
-    done
+  result=''
+  for file in $selected_files; do
+    result="${result}$(echo $file | tr '\n' ' ')"
+  done
 
-    BUFFER="${BUFFER}${result}"
-    CURSOR=$#BUFFER
-    zle redisplay
+  BUFFER="${BUFFER}${result}"
+  CURSOR=$#BUFFER
+  zle redisplay
 }
 zle -N peco-find-file
 bindkey '^q' peco-find-file
