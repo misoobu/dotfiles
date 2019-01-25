@@ -9,7 +9,7 @@ source ~/dotfiles/.zshrc.alias
 export EDITOR=vim
 export LESS='-iMR'
 export CLICOLOR=1
-export LANG=ja_JP.UTF-8
+export LANG=en_US.UTF-8
 
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
