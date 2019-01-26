@@ -89,26 +89,11 @@ function peco-select-ghq() {
 zle -N peco-select-ghq
 bindkey '^g' peco-select-ghq
 
-function peco-ssh() {
-  SSH=$(grep "^\s*Host " ~/.ssh/config | sed s/"[\s ]*Host "// | grep -v "^\*$" | sort | peco)
-  ssh $SSH
-}
-
 function ggvim () {
   found=$(git grep --line-number -e $1 | peco --prompt '[select line to open]')
   if [ -n "$found" ]; then
     vim $(print "$found" | awk -F : '{print "-c " $2 " " $1}')
   fi
-}
-
-function bundle_cd() {
-  local gem
-  if [ "$1" ]; then
-    gem=$1
-  else
-    gem=$(bundle list | awk '{ print $1 }' | peco)
-  fi
-  cd $(bundle show $gem)
 }
 
 # Utils
