@@ -65,5 +65,5 @@ alias dkc="docker-compose"
 # miscellaneous
 alias t="tig"
 alias cot="open -a CotEditor"
-alias ggv='ggvim'
+alias ggv='git-grep-vim'
 alias -g J="| jq ."
