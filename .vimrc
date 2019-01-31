@@ -26,10 +26,9 @@ command -nargs=1 GG :vimgrep /<args>/ `git ls-files -co --exclude-standard` | cw
 
 " Others
 set noswapfile
-set backspace=indent,eol,start                                   " Make backspace usable at insert mode
-set clipboard+=unnamed                                           " Share clipboard with OS
-autocmd BufWritePre * :%s/\s\+$//e                               " Remove tail-spaces
-autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+set backspace=indent,eol,start     " Make backspace usable at insert mode
+set clipboard+=unnamed             " Share clipboard with OS
+autocmd BufWritePre * :%s/\s\+$//e " Remove tail-spaces
 
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -56,7 +55,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'fortes/vim-escuro'
 
-Plug 'tomlion/vim-solidity'
+Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['typescript']
 Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'Quramy/tsuquyomi'
@@ -77,8 +77,9 @@ set timeoutlen=50 " for lightline
 colorscheme escuro
 
 let g:tsuquyomi_disable_default_mappings = 1
-let g:tsuquyomi_completion_detail = 1                         " This option may make completion slow
-autocmd FileType typescript     setlocal completeopt-=preview " because I can see details from menu (see below)
+let g:tsuquyomi_completion_detail = 1                            " This option may make completion slow
+autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+autocmd FileType typescript     setlocal completeopt-=preview    " because I can see details from menu (see below)
 autocmd FileType typescript.tsx setlocal completeopt-=preview
 autocmd FileType typescript     nnoremap <C-h> :echo tsuquyomi#hint()<CR>
 autocmd FileType typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
