@@ -24,6 +24,14 @@ nnoremap m :w<CR>
 nnoremap <C-c> :vimgrep /<C-r><C-w>/ `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
 command -nargs=1 GG :vimgrep /<args>/ `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
 
+" netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
+nnoremap <C-e> :Vexplore<CR>
+
 " Others
 set noswapfile
 set backspace=indent,eol,start     " Make backspace usable at insert mode
@@ -42,7 +50,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
@@ -62,9 +69,6 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'Quramy/tsuquyomi'
 
 call plug#end()
-
-let NERDTreeShowHidden = 1
-nnoremap <C-e> :NERDTreeToggle<CR>
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
