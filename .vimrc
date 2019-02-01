@@ -13,8 +13,7 @@ set tabstop=2    " the spaces' count
 
 " Search
 set ignorecase " Ignore cases at search
-set smartcase  " If the search word contains large and small cases, differentiate them
-set wrapscan   " Repeat search after the end of the file
+set smartcase  " if the search pattern contains upper case characters, set ignorecase off
 set incsearch  " incremental search
 set hlsearch   " Highlight searched-words
 
