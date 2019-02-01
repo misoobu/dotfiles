@@ -36,6 +36,7 @@ setopt auto_cd            # cd if the command is the name of a directory
 setopt auto_pushd         # automatically pushd when cd
 setopt pushd_ignore_dups
 setopt hist_reduce_blanks # remove unnecessary blanks when save history
+setopt share_history
 setopt prompt_subst       # for showing git info (see below)
 
 # Functions
