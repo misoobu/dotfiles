@@ -44,8 +44,6 @@ alias gsmu="git submodule update"
 alias gpsom="git push origin master"
 alias gpsod="git push origin develop"
 alias gx="git add . && git commit -m 'gx' && git reset --hard HEAD~"
-alias -g GB='`git branch -a | peco --prompt "GIT BRANCH>" | head -n 1 | sed -e "s/^\*\s*//g"`'
-alias -g GRB='`git branch -a | peco --query "remotes/ " --prompt "GIT REMOTE BRANCH>" | head -n 1 | sed "s/^\*\s*//" | sed "s/remotes\/[^\/]*\/\(\S*\)/\1 \0/"`'
 
 # tmux
 alias tm="tmux -2"
