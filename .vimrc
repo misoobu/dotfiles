@@ -20,7 +20,7 @@ set hlsearch   " Highlight searched-words
 " Utils
 nnoremap q :q<CR>
 nnoremap m :w<CR>
-nnoremap <C-c> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
+nnoremap <C-g> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
 command -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
 
 " netrw
