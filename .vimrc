@@ -36,6 +36,7 @@ set noswapfile
 set backspace=indent,eol,start     " Make backspace usable at insert mode
 set clipboard+=unnamed             " Share clipboard with OS
 autocmd BufWritePre * :%s/\s\+$//e " Remove tail-spaces
+highlight link QuickFixLine Normal
 
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
