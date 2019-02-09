@@ -88,13 +88,10 @@ let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_completion_detail = 1                            " This option may make completion slow
 augroup TypeScriptCmd
   autocmd!
-  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
-  autocmd FileType typescript     setlocal completeopt-=preview    " because I can see details from menu (see below)
-  autocmd FileType typescript.tsx setlocal completeopt-=preview
-  autocmd FileType typescript     nnoremap <C-h> :echo tsuquyomi#hint()<CR>
-  autocmd FileType typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
-  autocmd FileType typescript     nnoremap <C-i> :split \| :TsuDefinition<CR>
-  autocmd FileType typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript         " tsconfig has js-style comments
+  autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview " because I can see details from menu (see below)
+  autocmd FileType typescript,typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript,typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
 augroup END
 
 let g:asyncomplete_smart_completion = 1
