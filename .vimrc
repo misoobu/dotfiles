@@ -22,7 +22,7 @@ nnoremap q :q<CR>
 nnoremap m :w<CR>
 nnoremap <C-k> i<CR><ESC>
 nnoremap <C-g> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
-command -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
+command! -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
 
 " netrw
 let g:netrw_banner = 0
@@ -34,10 +34,13 @@ nnoremap <C-e> :Vexplore<CR>
 
 " Others
 set noswapfile
-set backspace=indent,eol,start     " Make backspace usable at insert mode
-set clipboard+=unnamed             " Share clipboard with OS
-autocmd BufWritePre * :%s/\s\+$//e " Remove tail-spaces
+set backspace=indent,eol,start " Make backspace usable at insert mode
+set clipboard+=unnamed         " Share clipboard with OS
 highlight link QuickFixLine Normal
+augroup StripTrailingSpaces
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -83,13 +86,16 @@ colorscheme escuro
 
 let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_completion_detail = 1                            " This option may make completion slow
-autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
-autocmd FileType typescript     setlocal completeopt-=preview    " because I can see details from menu (see below)
-autocmd FileType typescript.tsx setlocal completeopt-=preview
-autocmd FileType typescript     nnoremap <C-h> :echo tsuquyomi#hint()<CR>
-autocmd FileType typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
-autocmd FileType typescript     nnoremap <C-i> :split \| :TsuDefinition<CR>
-autocmd FileType typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
+augroup TypeScriptCmd
+  autocmd!
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+  autocmd FileType typescript     setlocal completeopt-=preview    " because I can see details from menu (see below)
+  autocmd FileType typescript.tsx setlocal completeopt-=preview
+  autocmd FileType typescript     nnoremap <C-h> :echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript     nnoremap <C-i> :split \| :TsuDefinition<CR>
+  autocmd FileType typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
+augroup END
 
 let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_remove_duplicates = 1
@@ -108,4 +114,7 @@ if executable('solargraph') " gem install solargraph && solargraph download-core
     \ 'whitelist': ['ruby'],
     \ })
 endif
-autocmd FileType ruby setlocal completeopt-=preview
+augroup RubyCmd
+  autocmd!
+  autocmd FileType ruby setlocal completeopt-=preview
+augroup END
