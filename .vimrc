@@ -79,8 +79,12 @@ let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
 
 set laststatus=2
 set noshowmode
-let g:lightline = {'colorscheme': 'one'}
 set timeoutlen=50 " for lightline
+" color: default -> one, file: filename -> absolutepath
+let g:lightline = {
+\  'colorscheme': 'one',
+\  'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ] }
+\}
 
 colorscheme escuro
 
