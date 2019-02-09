@@ -77,7 +77,7 @@ function peco-find-file() {
   zle redisplay
 }
 zle -N peco-find-file
-bindkey '^q' peco-find-file
+bindkey '^p' peco-find-file
 
 function peco-select-ghq() {
   selected_repo=$(ghq list | peco --prompt '[select ghq repo]')
