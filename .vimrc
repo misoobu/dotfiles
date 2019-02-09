@@ -103,7 +103,7 @@ if executable('typescript-language-server') " npm install -g typescript-language
   au User lsp_setup call lsp#register_server({
     \ 'name': 'typescript-language-server',
     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    \ 'whitelist': ['typescript', 'typescript.tsx'],
+    \ 'whitelist': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'],
     \ })
 endif
 if executable('solargraph') " gem install solargraph && solargraph download-core
