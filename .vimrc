@@ -118,3 +118,8 @@ augroup RubyCmd
   autocmd!
   autocmd FileType ruby setlocal completeopt-=preview
 augroup END
+
+augroup GitSpellCheck
+  autocmd!
+  autocmd FileType gitcommit setlocal spell
+augroup END
