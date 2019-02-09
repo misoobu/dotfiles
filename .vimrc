@@ -90,8 +90,8 @@ augroup TypeScriptCmd
   autocmd!
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript         " tsconfig has js-style comments
   autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview " because I can see details from menu (see below)
-  autocmd FileType typescript,typescript.tsx nnoremap <C-h> :echo tsuquyomi#hint()<CR>
-  autocmd FileType typescript,typescript.tsx nnoremap <C-i> :split \| :TsuDefinition<CR>
+  autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-i> :split \| :TsuDefinition<CR>
 augroup END
 
 let g:asyncomplete_smart_completion = 1
