@@ -91,7 +91,7 @@ zle -N peco-select-ghq
 bindkey '^g' peco-select-ghq
 
 function git-grep-vim () {
-  found=$(git grep --line-number -e $1 | peco --prompt '[select line to open]')
+  found=$(git grep -I --line-number -e $1 | peco --prompt '[select line to open]')
   if [ -n "$found" ]; then
     vim $(print "$found" | awk -F : '{print "-c " $2 " " $1}')
   fi
