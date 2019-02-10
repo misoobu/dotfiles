@@ -20,6 +20,7 @@ set hlsearch
 nnoremap q :q<CR>
 nnoremap m :w<CR>
 nnoremap <C-k> i<CR><ESC>
+inoremap <C-f> <ESC>
 
 " Grep
 set shellpipe=> " default: '2>&1| tee'
