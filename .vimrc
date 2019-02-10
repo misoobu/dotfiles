@@ -5,25 +5,25 @@ set cursorline
 set breakindent
 
 " Indent
-set autoindent   " put spaces after break line
-set shiftwidth=2 " the spaces' count
-set expandtab    " put spaces when type a tab (soft-tab)
-set tabstop=2    " the spaces' count
+set autoindent
+set shiftwidth=2
+set expandtab
+set tabstop=2
 
 " Search
-set ignorecase " Ignore cases at search
-set smartcase  " if the search pattern contains upper case characters, set ignorecase off
-set incsearch  " incremental search
-set hlsearch   " Highlight searched-words
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
 
-" Utils
+" Util
 nnoremap q :q<CR>
 nnoremap m :w<CR>
 nnoremap <C-k> i<CR><ESC>
-nnoremap <C-g> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git
-command! -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git
+nnoremap <C-g> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git repo
+command! -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git repo
 
-" netrw
+" Netrw
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
@@ -31,24 +31,27 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 20
 nnoremap <C-e> :Vexplore<CR>
 
-" quickfix
+" QuickFix
 highlight link QuickFixLine Normal
 augroup QuickFixCmd
   autocmd!
-  " this is like ctrlp
-  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR>
+  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " this is like ctrlp
 augroup END
 
-" Others
+" Misc
 set noswapfile
 set backspace=indent,eol,start " Make backspace usable at insert mode
-set clipboard+=unnamed         " Share clipboard with OS
+set clipboard+=unnamed " Share clipboard with OS
 augroup StripTrailingSpaces
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
+augroup GitSpellCheck
+  autocmd!
+  autocmd FileType gitcommit setlocal spell
+augroup END
 
-" vim-plug
+" Plugin
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -56,7 +59,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" After an addition of plugins, exec :PlugInstall
+" Please exec :PlugInstall after added plugins
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
@@ -95,7 +98,7 @@ let g:lightline = {
 colorscheme escuro
 
 let g:tsuquyomi_disable_default_mappings = 1
-let g:tsuquyomi_completion_detail = 1                            " This option may make completion slow
+let g:tsuquyomi_completion_detail = 1 " This option may make completion slow
 augroup TypeScriptCmd
   autocmd!
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript         " tsconfig has js-style comments
@@ -124,9 +127,4 @@ endif
 augroup RubyCmd
   autocmd!
   autocmd FileType ruby setlocal completeopt-=preview
-augroup END
-
-augroup GitSpellCheck
-  autocmd!
-  autocmd FileType gitcommit setlocal spell
 augroup END
