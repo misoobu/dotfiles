@@ -32,11 +32,18 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 20
 nnoremap <C-e> :Vexplore<CR>
 
+" quickfix
+highlight link QuickFixLine Normal
+augroup QuickFixCmd
+  autocmd!
+  " this is like ctrlp
+  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR>
+augroup END
+
 " Others
 set noswapfile
 set backspace=indent,eol,start " Make backspace usable at insert mode
 set clipboard+=unnamed         " Share clipboard with OS
-highlight link QuickFixLine Normal
 augroup StripTrailingSpaces
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
