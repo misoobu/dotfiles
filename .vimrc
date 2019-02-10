@@ -1,7 +1,6 @@
 " Visual
 syntax enable
-set number    " Show line numbers
-set showmatch " Show brackets' matches
+set number " show line numbers
 set cursorline
 set breakindent
 
