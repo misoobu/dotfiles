@@ -20,8 +20,12 @@ set hlsearch
 nnoremap q :q<CR>
 nnoremap m :w<CR>
 nnoremap <C-k> i<CR><ESC>
-nnoremap <C-g> :vimgrep /<C-r><C-w>/j `git ls-files -co --exclude-standard` \| cw<CR> " grep the current cursor word in git repo
-command! -nargs=+ GG :vimgrep /<args>/j `git ls-files -co --exclude-standard` | cw " `:GG word` to grep in git repo
+
+" Grep
+set shellpipe=> " default: '2>&1| tee'
+set grepprg=git\ grep\ -I\ --line-number\ -e
+nnoremap <C-g> :silent grep! <cword> \| cw \| redraw!<CR>
+command! -nargs=+ GG silent grep! <q-args> | cw | redraw!
 
 " Netrw
 let g:netrw_banner = 0
