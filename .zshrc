@@ -1,22 +1,22 @@
+# xxenv
 export RBENV_ROOT=/usr/local/var/rbenv # TODO: not needed normally...
 if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 if which pyenv  > /dev/null; then eval "$(pyenv init -)";  fi
 
+# Source
 source ~/dotfiles/.zshrc.alias
 [ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
 
+# General
 export EDITOR=vim
 export LESS='-iMR'
 export CLICOLOR=1
 export LANG=en_US.UTF-8
-
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-
 REPORTTIME=10
-
 bindkey -e
 
 # Completion
@@ -30,7 +30,7 @@ fi
 autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 
-# Options
+# Option
 setopt no_flow_control    # I use ^Q for another func (see below)
 setopt auto_cd            # cd if the command is the name of a directory
 setopt auto_pushd         # automatically pushd when cd
@@ -39,7 +39,7 @@ setopt hist_reduce_blanks # remove unnecessary blanks when save history
 setopt share_history
 setopt prompt_subst       # for showing git info (see below)
 
-# Functions
+# Function
 function chpwd() { ls -F } # ls after cd
 
 function peco-select-history() {
@@ -97,7 +97,7 @@ function git-grep-vim () {
   fi
 }
 
-# Utils
+# Util
 [ -d ~/.zsh/zsh-autosuggestions ]     && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -d ~/.zsh/zsh-syntax-highlighting ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
