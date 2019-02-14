@@ -31,7 +31,8 @@ autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 
 # Option
-setopt no_flow_control    # I use ^Q for another func (see below)
+stty stop undef           # reclaim ctrl-q and ctrl-s
+setopt no_flow_control    # reclaim ctrl-q and ctrl-s
 setopt auto_cd            # cd if the command is the name of a directory
 setopt auto_pushd         # automatically pushd when cd
 setopt pushd_ignore_dups
