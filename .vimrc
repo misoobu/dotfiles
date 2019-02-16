@@ -90,7 +90,6 @@ Plug 'Quramy/tsuquyomi'
 call plug#end()
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_show_hidden = 1 " This is used when it is not a git repo (fallback)
 
 set laststatus=2
 set noshowmode
