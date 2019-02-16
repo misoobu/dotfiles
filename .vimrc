@@ -75,6 +75,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'airblade/vim-gitgutter'
+set updatetime=100
 Plug 'tpope/vim-fugitive'
 
 Plug 'itchyny/lightline.vim'
