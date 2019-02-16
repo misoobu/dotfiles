@@ -18,7 +18,7 @@ set hlsearch
 
 " Util
 nnoremap q :q<CR>
-nnoremap m :w<CR>
+nnoremap <C-s> :w<CR>
 nnoremap <C-k> i<CR><ESC>
 inoremap <C-f> <ESC>
 
