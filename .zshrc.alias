@@ -13,10 +13,6 @@ alias -g L="| less"
 alias -g G="| grep"
 alias -g C="| pbcopy"
 
-# vim
-alias v="vim"
-alias vl="vim -c \"normal '0\"" # open last-finished file
-
 # git
 alias g="git"
 alias gs="git status"
@@ -50,13 +46,13 @@ alias gx="git add . && git commit -m 'gx' && git reset --hard HEAD~"
 alias tm="tmux -2"
 alias tml="tmux ls"
 alias tma="tmux attach -t"
-alias tmr="tmux rename -t"
 
 # docker
 alias dk="docker"
 alias dkc="docker-compose"
 
 # miscellaneous
+alias v="vim"
 alias t="tig"
 alias cot="open -a CotEditor"
 alias ggv='git-grep-vim'
