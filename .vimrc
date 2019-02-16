@@ -78,6 +78,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-cursorword'
 Plug 'fortes/vim-escuro'
 
 Plug 'sheerun/vim-polyglot'
