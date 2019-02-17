@@ -1,0 +1,11 @@
+window:
+  decorations: none
+  start_maximized: true
+font:
+  size: 15.0
+  use_thin_strokes: true
+# I should use this config to use zsh. (I don't have to change the system default shell.)
+# shell:
+#   program: /usr/local/bin/zsh
+#   args:
+#    - --login

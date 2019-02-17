@@ -2,6 +2,7 @@
 
 # TODO: homebrew, homebrew-bundle
 
+ln -sf ~/dotfiles/.alacritty.yml ~/.alacritty.yml
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
