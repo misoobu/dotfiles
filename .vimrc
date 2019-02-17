@@ -94,10 +94,13 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 set laststatus=2
 set noshowmode
 set timeoutlen=50 " for lightline
-" color: default -> one, file: filename -> absolutepath
+" default -> one, filename -> absolutepath, [fileformat, fileencoding, filetype] -> []
 let g:lightline = {
 \  'colorscheme': 'one',
-\  'active': { 'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ] }
+\  'active': {
+\    'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+\    'right': [ [ 'lineinfo' ], [ 'percent' ], [] ]
+\  }
 \}
 
 colorscheme escuro
