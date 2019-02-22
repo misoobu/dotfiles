@@ -1,12 +1,10 @@
 env:
-  TERM: xterm-256color
   COLORFGBG: "15;0"
 window:
   decorations: none
   start_maximized: true
 font:
   size: 15.0
-  use_thin_strokes: true
 selection:
   save_to_clipboard: true
 visual_bell:
