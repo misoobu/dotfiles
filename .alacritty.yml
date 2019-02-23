@@ -3,6 +3,10 @@ env:
 window:
   decorations: none
   start_maximized: true
+colors:
+  cursor:
+    text: '0x000000'
+    cursor: '0xffffff'
 font:
   size: 15.0
 selection:
