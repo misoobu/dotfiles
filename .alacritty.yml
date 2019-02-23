@@ -11,8 +11,6 @@ font:
   size: 15.0
 selection:
   save_to_clipboard: true
-visual_bell:
-  duration: 0
 
 # I should use this config to use zsh. (I don't have to change the system default shell.)
 # shell:
