@@ -103,21 +103,15 @@ function git-grep-vim () {
 [ -d ~/.zsh/zsh-syntax-highlighting ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Git info
-autoload -Uz colors && colors # black red green yellow blue magenta cyan white
-autoload -Uz vcs_info # %b ブランチ情報 / %a アクション名(mergeなど) / %c changes / %u uncommit
-zstyle ':vcs_info:git:*' check-for-changes true    # formats 設定項目で %c,%u が使用可
-zstyle ':vcs_info:git:*' stagedstr "%F{green}!"    # commit されていないファイルがある
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"    # add されていないファイルがある
-zstyle ':vcs_info:*' formats "%F{white}%c%u(%b)%f" # 通常
-zstyle ':vcs_info:*' actionformats '[%b|%a]'       # rebase 途中,merge コンフリクト等 formats 外の表示
+autoload -Uz colors && colors
+autoload -Uz vcs_info
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}~%f" # => %u
+zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u "
+zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f "
 precmd () { vcs_info }
-function prompt-git-info-MSB {
-  if [ ! -e  ".git" ]; then
-    return
-  fi
-  echo "${vcs_info_msg_0_} " # for this tail-space
-}
-PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}`prompt-git-info-MSB`%{$fg[yellow]%}%# %{$reset_color%}'
+PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}'
 
 # Lunch tmux on startup
 [ -z $TMUX ] && tmux -2
