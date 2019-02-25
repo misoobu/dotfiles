@@ -95,9 +95,9 @@ let g:polyglot_disabled = ['typescript']
 
 Plug 'HerringtonDarkholme/yats.vim'
 
-let g:ale_completion_enabled = 1 " this is needed before ALE is loaded
 Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'never' " I run linters only when I save files
+let g:ale_completion_enabled = 1
+let g:ale_lint_on_text_changed = 'never' " run linters only when save files
 let g:ale_linters_explicit = 1
 " npm install -g typescript-language-server && gem install solargraph && solargraph download-core
 let g:ale_linters = {
