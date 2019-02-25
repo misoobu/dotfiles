@@ -65,16 +65,11 @@ endif
 call plug#begin('~/.vim/plugged')
 " Please exec :PlugInstall after added plugins
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 Plug 'airblade/vim-gitgutter'
 set updatetime=100
+
 Plug 'tpope/vim-fugitive'
 
 Plug 'itchyny/lightline.vim'
@@ -83,9 +78,24 @@ Plug 'fortes/vim-escuro'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['typescript']
+
 Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'Quramy/tsuquyomi'
+
+let g:ale_completion_enabled = 1 " this is needed before ALE is loaded
+Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 'never' " I run linters only when I save files
+let g:ale_linters_explicit = 1
+" npm install -g typescript-language-server && gem install solargraph && solargraph download-core
+let g:ale_linters = {
+\ 'typescript': ['tsserver'],
+\ 'javascript': ['tsserver'],
+\ 'ruby': ['ruby', 'solargraph'],
+\}
+set completeopt=menu,menuone,preview,noselect,noinsert " https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
+nnoremap <C-h> :ALEHover<CR>
+nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 
 call plug#end()
 
@@ -109,30 +119,10 @@ let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_completion_detail = 1 " This option may make completion slow
 augroup TypeScriptCmd
   autocmd!
-  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript         " tsconfig has js-style comments
-  autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview " because I can see details from menu (see below)
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+  autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-i> :split \| :TsuDefinition<CR>
-augroup END
-
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_remove_duplicates = 1
-if executable('typescript-language-server') " npm install -g typescript-language-server
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'typescript-language-server',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-    \ 'whitelist': ['typescript', 'typescript.tsx', 'javascript', 'javascript.jsx'],
-    \ })
-endif
-if executable('solargraph') " gem install solargraph && solargraph download-core
-  au User lsp_setup call lsp#register_server({
-    \ 'name': 'solargraph',
-    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-    \ 'initialization_options': {"diagnostics": "true"},
-    \ 'whitelist': ['ruby'],
-    \ })
-endif
-augroup RubyCmd
-  autocmd!
-  autocmd FileType ruby setlocal completeopt-=preview
+  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_enter = 0 " I use tsuquyomi for ts, so not needed
+  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_save = 0
 augroup END
