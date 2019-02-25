@@ -63,7 +63,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" Please exec :PlugInstall after added plugins
+" exec :PlugInstall after additions of plugins
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -105,20 +105,20 @@ let g:ale_linters = {
 \ 'javascript': ['tsserver'],
 \ 'ruby': ['ruby', 'solargraph'],
 \}
-set completeopt=menu,menuone,preview,noselect,noinsert " https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
+set completeopt=menu,menuone,preview,noselect,noinsert " see https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
 nnoremap <C-h> :ALEHover<CR>
 nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 
 Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_default_mappings = 1
-let g:tsuquyomi_completion_detail = 1 " This option may make completion slow
+let g:tsuquyomi_completion_detail = 1
 augroup TypeScriptCmd
   autocmd!
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
   autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-i> :split \| :TsuDefinition<CR>
-  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_enter = 0 " I use tsuquyomi for ts, so not needed
+  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_enter = 0 " use tsuquyomi's one
   autocmd FileType typescript,typescript.tsx let g:ale_lint_on_save = 0
 augroup END
 
