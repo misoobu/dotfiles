@@ -66,6 +66,7 @@ call plug#begin('~/.vim/plugged')
 " Please exec :PlugInstall after added plugins
 
 Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 Plug 'airblade/vim-gitgutter'
 set updatetime=100
@@ -73,15 +74,26 @@ set updatetime=100
 Plug 'tpope/vim-fugitive'
 
 Plug 'itchyny/lightline.vim'
+set laststatus=2
+set noshowmode
+set timeoutlen=50 " for lightline
+" default -> one, filename -> absolutepath, [fileformat, fileencoding, filetype] -> []
+let g:lightline = {
+\  'colorscheme': 'one',
+\  'active': {
+\    'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+\    'right': [ [ 'lineinfo' ], [ 'percent' ], [] ]
+\  }
+\}
+
 Plug 'itchyny/vim-cursorword'
+
 Plug 'fortes/vim-escuro'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['typescript']
 
 Plug 'HerringtonDarkholme/yats.vim'
-
-Plug 'Quramy/tsuquyomi'
 
 let g:ale_completion_enabled = 1 " this is needed before ALE is loaded
 Plug 'w0rp/ale'
@@ -97,24 +109,7 @@ set completeopt=menu,menuone,preview,noselect,noinsert " https://github.com/w0rp
 nnoremap <C-h> :ALEHover<CR>
 nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 
-call plug#end()
-
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-set laststatus=2
-set noshowmode
-set timeoutlen=50 " for lightline
-" default -> one, filename -> absolutepath, [fileformat, fileencoding, filetype] -> []
-let g:lightline = {
-\  'colorscheme': 'one',
-\  'active': {
-\    'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-\    'right': [ [ 'lineinfo' ], [ 'percent' ], [] ]
-\  }
-\}
-
-colorscheme escuro
-
+Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_completion_detail = 1 " This option may make completion slow
 augroup TypeScriptCmd
@@ -126,3 +121,7 @@ augroup TypeScriptCmd
   autocmd FileType typescript,typescript.tsx let g:ale_lint_on_enter = 0 " I use tsuquyomi for ts, so not needed
   autocmd FileType typescript,typescript.tsx let g:ale_lint_on_save = 0
 augroup END
+
+call plug#end()
+
+colorscheme escuro
