@@ -46,6 +46,7 @@ augroup END
 set noswapfile
 set backspace=indent,eol,start " Make backspace usable at insert mode
 set clipboard+=unnamed " Share clipboard with OS
+set display=lastline " prevent @@@ for long line
 augroup StripTrailingSpaces
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
