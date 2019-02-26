@@ -88,7 +88,7 @@ let g:lightline = {
 
 Plug 'itchyny/vim-cursorword'
 
-Plug 'fortes/vim-escuro'
+Plug 'rhysd/vim-color-spring-night'
 
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['typescript']
@@ -124,4 +124,8 @@ augroup END
 
 call plug#end()
 
-colorscheme escuro
+augroup MyColor
+  autocmd!
+  autocmd ColorScheme * highlight Comment ctermfg=5
+augroup END
+colorscheme spring-night
