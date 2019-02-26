@@ -18,8 +18,9 @@ set hlsearch
 
 " Util
 nnoremap q :q<CR>
-nnoremap <C-s> :w<CR>
 nnoremap <C-k> i<CR><ESC>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <ESC>
 
 " Grep
 set shellpipe=> " default: '2>&1| tee'
