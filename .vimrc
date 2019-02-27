@@ -79,14 +79,20 @@ Plug 'itchyny/lightline.vim'
 set laststatus=2
 set noshowmode
 set timeoutlen=50 " for lightline
-" default -> one, filename -> absolutepath, [fileformat, fileencoding, filetype] -> []
 let g:lightline = {
 \  'colorscheme': 'one',
-\  'active': {
-\    'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-\    'right': [ [ 'lineinfo' ], [ 'percent' ], [] ]
+\  'component_function': {
+\    'filename': 'LightlineFilename',
 \  }
 \}
+function! LightlineFilename() " https://github.com/itchyny/lightline.vim/issues/293
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 Plug 'itchyny/vim-cursorword'
 
