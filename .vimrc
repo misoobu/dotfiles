@@ -114,6 +114,9 @@ nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_default_mappings = 1
 let g:tsuquyomi_completion_detail = 1
+
+call plug#end()
+
 augroup TypeScriptCmd
   autocmd!
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
@@ -124,10 +127,9 @@ augroup TypeScriptCmd
   autocmd FileType typescript,typescript.tsx let g:ale_lint_on_save = 0
 augroup END
 
-call plug#end()
-
 augroup MyColor
   autocmd!
   autocmd ColorScheme * highlight Comment ctermfg=5
 augroup END
+
 colorscheme spring-night
