@@ -107,7 +107,7 @@ autoload -Uz colors && colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}~%f" # => %u
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
 zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u "
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f "
 precmd () { vcs_info }
