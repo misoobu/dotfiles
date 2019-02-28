@@ -41,7 +41,7 @@ setopt share_history
 setopt prompt_subst       # for showing git info (see below)
 
 # Function
-function chpwd() { ls -F } # ls after cd
+function chpwd() { ls -aF } # ls after cd
 
 function peco-select-history() {
   local tac
