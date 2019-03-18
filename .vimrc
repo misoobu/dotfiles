@@ -136,6 +136,7 @@ augroup END
 augroup MyColor
   autocmd!
   autocmd ColorScheme * highlight Comment ctermfg=5
+  autocmd ColorScheme * highlight! link Todo Comment
 augroup END
 
 colorscheme spring-night
