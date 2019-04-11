@@ -2,13 +2,11 @@
 alias e="exit"
 alias l="ls -al -F"
 alias c="clear"
-alias so="source"
 alias pbc="pbcopy"
 alias pbp="pbpaste"
 alias pb="pbpaste | pbcopy" # for reset style
 alias o="open"
 alias ...="cd ../.." # make same as ..
-alias ....="cd ../../.."
 alias -g L="| less"
 alias -g G="| grep"
 alias -g C="| pbcopy"
