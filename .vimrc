@@ -129,8 +129,6 @@ augroup TypeScriptCmd
   autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
   autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-i> :split \| :TsuDefinition<CR>
-  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_enter = 0 " use tsuquyomi's one
-  autocmd FileType typescript,typescript.tsx let g:ale_lint_on_save = 0
 augroup END
 
 augroup MyColor
