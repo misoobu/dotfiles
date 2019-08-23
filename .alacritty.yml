@@ -2,7 +2,9 @@ env:
   COLORFGBG: "15;0"
 window:
   decorations: none
-  start_maximized: true
+  # this doesn't work for my environment
+  # startup_mode: SimpleFullscreen
+  startup_mode: Maximized
 colors:
   cursor:
     text: '0x000000'
