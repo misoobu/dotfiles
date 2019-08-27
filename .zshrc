@@ -60,13 +60,17 @@ function peco-select-history() {
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-function peco-find-file() {
+function _peco-find-file() {
   if git rev-parse 2> /dev/null; then
     source_files=$(git ls-files -co --exclude-standard)
   else
     source_files=$(find . -type f)
   fi
-  selected_files=$(echo $source_files | peco --prompt "[select file]")
+  echo $source_files | peco --prompt "[$1]"
+}
+
+function peco-find-file() {
+  selected_files=$(_peco-find-file "select file")
 
   result=''
   for file in $selected_files; do
@@ -79,6 +83,15 @@ function peco-find-file() {
 }
 zle -N peco-find-file
 bindkey '^p' peco-find-file
+
+function peco-find-file-and-open-with-vim() {
+  file=$(_peco-find-file "select file for vim")
+  if [ -n "$file" ]; then
+    echo $file | xargs -o vim
+  fi
+}
+zle -N peco-find-file-and-open-with-vim
+bindkey '^v' peco-find-file-and-open-with-vim
 
 function peco-select-ghq() {
   selected_repo=$(ghq list | peco --prompt '[select ghq repo]')
