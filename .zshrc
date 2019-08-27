@@ -87,7 +87,8 @@ bindkey '^p' peco-find-file
 function peco-find-file-and-open-with-vim() {
   file=$(_peco-find-file "select file for vim")
   if [ -n "$file" ]; then
-    echo $file | xargs -o vim
+    BUFFER="vim $file"
+    zle accept-line
   fi
 }
 zle -N peco-find-file-and-open-with-vim
