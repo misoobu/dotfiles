@@ -114,18 +114,11 @@ set completeopt=menu,menuone,preview,noselect,noinsert " see https://github.com/
 nnoremap <C-h> :ALEHover<CR>
 nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 
-Plug 'Quramy/tsuquyomi'
-let g:tsuquyomi_disable_default_mappings = 1
-let g:tsuquyomi_completion_detail = 1
-
 call plug#end()
 
 augroup TypeScriptCmd
   autocmd!
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
-  autocmd FileType typescript,typescript.tsx setlocal completeopt-=preview
-  autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-h> :echo tsuquyomi#hint()<CR>
-  autocmd FileType typescript,typescript.tsx nnoremap <buffer> <C-i> :split \| :TsuDefinition<CR>
 augroup END
 
 augroup MyColor
