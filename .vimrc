@@ -99,9 +99,6 @@ Plug 'itchyny/vim-cursorword'
 Plug 'rhysd/vim-color-spring-night'
 
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['typescript']
-
-Plug 'HerringtonDarkholme/yats.vim'
 
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
