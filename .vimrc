@@ -111,7 +111,6 @@ let g:ale_linters = {
 \  'javascript': ['tsserver'],
 \  'ruby': ['ruby', 'solargraph'],
 \}
-set completeopt=menu,menuone,preview,noselect,noinsert " see https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
 nnoremap <C-h> :ALEHover<CR>
 nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
 
