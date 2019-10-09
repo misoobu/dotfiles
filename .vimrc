@@ -101,6 +101,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never' " run linters only when save files
+let g:ale_lint_on_insert_leave = 0
 let g:ale_linters_explicit = 1
 let g:ale_completion_tsserver_autoimport = 1
 " npm install -g typescript-language-server && gem install solargraph && solargraph download-core
@@ -109,9 +110,10 @@ let g:ale_linters = {
 \  'javascript': ['tsserver'],
 \  'ruby': ['ruby', 'solargraph'],
 \}
+let g:ale_open_list = 1
 set completeopt=menu,menuone,preview,noselect,noinsert " see https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
 nnoremap <C-h> :ALEHover<CR>
-nnoremap <C-i> :split \| :ALEGoToDefinition<CR>
+nnoremap <C-i> :ALEGoToDefinitionInSplit<CR>
 
 call plug#end()
 
