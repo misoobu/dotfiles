@@ -73,8 +73,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 Plug 'airblade/vim-gitgutter'
 set updatetime=100
 
-Plug 'tpope/vim-fugitive'
-
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 set noshowmode
