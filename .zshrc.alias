@@ -54,3 +54,4 @@ alias t="tig"
 alias cot="open -a CotEditor"
 alias ggv='git-grep-vim'
 alias -g J="| jq ."
+alias y="yarn"
