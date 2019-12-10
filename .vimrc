@@ -101,12 +101,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'dense-analysis/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\  'typescript': ['tsserver'],
-\  'javascript': ['tsserver'],
-\  'ruby': ['ruby', 'solargraph'],
-\}
 let g:ale_completion_enabled = 1
 let g:ale_completion_tsserver_autoimport = 1
 let g:ale_open_list = 1
