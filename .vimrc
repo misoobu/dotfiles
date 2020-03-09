@@ -104,6 +104,7 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_enabled = 1
 let g:ale_completion_tsserver_autoimport = 1
 let g:ale_open_list = 1
+let g:ale_set_quickfix = 1 " I don't like the loclist's move...
 set completeopt=menu,menuone,preview,noselect,noinsert " see https://github.com/w0rp/ale/commit/399a0d3c988381d2436d066e1fe74ef688947f28
 nnoremap <C-h> :ALEHover<CR>
 nnoremap <C-i> :ALEGoToDefinitionInSplit<CR>
