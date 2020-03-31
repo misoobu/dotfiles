@@ -1,9 +1,5 @@
-env:
-  COLORFGBG: "15;0"
 window:
   decorations: none
-  # this doesn't work for my environment
-  # startup_mode: SimpleFullscreen
   startup_mode: Maximized
 colors:
   cursor:
@@ -13,9 +9,3 @@ font:
   size: 15.0
 selection:
   save_to_clipboard: true
-
-# I should use this config to use zsh. (I don't have to change the system default shell.)
-# shell:
-#   program: /usr/local/bin/zsh
-#   args:
-#    - --login
