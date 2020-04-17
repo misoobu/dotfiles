@@ -54,3 +54,4 @@ alias t="tig"
 alias ggv='git-grep-vim'
 alias -g J="| jq ."
 alias y="yarn"
+alias ca="cargo"
