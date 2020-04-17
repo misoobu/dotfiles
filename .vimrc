@@ -48,6 +48,8 @@ set noswapfile
 set backspace=indent,eol,start " Make backspace usable at insert mode
 set clipboard+=unnamed " Share clipboard with OS
 set display=lastline " prevent @@@ for long line
+set completeopt=menu,menuone,popup,noselect,noinsert
+set previewheight=6
 augroup StripTrailingSpaces
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
@@ -99,15 +101,18 @@ Plug 'rhysd/vim-color-spring-night'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'dense-analysis/ale'
+let g:ale_linters = { 'rust': ['rls'] }
+let g:ale_fixers = { 'rust': ['rustfmt'] }
+let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_enabled = 1
 let g:ale_completion_tsserver_autoimport = 1
 let g:ale_open_list = 1
-let g:ale_set_quickfix = 1 " I don't like the loclist's move...
-set completeopt=menu,menuone,popup,noselect,noinsert
+let g:ale_set_quickfix = 1 " loclist won't auto close even if there's no error, bug?
+let g:ale_hover_to_preview = 1 " always preview, no statusline
 nnoremap <C-h> :ALEHover<CR>
-nnoremap <C-i> :ALEGoToDefinitionInSplit<CR>
+nnoremap <C-i> :ALEGoToDefinition -split<CR>
 
 call plug#end()
 
