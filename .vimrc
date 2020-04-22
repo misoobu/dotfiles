@@ -8,9 +8,6 @@ set listchars=tab:␉·
 
 " Indent
 set autoindent
-set shiftwidth=2
-set expandtab
-set tabstop=2
 
 " Search
 set ignorecase
@@ -104,8 +101,6 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'dense-analysis/ale'
 let g:ale_linters = { 'rust': ['rls'] }
-let g:ale_fixers = { 'rust': ['rustfmt'] }
-let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_completion_enabled = 1
