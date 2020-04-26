@@ -8,6 +8,8 @@ set listchars=tab:␉·
 
 " Indent
 set autoindent
+set shiftwidth=2
+set expandtab
 
 " Search
 set ignorecase
