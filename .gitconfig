@@ -3,10 +3,9 @@
 	name = misoobu
 [core]
 	excludesfile = ~/.gitignore
+	pager = delta --paging always --color-only
 [pager]
 	branch = false
-	log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-	show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-	diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 [interactive]
 	singleKey = true
+	diffFilter = delta --color-only
