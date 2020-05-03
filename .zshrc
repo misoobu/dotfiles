@@ -129,4 +129,4 @@ precmd () { vcs_info }
 PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}'
 
 # Lunch tmux on startup
-[ -z $TMUX ] && tmux -2
+[ -z $TMUX ] && tmn
