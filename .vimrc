@@ -29,14 +29,6 @@ set grepprg=git\ grep\ -I\ --line-number\ -e
 nnoremap <C-g> :silent grep! <cword> \| cw \| redraw!<CR>
 command! -nargs=+ GG silent grep! <q-args> | cw | redraw!
 
-" Netrw
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 20
-nnoremap <C-e> :Vexplore<CR>
-
 " QuickFix
 highlight link QuickFixLine Normal
 augroup QuickFixCmd
@@ -69,6 +61,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
 " exec :PlugInstall after additions of plugins
+
+Plug 'preservim/nerdtree'
+map <C-e> :NERDTreeToggle<CR>
+let g:NERDTreeShowHidden=1
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
