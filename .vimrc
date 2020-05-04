@@ -107,7 +107,7 @@ let g:ale_open_list = 1
 let g:ale_set_quickfix = 1 " loclist won't auto close even if there's no error, bug?
 let g:ale_hover_to_preview = 1 " always preview, no statusline
 nnoremap <C-h> :ALEHover<CR>
-nnoremap <C-i> :ALEGoToDefinition -split<CR>
+nnoremap <C-j> :ALEGoToDefinition -split<CR>
 
 call plug#end()
 
