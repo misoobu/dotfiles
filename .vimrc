@@ -91,8 +91,6 @@ function! LightlineFilename() " https://github.com/itchyny/lightline.vim/issues/
   return expand('%')
 endfunction
 
-Plug 'itchyny/vim-cursorword'
-
 Plug 'rhysd/vim-color-spring-night'
 
 Plug 'sheerun/vim-polyglot'
@@ -107,7 +105,8 @@ command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight CocHighlightText cterm=underline
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
 
