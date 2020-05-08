@@ -97,17 +97,19 @@ Plug 'rhysd/vim-color-spring-night'
 
 Plug 'sheerun/vim-polyglot'
 
-Plug 'dense-analysis/ale'
-let g:ale_linters = { 'rust': ['rls'] }
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
-let g:ale_open_list = 1
-let g:ale_set_quickfix = 1 " loclist won't auto close even if there's no error, bug?
-let g:ale_hover_to_preview = 1 " always preview, no statusline
-nnoremap <C-h> :ALEHover<CR>
-nnoremap <C-j> :ALEGoToDefinition -split<CR>
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+nnoremap <C-h> :call CocAction('doHover')<CR>
+nmap <C-j> <Plug>(coc-definition)
+" command! -nargs=0 Definition :execute "normal \<Plug>(coc-definition)"
+command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
+command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
+command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
+command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+let g:coc_user_config = {}
+let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
 
 call plug#end()
 
