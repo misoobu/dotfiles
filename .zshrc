@@ -16,8 +16,6 @@ export LANG=en_US.UTF-8
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-TIMEFMT='elapsed time: %E, cpu percentage: %P'
-REPORTTIME=10
 bindkey -e
 
 # Completion
@@ -125,8 +123,27 @@ zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
 zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u "
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f "
-precmd () { vcs_info }
 PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}'
+
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+  vcs_info
+
+  if [ $timer ]; then
+    timer_show=$(($SECONDS - $timer))
+    if [ "$timer_show" -lt "3" ]; then
+      export RPROMPT=""
+    else
+      export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+    fi
+    unset timer
+  else
+    export RPROMPT=""
+  fi
+}
 
 # Lunch tmux on startup
 [ -z $TMUX ] && tmn
