@@ -30,7 +30,6 @@ nnoremap <C-g> :silent grep! <cword> \| cw \| redraw!<CR>
 command! -nargs=+ GG silent grep! <q-args> | cw | redraw!
 
 " QuickFix
-highlight link QuickFixLine Normal
 augroup QuickFixCmd
   autocmd!
   autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " this is like ctrlp
@@ -69,9 +68,6 @@ let g:NERDTreeShowHidden=1
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-Plug 'airblade/vim-gitgutter'
-set updatetime=100
-
 Plug 'itchyny/lightline.vim'
 set laststatus=2
 set noshowmode
@@ -96,19 +92,23 @@ Plug 'rhysd/vim-color-spring-night'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 nnoremap <C-h> :call CocAction('doHover')<CR>
 nmap <C-j> <Plug>(coc-definition)
-" command! -nargs=0 Definition :execute "normal \<Plug>(coc-definition)"
 command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
 autocmd CursorHold * silent call CocActionAsync('highlight')
-highlight CocHighlightText cterm=underline
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
+let g:coc_user_config['coc.preferences.diagnostic.signOffset'] = '9999999'
+nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
+set cmdheight=2 " for coc-rls's startup message
+set signcolumn=yes
+set updatetime=300
 
 call plug#end()
 
@@ -117,10 +117,18 @@ augroup TypeScriptCmd
   autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
 augroup END
 
-augroup MyColor
+function! MyHighlights() abort
+  highlight Comment ctermfg=5
+  highlight Pmenu ctermbg=238
+  highlight link QuickFixLine Normal
+  highlight! link Todo Comment
+  highlight CocHighlightText ctermbg=17
+  highlight CocWarningSign ctermfg=7
+endfunction
+
+augroup MyColors
   autocmd!
-  autocmd ColorScheme * highlight Comment ctermfg=5
-  autocmd ColorScheme * highlight! link Todo Comment
+  autocmd ColorScheme * call MyHighlights()
 augroup END
 
 colorscheme spring-night
