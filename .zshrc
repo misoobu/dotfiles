@@ -137,7 +137,7 @@ function precmd() {
     if [ "$timer_show" -lt "3" ]; then
       export RPROMPT=""
     else
-      export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+      export RPROMPT="%F{cyan}${timer_show}s%{$reset_color%}"
     fi
     unset timer
   else
