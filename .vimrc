@@ -95,6 +95,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 nnoremap <C-h> :call CocAction('doHover')<CR>
 nmap <C-j> <Plug>(coc-definition)
 command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
