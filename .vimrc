@@ -107,7 +107,6 @@ let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
 let g:coc_user_config['coc.preferences.diagnostic.signOffset'] = '9999999'
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
-set cmdheight=2 " for coc-rls's startup message
 set signcolumn=yes
 set updatetime=300
 
