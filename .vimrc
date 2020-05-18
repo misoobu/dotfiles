@@ -37,16 +37,6 @@ set display=lastline " prevent @@@ for long line
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
 
-" Autocmd
-augroup MyAutocmds
-  autocmd!
-  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " like ctrlp
-  autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
-  autocmd FileType gitcommit setlocal spell
-  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
-  autocmd ColorScheme * call MyHighlights()
-augroup END
-
 " Plugin
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -56,9 +46,10 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
+
 Plug 'itchyny/lightline.vim'
-Plug 'rhysd/vim-color-spring-night'
 Plug 'sheerun/vim-polyglot'
+Plug 'rhysd/vim-color-spring-night'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -67,18 +58,14 @@ Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
-function! MyHighlights() abort
-  highlight Comment ctermfg=5
-  highlight Pmenu ctermbg=238
-  highlight link QuickFixLine Normal
-  highlight! link Todo Comment
-  highlight CocHighlightText ctermbg=17
-  highlight CocWarningSign ctermfg=7
-endfunction
+" Nerdtree
+map <C-e> :NERDTreeToggle<CR>
+let g:NERDTreeShowHidden=1
 
-colorscheme spring-night
+" Ctrlp
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-" lightline
+" Lightline
 set laststatus=2
 set noshowmode
 set timeoutlen=50
@@ -102,23 +89,39 @@ function LightlineFilename()
   endif
   return '≈' . strcharpart(path, path_len-max_len, max_len)
 endfunction
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
-" coc
+" Coc
+set signcolumn=yes
+set updatetime=300
 nnoremap <C-h> :call CocAction('doHover')<CR>
 nmap <C-j> <Plug>(coc-definition)
 command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
-autocmd CursorHold * silent call CocActionAsync('highlight')
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
-set signcolumn=yes
-set updatetime=300
 
-" others
-map <C-e> :NERDTreeToggle<CR>
-let g:NERDTreeShowHidden=1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" Autocmd
+augroup MyAutocmds
+  autocmd!
+  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " like ctrlp
+  autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
+  autocmd FileType gitcommit setlocal spell
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+  autocmd ColorScheme * call MyHighlights()
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
+" Color
+function! MyHighlights() abort
+  highlight Comment ctermfg=5
+  highlight Pmenu ctermbg=238
+  highlight link QuickFixLine Normal
+  highlight! link Todo Comment
+  highlight CocHighlightText ctermbg=17
+  highlight CocWarningSign ctermfg=7
+endfunction
+colorscheme spring-night
