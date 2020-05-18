@@ -112,7 +112,6 @@ command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
 autocmd CursorHold * silent call CocActionAsync('highlight')
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
-let g:coc_user_config['coc.preferences.diagnostic.signOffset'] = '9999999'
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
 set signcolumn=yes
 set updatetime=300
