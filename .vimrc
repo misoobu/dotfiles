@@ -74,18 +74,25 @@ set noshowmode
 set timeoutlen=50 " for lightline
 let g:lightline = {
 \  'colorscheme': 'one',
+\  'active': {
+\    'left': [ [ 'mode', 'paste' ],
+\              [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]
+\  },
 \  'component_function': {
 \    'filename': 'LightlineFilename',
-\  }
+\    'cocstatus': 'coc#status'
+\  },
 \}
-function! LightlineFilename() " https://github.com/itchyny/lightline.vim/issues/293
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+function LightlineFilename()
   let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
+  let path_len = strchars(path)
+  let max_len = 35
+  if path_len <= max_len
+    return path
   endif
-  return expand('%')
+  return '≈' . strcharpart(path, path_len-max_len, max_len)
 endfunction
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 Plug 'rhysd/vim-color-spring-night'
 
