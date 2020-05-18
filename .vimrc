@@ -29,12 +29,6 @@ set grepprg=git\ grep\ -I\ --line-number\ -e
 nnoremap <C-g> :silent grep! <cword> \| cw \| redraw!<CR>
 command! -nargs=+ GG silent grep! <q-args> | cw | redraw!
 
-" QuickFix
-augroup QuickFixCmd
-  autocmd!
-  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " this is like ctrlp
-augroup END
-
 " Misc
 set noswapfile
 set backspace=indent,eol,start " Make backspace usable at insert mode
@@ -42,13 +36,15 @@ set clipboard+=unnamed " Share clipboard with OS
 set display=lastline " prevent @@@ for long line
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
-augroup StripTrailingSpaces
+
+" Autocmd
+augroup MyAutocmds
   autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
-augroup GitSpellCheck
-  autocmd!
+  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " like ctrlp
+  autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
   autocmd FileType gitcommit setlocal spell
+  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
+  autocmd ColorScheme * call MyHighlights()
 augroup END
 
 " Plugin
@@ -71,11 +67,6 @@ Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
-augroup TypeScriptCmd
-  autocmd!
-  autocmd BufRead,BufNewFile tsconfig.json set filetype=javascript " tsconfig has js-style comments
-augroup END
-
 function! MyHighlights() abort
   highlight Comment ctermfg=5
   highlight Pmenu ctermbg=238
@@ -84,11 +75,6 @@ function! MyHighlights() abort
   highlight CocHighlightText ctermbg=17
   highlight CocWarningSign ctermfg=7
 endfunction
-
-augroup MyColors
-  autocmd!
-  autocmd ColorScheme * call MyHighlights()
-augroup END
 
 colorscheme spring-night
 
