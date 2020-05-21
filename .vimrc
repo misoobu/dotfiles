@@ -73,21 +73,24 @@ let g:lightline = {
 \  'colorscheme': 'one',
 \  'active': {
 \    'left': [ [ 'mode', 'paste' ],
-\              [ 'readonly', 'filename', 'modified', 'cocstatus' ] ]
+\              [ 'readonly', 'filename', 'modified' ] ],
+\    'right': [ [ 'lineinfo' ],
+\               [ 'percent' ],
+\               [ 'cocstatus', 'filetype' ] ],
 \  },
 \  'component_function': {
 \    'filename': 'LightlineFilename',
-\    'cocstatus': 'coc#status'
+\    'cocstatus': 'coc#status',
 \  },
 \}
 function LightlineFilename()
   let path = expand('%:p')
   let path_len = strchars(path)
-  let max_len = 35
+  let max_len = 40
   if path_len <= max_len
     return path
   endif
-  return '≈' . strcharpart(path, path_len-max_len, max_len)
+  return '⌇' . strcharpart(path, path_len-max_len, max_len)
 endfunction
 
 " Coc
