@@ -4,7 +4,7 @@ set number " show line numbers
 set cursorline
 set breakindent
 set list
-set listchars=tab:␉·
+set listchars=tab:␉·,space:⎵
 
 " Indent
 set autoindent
