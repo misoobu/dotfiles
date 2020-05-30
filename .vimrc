@@ -52,7 +52,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'rhysd/vim-color-spring-night'
 Plug 'neoclide/jsonc.vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" 952138b8d9eba929ba6e54f23e25edc7bdf24fbc causes a trouble for rls
+Plug 'neoclide/coc.nvim', {'commit': '757567b1dbe9c97f50ee7e9c421f7242f931e8f3'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
@@ -97,7 +98,7 @@ function LightlineFilename()
 endfunction
 
 " Coc
-set signcolumn=yes
+set signcolumn=number
 set updatetime=300
 nnoremap <C-h> :call CocAction('doHover')<CR>
 nmap <C-j> <Plug>(coc-definition)
