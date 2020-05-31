@@ -1,5 +1,4 @@
 # xxenv
-export RBENV_ROOT=/usr/local/var/rbenv # TODO: not needed normally...
 if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
@@ -21,11 +20,9 @@ bindkey -e
 if type brew &>/dev/null; then
   # https://docs.brew.sh/Shell-Completion
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  autoload -U compinit && compinit
 fi
-if [ -e ~/.zsh/zsh-completions ]; then
-  fpath=(~/.zsh/zsh-completions/src $fpath)
-fi
-autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 
 # Option
@@ -111,8 +108,10 @@ function git-grep-vim () {
 }
 
 # Util
-[ -d ~/.zsh/zsh-autosuggestions ]     && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -d ~/.zsh/zsh-syntax-highlighting ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if type brew &>/dev/null; then
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Git info
 autoload -Uz colors && colors
