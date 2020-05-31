@@ -13,3 +13,7 @@ brew 'tree'
 brew 'vim'
 brew 'jq'
 brew 'yarn'
+
+brew 'zsh-autosuggestions'
+brew 'zsh-completions'
+brew 'zsh-syntax-highlighting'
