@@ -2,7 +2,6 @@
 export RBENV_ROOT=/usr/local/var/rbenv # TODO: not needed normally...
 if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
-if which pyenv  > /dev/null; then eval "$(pyenv init -)";  fi
 
 # Source
 source ~/dotfiles/.zshrc.alias
