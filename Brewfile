@@ -1,18 +1,15 @@
 brew 'git'
-brew 'hub'
 brew 'tig'
-
-brew 'memcached'
-brew 'mysql'
-brew 'redis'
+brew 'ghq'
+brew 'hub'
+brew 'git-delta'
 
 brew 'rbenv'
-brew 'ruby-build'
+brew 'nodenv'
 
 brew 'peco'
 brew 'tmux'
 brew 'tree'
 brew 'vim'
-brew 'zsh'
-brew 'wget'
 brew 'jq'
+brew 'yarn'
