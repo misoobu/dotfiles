@@ -62,7 +62,7 @@ Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " Nerdtree
-noremap <C-e> :NERDTreeToggle<CR>
+nnoremap <C-e> :NERDTreeToggle<CR>
 let g:NERDTreeShowHidden=1
 
 " Ctrlp
