@@ -1,6 +1,6 @@
 " Visual
 syntax enable
-set number " show line numbers
+set number
 set cursorline
 set breakindent
 set list
@@ -24,16 +24,17 @@ nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>
 
 " Grep
-set shellpipe=> " default: '2>&1| tee'
+set shellpipe=>
 set grepprg=git\ grep\ -I\ --line-number\ -e
 nnoremap <C-g> :silent grep! <cword> \| cw \| redraw!<CR>
 command! -nargs=+ GG silent grep! <q-args> | cw | redraw!
 
 " Misc
 set noswapfile
-set backspace=indent,eol,start " Make backspace usable at insert mode
-set clipboard+=unnamed " Share clipboard with OS
-set display=lastline " prevent @@@ for long line
+set backspace=indent,eol,start
+set clipboard+=unnamed
+" prevent @@@ for long line
+set display=lastline
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
 
@@ -113,8 +114,10 @@ nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
 " Autocmd
 augroup MyAutocmds
   autocmd!
-  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR> " like ctrlp
-  autocmd BufWritePre * :%s/\s\+$//e " strip trailing spaces
+  " like ctrlp
+  autocmd! FileType qf nnoremap <buffer> <C-x> <C-w><CR>
+  " strip trailing spaces
+  autocmd BufWritePre * :%s/\s\+$//e
   autocmd FileType gitcommit setlocal spell
   autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
   autocmd ColorScheme * call MyHighlights()
