@@ -62,7 +62,7 @@ Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " Nerdtree
-map <C-e> :NERDTreeToggle<CR>
+noremap <C-e> :NERDTreeToggle<CR>
 let g:NERDTreeShowHidden=1
 
 " Ctrlp
@@ -102,14 +102,14 @@ endfunction
 set signcolumn=number
 set updatetime=300
 nnoremap <C-h> :call CocAction('doHover')<CR>
-nmap <C-j> <Plug>(coc-definition)
+nnoremap <C-j> <Plug>(coc-definition)
 command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
-nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
+nnoremap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
 
 " Autocmd
 augroup MyAutocmds
