@@ -102,14 +102,15 @@ endfunction
 set signcolumn=number
 set updatetime=300
 nnoremap <C-h> :call CocAction('doHover')<CR>
-nnoremap <C-j> <Plug>(coc-definition)
+nmap <C-j> <Plug>(coc-definition)
 command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
 let g:coc_user_config = {}
 let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
-nnoremap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
+nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
+nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)
 
 " Autocmd
 augroup MyAutocmds
