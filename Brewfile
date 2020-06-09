@@ -14,6 +14,7 @@ brew 'tree'
 brew 'jq'
 brew 'yarn'
 
+# brew 'zsh'
 brew 'zsh-autosuggestions'
 brew 'zsh-completions'
 brew 'zsh-syntax-highlighting'
