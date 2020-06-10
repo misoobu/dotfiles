@@ -76,14 +76,14 @@ let g:lightline = {
 \  'colorscheme': 'one',
 \  'active': {
 \    'left': [ [ 'mode', 'paste' ],
-\              [ 'readonly', 'myfilename' ],
+\              [ 'readonly', 'filename' ],
 \              [ 'modified' ] ],
 \    'right': [ [ 'percent' ],
 \               [ 'filetype' ],
 \               [ 'cocstatus' ]],
 \  },
 \  'component_function': {
-\    'myfilename': 'LightlineFilename',
+\    'filename': 'LightlineFilename',
 \    'cocstatus': 'coc#status',
 \  },
 \}
