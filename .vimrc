@@ -106,8 +106,14 @@ command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
-let g:coc_user_config = {}
-let g:coc_user_config['coc.preferences.jumpCommand'] = 'split'
+call coc#config('coc.preferences', {
+\  'jumpCommand': 'split',
+\  'snippets.enable': v:false,
+\})
+call coc#config('typescript', {
+\  'suggest.completeFunctionCalls': v:false,
+\})
+
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
 nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)
 
