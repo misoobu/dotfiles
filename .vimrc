@@ -108,8 +108,8 @@ command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
 call coc#config('coc.preferences', {
 \  'jumpCommand': 'split',
-\  'snippets.enable': v:false,
 \})
+" for jsx/tsx syntax
 call coc#config('typescript', {
 \  'suggest.completeFunctionCalls': v:false,
 \})
