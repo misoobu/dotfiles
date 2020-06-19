@@ -52,6 +52,7 @@ alias dkc="docker-compose"
 alias v="vim"
 alias t="tig"
 alias ggv='git-grep-vim'
+alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias y="yarn"
 alias ca="cargo"

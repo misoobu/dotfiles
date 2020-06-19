@@ -107,6 +107,11 @@ function git-grep-vim () {
   fi
 }
 
+function git-grep-replace() {
+  # for mac
+  git grep -l "$1" | xargs sed -i '' -e "s/$1/$2/g"
+}
+
 # Util
 if type brew &>/dev/null; then
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
