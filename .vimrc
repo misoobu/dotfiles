@@ -16,6 +16,7 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+set shortmess-=S
 
 " Util
 nnoremap q :q<CR>
