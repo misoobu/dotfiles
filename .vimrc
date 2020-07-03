@@ -59,6 +59,7 @@ Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " Nerdtree
@@ -107,6 +108,7 @@ command! -nargs=0 TypeDefinition :execute "normal \<Plug>(coc-type-definition)"
 command! -nargs=0 Implementation :execute "normal \<Plug>(coc-implementation)"
 command! -nargs=0 References :execute "normal \<Plug>(coc-references)"
 command! -nargs=0 Rename :execute "normal \<Plug>(coc-rename)"
+command! -nargs=0 Format :call CocAction('format')
 call coc#config('coc.preferences', {
 \  'jumpCommand': 'split',
 \})
