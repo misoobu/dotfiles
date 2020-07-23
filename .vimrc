@@ -117,7 +117,7 @@ call coc#config('typescript', {
 \  'suggest.completeFunctionCalls': v:false,
 \})
 
-nmap <silent> <C-n> <Plug>(coc-diagnostic-next-error)
+nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)
 
 " Autocmd
