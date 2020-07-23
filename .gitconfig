@@ -12,3 +12,5 @@
 	diffFilter = delta --color-only
 [commit]
 	gpgsign = true
+[alias]
+	sed = ! sh -c 'git ls-files -z | xargs -0 sed -i \"\" -e \"s/$1/$2/g\"' -
