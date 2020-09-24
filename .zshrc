@@ -3,8 +3,8 @@ if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
 
 # Source
-source ~/dotfiles/.zshrc.alias
-[ -f ~/.zshrc.secret ] && source ~/.zshrc.secret
+source ~/.zshrc.alias
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
 export EDITOR=vim
