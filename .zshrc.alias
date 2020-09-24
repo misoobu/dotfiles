@@ -1,7 +1,6 @@
 # system
 alias e="exit"
 alias l="ls -al -F"
-alias c="clear"
 alias pbc="pbcopy"
 alias pbp="pbpaste"
 alias pb="pbpaste | pbcopy" # for reset style
@@ -45,8 +44,8 @@ alias tml="tmux ls"
 alias tma="tmux -2 attach -t"
 
 # docker
-alias dk="docker"
-alias dkc="docker-compose"
+alias d="docker"
+alias dc="docker-compose"
 
 # miscellaneous
 alias v="vim"
@@ -55,4 +54,4 @@ alias ggv='git-grep-vim'
 alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias y="yarn"
-alias ca="cargo"
+alias c="cargo"
