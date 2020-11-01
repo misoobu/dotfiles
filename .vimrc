@@ -4,12 +4,13 @@ set number
 set cursorline
 set breakindent
 set list
-set listchars=tab:␉·,space:⎵
+set listchars=tab:␉·
 
 " Indent
 set autoindent
 set shiftwidth=2
 set expandtab
+set tabstop=4
 
 " Search
 set ignorecase
