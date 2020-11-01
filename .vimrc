@@ -46,7 +46,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged')
-Plug 'preservim/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'itchyny/lightline.vim'
@@ -60,11 +59,8 @@ Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
-
-" Nerdtree
-nnoremap <C-e> :NERDTreeToggle<CR>
-let g:NERDTreeShowHidden=1
 
 " Ctrlp
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -116,9 +112,12 @@ call coc#config('coc.preferences', {
 call coc#config('typescript', {
 \  'suggest.completeFunctionCalls': v:false,
 \})
-
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)
+nnoremap <C-e> :CocCommand explorer<CR>
+call coc#config('explorer', {
+\  'file.showHiddenFiles': v:true,
+\})
 
 " Autocmd
 augroup MyAutocmds
