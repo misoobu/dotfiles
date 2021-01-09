@@ -142,5 +142,7 @@ function! MyHighlights() abort
   highlight! link Todo Comment
   highlight CocHighlightText ctermbg=17
   highlight CocWarningSign ctermfg=7
+  " alacritty inverts cursor color
+  highlight MatchParen ctermfg=yellow ctermbg=black
 endfunction
 colorscheme spring-night

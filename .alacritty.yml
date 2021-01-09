@@ -1,10 +1,6 @@
 window:
   decorations: none
   startup_mode: Maximized
-colors:
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
 font:
   size: 15.0
 selection:
