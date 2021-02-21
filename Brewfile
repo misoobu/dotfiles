@@ -4,6 +4,7 @@ brew 'ghq'
 brew 'hub'
 brew 'git-delta'
 
+brew 'direnv'
 brew 'rbenv'
 brew 'nodenv'
 

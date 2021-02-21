@@ -1,6 +1,7 @@
 # xxenv
-if which rbenv  > /dev/null; then eval "$(rbenv init -)";  fi
-if which nodenv > /dev/null; then eval "$(nodenv init -)"; fi
+if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
+if which rbenv  > /dev/null; then eval "$(rbenv init -)";    fi
+if which nodenv > /dev/null; then eval "$(nodenv init -)";   fi
 
 # Source
 source ~/.zshrc.alias
