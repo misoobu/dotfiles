@@ -31,8 +31,9 @@ setopt no_flow_control    # reclaim ctrl-q and ctrl-s
 setopt auto_cd            # cd if the command is the name of a directory
 setopt auto_pushd         # automatically pushd when cd
 setopt pushd_ignore_dups
-setopt hist_reduce_blanks # remove unnecessary blanks when save history
 setopt share_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
 setopt prompt_subst       # for showing git info (see below)
 
 # Function
