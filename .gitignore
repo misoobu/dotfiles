@@ -1,2 +1,4 @@
-Brewfile.lock.json
-.gitconfig.users*
+/Brewfile.lock.json
+/.gitconfig.users
+/.gitconfig.users.*
+!/.gitconfig.users.misoobu
