@@ -1,9 +1,7 @@
 [user]
-	email = misoobu@me.com
-	name = misoobu
-	signingkey = EE6C0F465454C5D6
+	useConfigOnly = true
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/dotfiles/.gitignore_global
 	pager = delta --paging always --color-only
 [pager]
 	branch = false
@@ -14,3 +12,5 @@
 	gpgsign = true
 [init]
 	defaultBranch = main
+[include]
+	path = ~/dotfiles/.gitconfig.users
