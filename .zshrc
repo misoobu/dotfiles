@@ -16,6 +16,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 bindkey -e
+disable r
 
 # Completion
 if type brew &>/dev/null; then
@@ -38,7 +39,7 @@ setopt hist_ignore_space
 setopt prompt_subst       # for showing git info (see below)
 
 # Function
-function chpwd() { ls -aF } # ls after cd
+# function chpwd() { ls -aF } # ls after cd
 
 function peco-select-history() {
   local tac
@@ -112,6 +113,27 @@ function git-grep-vim () {
 function git-grep-replace() {
   # for mac
   git grep -l "$1" | xargs sed -i '' -e "s/$1/$2/g"
+}
+
+# https://github.com/h-matsuo/macOS-trash
+function move-to-trash() {
+  # for mac
+  for NAME in "${@}"; do
+    if [ ! -e $NAME ]; then
+      echo not found: $NAME
+      break
+    fi
+
+    TARGET=$(cd $(dirname $NAME); pwd)/$(basename $NAME)
+
+    echo removing: $TARGET
+
+    osascript -e """
+    tell application \"Finder\"
+        move POSIX file \"${TARGET}\" to trash
+    end tell
+    """ > /dev/null
+  done
 }
 
 # Util

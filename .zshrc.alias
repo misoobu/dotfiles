@@ -57,3 +57,6 @@ alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias y="yarn"
 alias c="cargo"
+
+alias m="mv -i"
+alias r="move-to-trash"
