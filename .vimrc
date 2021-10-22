@@ -52,7 +52,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'rhysd/vim-color-spring-night'
-Plug 'neoclide/jsonc.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -128,7 +127,6 @@ augroup MyAutocmds
   " strip trailing spaces
   autocmd BufWritePre * :%s/\s\+$//e
   autocmd FileType gitcommit setlocal spell
-  autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
   autocmd ColorScheme * call MyHighlights()
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
   autocmd CursorHold * silent call CocActionAsync('highlight')
