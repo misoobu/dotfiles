@@ -1,3 +1,6 @@
 bind main G !@hub browse -- commit/%(commit)
 bind diff G !@hub browse -- commit/%(commit)
 set ignore-case = smart-case
+
+set main-view-date = custom
+set main-view-date-format = "%Y/%m/%d %H:%M"
