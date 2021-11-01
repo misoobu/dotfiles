@@ -4,3 +4,5 @@ set ignore-case = smart-case
 
 set main-view-date = custom
 set main-view-date-format = "%Y/%m/%d %H:%M"
+set blame-view-date = custom
+set blame-view-date-format = "%y/%m/%d"
