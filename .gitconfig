@@ -14,5 +14,7 @@
 	gpgsign = true
 [init]
 	defaultBranch = main
+[diff]
+	colorMoved = default
 [include]
 	path = ~/dotfiles/.gitconfig.users
