@@ -6,6 +6,7 @@
 	commentChar = ";"
 [pager]
 	branch = false
+	grep = less
 [interactive]
 	singleKey = true
 	diffFilter = delta --color-only
