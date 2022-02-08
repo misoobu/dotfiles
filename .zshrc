@@ -112,7 +112,7 @@ function git-grep-vim () {
 
 function git-grep-replace() {
   # for mac
-  git grep -l "$1" | xargs sed -i '' -e "s/$1/$2/g"
+  git grep -I -l -e "$1" | xargs sed -i '' -e "s/$1/$2/g"
 }
 
 # https://github.com/h-matsuo/macOS-trash
