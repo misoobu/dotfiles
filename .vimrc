@@ -40,6 +40,8 @@ set display=lastline
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
 
+let g:polyglot_disabled = ['csv']
+
 " Plugin
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
