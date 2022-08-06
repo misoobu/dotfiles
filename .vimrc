@@ -125,6 +125,7 @@ nnoremap <C-e> :CocCommand explorer<CR>
 call coc#config('explorer', {
 \  'file.showHiddenFiles': v:true,
 \})
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Autocmd
 augroup MyAutocmds
