@@ -9,6 +9,7 @@ alias ...="cd ../.." # make same as ..
 alias -g L="| less"
 alias -g G="| grep"
 alias -g C="| pbcopy"
+alias -g D="; say done"
 
 # git
 alias g="git"
