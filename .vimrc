@@ -23,6 +23,7 @@ set shortmess-=S
 nnoremap q :q<CR>
 nnoremap <C-k> i<CR><ESC>
 nnoremap <C-s> :w<CR>
+nnoremap <C-c> :PrettierAsync<CR>
 inoremap <C-s> <ESC>
 
 " Grep
@@ -125,7 +126,18 @@ nnoremap <C-e> :CocCommand explorer<CR>
 call coc#config('explorer', {
 \  'file.showHiddenFiles': v:true,
 \})
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+let g:coc_user_config['suggest.noselect'] = v:true
 
 " Autocmd
 augroup MyAutocmds
