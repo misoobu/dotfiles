@@ -40,6 +40,7 @@ set clipboard+=unnamed
 set display=lastline
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
+set re=0
 
 let g:polyglot_disabled = ['csv']
 
