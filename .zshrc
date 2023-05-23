@@ -20,10 +20,11 @@ disable r
 
 # Completion
 if type brew &>/dev/null; then
-  # https://docs.brew.sh/Shell-Completion
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  autoload -U compinit && compinit
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}" # https://docs.brew.sh/Shell-Completion
+  # FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
 fi
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 

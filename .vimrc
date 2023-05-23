@@ -40,16 +40,12 @@ set clipboard+=unnamed
 set display=lastline
 set completeopt=menu,menuone,popup,noselect,noinsert
 set previewheight=6
+set re=0
 
 let g:polyglot_disabled = ['csv']
 
 " Plugin
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'itchyny/lightline.vim'
@@ -119,6 +115,11 @@ call coc#config('coc.preferences', {
 " for jsx/tsx syntax
 call coc#config('typescript', {
 \  'suggest.completeFunctionCalls': v:false,
+\})
+call coc#config('rust-analyzer.inlayHints', {
+\  'chainingHints.enable': v:false,
+\  'parameterHints.enable': v:true,
+\  'typeHints.enable': v:true,
 \})
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)

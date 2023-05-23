@@ -1,7 +1,7 @@
 # misoobu
 [includeIf "gitdir:~/dotfiles/.git"]
 	path = .gitconfig.users.misoobu
-[includeIf "gitdir:~/workbench/**/.git"]
+[includeIf "gitdir:~/bench/**/.git"]
 	path = .gitconfig.users.misoobu
 [includeIf "gitdir:~/ghq/github.com/misoobu/**/.git"]
 	path = .gitconfig.users.misoobu

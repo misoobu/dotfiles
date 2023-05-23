@@ -12,9 +12,14 @@
 	diffFilter = delta --color-only
 [commit]
 	gpgsign = true
+	verbose = true
 [init]
 	defaultBranch = main
 [diff]
 	colorMoved = default
 [include]
 	path = ~/dotfiles/.gitconfig.users
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[tag]
+	gpgSign = true
