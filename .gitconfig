@@ -12,6 +12,7 @@
 	diffFilter = delta --color-only
 [commit]
 	gpgsign = true
+	verbose = true
 [init]
 	defaultBranch = main
 [diff]
