@@ -116,6 +116,11 @@ call coc#config('coc.preferences', {
 call coc#config('typescript', {
 \  'suggest.completeFunctionCalls': v:false,
 \})
+call coc#config('rust-analyzer.inlayHints', {
+\  'chainingHints.enable': v:false,
+\  'parameterHints.enable': v:true,
+\  'typeHints.enable': v:true,
+\})
 nmap <silent> <C-n> <Plug>(coc-diagnostic-next)
 nmap <silent> <C-m> <Plug>(coc-diagnostic-prev)
 nnoremap <C-e> :CocCommand explorer<CR>
