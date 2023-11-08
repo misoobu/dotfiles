@@ -2,6 +2,14 @@
 if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
 if which rbenv  > /dev/null; then eval "$(rbenv init -)";    fi
 if which nodenv > /dev/null; then eval "$(nodenv init -)";   fi
+if which pyenv > /dev/null; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
 # Source
 source ~/.zshrc.alias
