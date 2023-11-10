@@ -16,7 +16,7 @@ source ~/.zshrc.alias
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
-export EDITOR=vim
+export EDITOR=nvim
 export LESS='-iMR'
 export CLICOLOR=1
 export LANG=en_US.UTF-8
@@ -94,7 +94,7 @@ bindkey '^p' peco-find-file
 function peco-find-file-and-open-with-vim() {
   file=$(_peco-find-file "select file for vim")
   if [ -n "$file" ]; then
-    BUFFER="vim $file"
+    BUFFER="nvim $file"
     zle accept-line
   fi
 }
@@ -115,7 +115,7 @@ bindkey '^g' peco-select-ghq
 function git-grep-vim () {
   found=$(git grep -I --line-number -e $1 | cut -c 1-200 | peco --prompt '[select line to open]')
   if [ -n "$found" ]; then
-    vim $(print "$found" | head -n 1 | awk -F : '{print "-c " $2 " " $1}')
+    nvim $(print "$found" | head -n 1 | awk -F : '{print "-c " $2 " " $1}')
   fi
 }
 
