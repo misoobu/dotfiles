@@ -45,6 +45,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "nvim-lualine/lualine.nvim", opts = {
+      options = {
+        icons_enabled = false,
+        component_separators = '',
+        section_separators = '',
+      },
+    },
+  }
 })
 
 vim.cmd.colorscheme "catppuccin-mocha"
+require('lualine').setup()
