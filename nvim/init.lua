@@ -23,9 +23,8 @@ vim.keymap.set('i', '<C-s>', '<ESC>')
 
 -- TODO: grep?
 
-local my_autocmd_group = vim.api.nvim_create_augroup('MyAutocmdGroup', { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group = my_autocmd_group,
+  group = vim.api.nvim_create_augroup('MyAutocmdGroup', { clear = true }),
   pattern = "*",
   command = ":%s/\\s\\+$//e",
 })
