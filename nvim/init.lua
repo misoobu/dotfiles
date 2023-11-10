@@ -43,6 +43,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { 'williamboman/mason.nvim' },
+  { 'williamboman/mason-lspconfig.nvim' },
+  { 'neovim/nvim-lspconfig' },
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'hrsh7th/nvim-cmp' },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   {
     "nvim-lualine/lualine.nvim",
@@ -57,5 +62,8 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", opts = {} },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 })
+
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 vim.cmd.colorscheme "catppuccin-mocha"
