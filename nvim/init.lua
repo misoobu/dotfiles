@@ -2,8 +2,7 @@ vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.breakindent = true
 vim.opt.list = true
-vim.opt.listchars = { tab = '␉·' }
-
+vim.opt.listchars = { trail = '␠' }
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -22,12 +21,6 @@ vim.keymap.set('n', '<C-s>', ':w<CR>')
 vim.keymap.set('i', '<C-s>', '<ESC>')
 
 -- TODO: grep?
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = vim.api.nvim_create_augroup('MyAutocmdGroup', { clear = true }),
-  pattern = "*",
-  command = ":%s/\\s\\+$//e",
-})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -193,4 +186,13 @@ cmp.setup.cmdline(':', {
   })
 })
 
-vim.cmd.colorscheme "catppuccin-mocha"
+require("catppuccin").setup {
+  flavour = "mocha",
+  custom_highlights = function()
+    return {
+      Whitespace = { bg = "red" },
+    }
+  end
+}
+
+vim.cmd.colorscheme "catppuccin"
