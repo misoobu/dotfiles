@@ -128,7 +128,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<Leader>f', function()
+    vim.keymap.set('n', '<Leader>p', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
@@ -196,17 +196,47 @@ cmp.setup.cmdline(':', {
   })
 })
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-
-require('telescope').load_extension('fzf')
+local telescope = require('telescope')
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-s>"] = "close",
+      },
+    },
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '--hidden',
+    },
+  },
+  pickers = {
+    git_files = {
+      show_untracked = true,
+    },
+    grep_string = {
+      file_ignore_patterns = { ".git/" },
+      disable_coordinates = true,
+    },
+    live_grep = {
+      glob_pattern = { "!**/.git/**" },
+      disable_coordinates = true,
+    },
+  },
+}
+telescope.load_extension('fzf')
+local telescope_builtin = require('telescope.builtin')
+vim.keymap.set('n', '<Leader>o', telescope_builtin.oldfiles, { desc = 'Recently opened files' })
+vim.keymap.set('n', '<Leader>b', telescope_builtin.buffers, { desc = 'Buffers' })
+vim.keymap.set('n', '<Leader>f', telescope_builtin.git_files, { desc = 'Files' })
+vim.keymap.set('n', '<Leader>c', telescope_builtin.grep_string, { desc = 'Grep cursor word' })
+vim.keymap.set('n', '<Leader>g', telescope_builtin.live_grep, { desc = 'Grep' })
+vim.keymap.set('n', '<Leader>d', telescope_builtin.diagnostics, { desc = 'Diagnostics' })
 
 require("catppuccin").setup {
   flavour = "mocha",
