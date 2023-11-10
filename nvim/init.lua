@@ -52,8 +52,11 @@ require("lazy").setup({
         section_separators = '',
       },
     },
-  }
+  },
+  { "lewis6991/gitsigns.nvim" },
 })
 
-vim.cmd.colorscheme "catppuccin-mocha"
 require('lualine').setup()
+require('gitsigns').setup()
+
+vim.cmd.colorscheme "catppuccin-mocha"
