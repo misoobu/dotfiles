@@ -44,7 +44,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "nvim-lualine/lualine.nvim", opts = {
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
       options = {
         icons_enabled = false,
         component_separators = '',
@@ -52,10 +54,7 @@ require("lazy").setup({
       },
     },
   },
-  { "lewis6991/gitsigns.nvim" },
+  { "lewis6991/gitsigns.nvim", opts = {} },
 })
-
-require('lualine').setup()
-require('gitsigns').setup()
 
 vim.cmd.colorscheme "catppuccin-mocha"
