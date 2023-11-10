@@ -190,6 +190,7 @@ require("catppuccin").setup {
   flavour = "mocha",
   custom_highlights = function()
     return {
+      Comment = { fg = "#eebebe" },
       Whitespace = { bg = "red" },
     }
   end
