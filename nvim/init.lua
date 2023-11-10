@@ -14,6 +14,8 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard = "unnamedplus"
 
+vim.g.mapleader = " "
+
 vim.keymap.set('n', 'q', ':q<CR>')
 vim.keymap.set('n', '<C-k>', 'i<CR><ESC>')
 vim.keymap.set('n', '<C-s>', ':w<CR>')
