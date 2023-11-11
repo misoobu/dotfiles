@@ -14,15 +14,19 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard = "unnamedplus"
 
+vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
-vim.g.mapleader = " "
 
 vim.keymap.set("n", "q", ":q<CR>")
 vim.keymap.set("n", "<C-k>", "i<CR><ESC>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>")
+
+vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true }),
@@ -45,6 +49,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
+
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
 
@@ -55,7 +60,6 @@ require("lazy").setup({
   { "hrsh7th/cmp-path" },
   { "hrsh7th/cmp-cmdline" },
   { "hrsh7th/nvim-cmp" },
-
   { "L3MON4D3/LuaSnip" },
   { "saadparwaiz1/cmp_luasnip" },
 
@@ -69,6 +73,52 @@ require("lazy").setup({
         build = "make",
       },
     },
+    config = function()
+      local telescope = require("telescope")
+
+      telescope.setup({
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-s>"] = "close",
+            },
+          },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            "--glob=!**/.git/**",
+          },
+        },
+        pickers = {
+          git_files = {
+            show_untracked = true,
+          },
+          grep_string = {
+            disable_coordinates = true,
+          },
+          live_grep = {
+            disable_coordinates = true,
+          },
+        },
+      })
+
+      telescope.load_extension("fzf")
+
+      local telescope_builtin = require("telescope.builtin")
+
+      vim.keymap.set("n", "<Leader>o", telescope_builtin.oldfiles, { desc = "Recently opened files" })
+      vim.keymap.set("n", "<Leader>b", telescope_builtin.buffers, { desc = "Buffers" })
+      vim.keymap.set("n", "<Leader>f", telescope_builtin.git_files, { desc = "Files" })
+      vim.keymap.set("n", "<Leader>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
+      vim.keymap.set("n", "<Leader>g", telescope_builtin.live_grep, { desc = "Grep" })
+      vim.keymap.set("n", "<Leader>d", telescope_builtin.diagnostics, { desc = "Diagnostics" })
+    end,
   },
 
   {
@@ -101,30 +151,32 @@ require("lazy").setup({
       })
     end,
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = {
-      options = {
-        icons_enabled = false,
-        component_separators = "",
-        section_separators = "",
-      },
-    },
-  },
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function()
+    require("catppuccin").setup({
+      flavour = "mocha",
+      custom_highlights = function()
+        return {
+          Comment = { fg = "#eebebe" },
+        }
+      end,
+    })
+
+    vim.cmd.colorscheme("catppuccin")
+  end},
+  { "nvim-lualine/lualine.nvim", opts = {} },
   { "lewis6991/gitsigns.nvim", opts = {} },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   {
     "nvim-tree/nvim-tree.lua",
-    config = function()
-      require("nvim-tree").setup()
-      vim.keymap.set("n", "<Leader>t", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, { silent = true })
-    end,
+    opts = {},
+    keys = {
+      { "<Leader>t", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, silent = true, desc = "Toggle file explorer" },
+    },
   },
 })
 
 require("mason").setup()
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lsp_servers = {
   lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
 }
@@ -133,17 +185,12 @@ require("mason-lspconfig").setup({
   handlers = {
     function(server_name)
       require("lspconfig")[server_name].setup({
-        capabilities = capabilities,
+        capabilities = lsp_capabilities,
         settings = lsp_servers[server_name],
       })
     end,
   },
 })
-
-vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -167,8 +214,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local cmp = require("cmp")
-local luasnip = require("luasnip")
 
+local luasnip = require("luasnip")
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -227,55 +274,3 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
-
-local telescope = require("telescope")
-telescope.setup({
-  defaults = {
-    mappings = {
-      i = {
-        ["<C-s>"] = "close",
-      },
-    },
-    vimgrep_arguments = {
-      "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--smart-case",
-      "--hidden",
-      "--glob=!**/.git/**",
-    },
-  },
-  pickers = {
-    git_files = {
-      show_untracked = true,
-    },
-    grep_string = {
-      disable_coordinates = true,
-    },
-    live_grep = {
-      disable_coordinates = true,
-    },
-  },
-})
-telescope.load_extension("fzf")
-local telescope_builtin = require("telescope.builtin")
-vim.keymap.set("n", "<Leader>o", telescope_builtin.oldfiles, { desc = "Recently opened files" })
-vim.keymap.set("n", "<Leader>b", telescope_builtin.buffers, { desc = "Buffers" })
-vim.keymap.set("n", "<Leader>f", telescope_builtin.git_files, { desc = "Files" })
-vim.keymap.set("n", "<Leader>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
-vim.keymap.set("n", "<Leader>g", telescope_builtin.live_grep, { desc = "Grep" })
-vim.keymap.set("n", "<Leader>d", telescope_builtin.diagnostics, { desc = "Diagnostics" })
-
-require("catppuccin").setup({
-  flavour = "mocha",
-  custom_highlights = function()
-    return {
-      Comment = { fg = "#eebebe" },
-    }
-  end,
-})
-
-vim.cmd.colorscheme("catppuccin")
