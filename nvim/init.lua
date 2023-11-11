@@ -48,7 +48,42 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function()
+    require("catppuccin").setup({
+      flavour = "mocha",
+      custom_highlights = function()
+        return {
+          Comment = { fg = "#eebebe" },
+        }
+      end,
+    })
+
+    vim.cmd.colorscheme("catppuccin")
+  end},
   { "nvim-tree/nvim-web-devicons" },
+  { "nvim-lualine/lualine.nvim", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "lua",
+          "vimdoc",
+          "javascript",
+          "typescript",
+          "tsx",
+          "ruby",
+          "rust",
+          "markdown",
+          "markdown_inline",
+        },
+        sync_install = true,
+        highlight = { enable = true },
+      })
+    end,
+  },
 
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
@@ -120,7 +155,6 @@ require("lazy").setup({
       vim.keymap.set("n", "<Leader>d", telescope_builtin.diagnostics, { desc = "Diagnostics" })
     end,
   },
-
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -130,42 +164,7 @@ require("lazy").setup({
     end,
     opts = {},
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "lua",
-          "vimdoc",
-          "javascript",
-          "typescript",
-          "tsx",
-          "ruby",
-          "rust",
-          "markdown",
-          "markdown_inline",
-        },
-        sync_install = true,
-        highlight = { enable = true },
-      })
-    end,
-  },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function()
-    require("catppuccin").setup({
-      flavour = "mocha",
-      custom_highlights = function()
-        return {
-          Comment = { fg = "#eebebe" },
-        }
-      end,
-    })
-
-    vim.cmd.colorscheme("catppuccin")
-  end},
-  { "nvim-lualine/lualine.nvim", opts = {} },
   { "lewis6991/gitsigns.nvim", opts = {} },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   {
     "nvim-tree/nvim-tree.lua",
     opts = {},
