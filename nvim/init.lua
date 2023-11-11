@@ -72,14 +72,14 @@ require("lazy").setup({
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function ()
+    config = function()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = { "lua", "vimdoc", "javascript", "typescript", "tsx", "ruby", "rust", "markdown", "markdown_inline" },
-          sync_install = true,
-          highlight = { enable = true },
-        })
+        ensure_installed = { "lua", "vimdoc", "javascript", "typescript", "tsx", "ruby", "rust", "markdown", "markdown_inline" },
+        sync_install = true,
+        highlight = { enable = true },
+      })
     end,
   },
   { "catppuccin/nvim",                     name = "catppuccin", priority = 1000 },
