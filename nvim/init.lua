@@ -14,6 +14,9 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard = "unnamedplus"
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.g.mapleader = " "
 
 vim.keymap.set("n", "q", ":q<CR>")
@@ -41,6 +44,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  { "nvim-tree/nvim-web-devicons" },
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
 
@@ -80,9 +84,7 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      local configs = require("nvim-treesitter.configs")
-
-      configs.setup({
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "lua",
           "vimdoc",
@@ -112,6 +114,13 @@ require("lazy").setup({
   },
   { "lewis6991/gitsigns.nvim", opts = {} },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require("nvim-tree").setup()
+      vim.keymap.set("n", "<Leader>t", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, { silent = true })
+    end,
+  },
 })
 
 require("mason").setup()
