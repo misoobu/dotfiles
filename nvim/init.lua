@@ -22,16 +22,33 @@ vim.keymap.set("n", "q", ":q<CR>")
 vim.keymap.set("n", "<C-k>", "i<CR><ESC>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>")
+vim.keymap.set('t', '<C-s>', "<C-\\><C-n>")
+
+vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove new<cr>", { desc = "New window toward left" })
+vim.keymap.set("n", "<Leader>wj", "<cmd>belowright new<cr>", { desc = "New window toward below" })
+vim.keymap.set("n", "<Leader>wk", "<cmd>aboveleft new<cr>", { desc = "New window toward above" })
+vim.keymap.set("n", "<Leader>wl", "<cmd>vertical rightbelow new<cr>", { desc = "New window toward right" })
 
 vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
 
+local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true }),
+  group = my_autocmd_group,
   pattern = "*",
   command = ":%s/\\s\\+$//e",
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = my_autocmd_group,
+  pattern = "*",
+  command = "startinsert",
+})
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = my_autocmd_group,
+  pattern = "*",
+  command = "setlocal nonumber",
 })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -172,6 +189,7 @@ require("lazy").setup({
       { "<Leader>t", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, silent = true, desc = "Toggle file explorer" },
     },
   },
+  { "j-hui/fidget.nvim", opts = {} },
 })
 
 require("mason").setup()
