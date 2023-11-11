@@ -213,6 +213,7 @@ telescope.setup {
       '--column',
       '--smart-case',
       '--hidden',
+      '--glob=!**/.git/**',
     },
   },
   pickers = {
@@ -220,11 +221,9 @@ telescope.setup {
       show_untracked = true,
     },
     grep_string = {
-      file_ignore_patterns = { ".git/" },
       disable_coordinates = true,
     },
     live_grep = {
-      glob_pattern = { "!**/.git/**" },
       disable_coordinates = true,
     },
   },
