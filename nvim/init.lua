@@ -2,7 +2,8 @@ vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.breakindent = true
 vim.opt.list = true
-vim.opt.listchars = { trail = '␠' }
+vim.opt.listchars = { tab = '␉·' }
+
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -19,6 +20,12 @@ vim.keymap.set('n', 'q', ':q<CR>')
 vim.keymap.set('n', '<C-k>', 'i<CR><ESC>')
 vim.keymap.set('n', '<C-s>', ':w<CR>')
 vim.keymap.set('i', '<C-s>', '<ESC>')
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup('MyAutocmdGroup', { clear = true }),
+  pattern = "*",
+  command = ":%s/\\s\\+$//e",
+})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -248,7 +255,6 @@ require("catppuccin").setup {
   custom_highlights = function()
     return {
       Comment = { fg = "#eebebe" },
-      Whitespace = { bg = "red" },
     }
   end
 }
