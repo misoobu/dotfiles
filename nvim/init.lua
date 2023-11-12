@@ -104,7 +104,7 @@ require("lazy").setup({
       lualine_c = {{'filename', path = 1}},
     },
   }},
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false }} },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -128,10 +128,28 @@ require("lazy").setup({
   },
   { 'RRethy/vim-illuminate', event = "VeryLazy" },
 
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
-
-  { "neovim/nvim-lspconfig" },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {"williamboman/mason.nvim", "neovim/nvim-lspconfig"},
+    config = function()
+      require("mason").setup()
+      local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local lsp_servers = {
+        lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
+      }
+      require("mason-lspconfig").setup({
+        ensure_installed = vim.tbl_keys(lsp_servers),
+        handlers = {
+          function(server_name)
+            require("lspconfig")[server_name].setup({
+              capabilities = lsp_capabilities,
+              settings = lsp_servers[server_name],
+            })
+          end,
+        },
+      })
+    end,
+  },
 
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
@@ -143,7 +161,9 @@ require("lazy").setup({
 
   {
     "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    dependencies = { "williamboman/mason-lspconfig.nvim" },
+    ft = {"javascript", "typescript", "typescriptreact"},
+    opts = {},
   },
 
   {
@@ -244,24 +264,6 @@ require("lazy").setup({
   },
   { "j-hui/fidget.nvim", opts = {} },
 })
-
-require("mason").setup()
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lsp_servers = {
-  lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
-}
-require("mason-lspconfig").setup({
-  ensure_installed = vim.tbl_keys(lsp_servers),
-  handlers = {
-    function(server_name)
-      require("lspconfig")[server_name].setup({
-        capabilities = lsp_capabilities,
-        settings = lsp_servers[server_name],
-      })
-    end,
-  },
-})
-require("typescript-tools").setup({})
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
