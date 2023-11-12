@@ -117,6 +117,7 @@ require("lazy").setup({
       })
     end,
   },
+  { 'RRethy/vim-illuminate', event = "VeryLazy" },
 
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
@@ -141,6 +142,7 @@ require("lazy").setup({
         build = "make",
       },
     },
+    event = "VeryLazy",
     config = function()
       local telescope = require("telescope")
 
