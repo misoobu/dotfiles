@@ -42,7 +42,7 @@ alias gpsod="git push origin develop"
 alias gx="git add . && git commit -m 'gx' && git reset --hard HEAD~"
 
 # tmux
-alias tmn="tmux -2 new-session \; source-file ~/.tmux.split.conf"
+alias tmn="tmux -2 new-session"
 alias tml="tmux ls"
 alias tma="tmux -2 attach -t"
 
