@@ -29,10 +29,8 @@ vim.keymap.set("n", "<Leader>wj", "<cmd>belowright new<cr>", { desc = "New windo
 vim.keymap.set("n", "<Leader>wk", "<cmd>aboveleft new<cr>", { desc = "New window toward above" })
 vim.keymap.set("n", "<Leader>wl", "<cmd>vertical rightbelow new<cr>", { desc = "New window toward right" })
 
-vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<C-n>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<C-p>", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -150,7 +148,7 @@ require("lazy").setup({
         defaults = {
           mappings = {
             i = {
-              ["<C-s>"] = "close",
+              ["<esc>"] = "close",
             },
           },
           vimgrep_arguments = {
@@ -182,12 +180,13 @@ require("lazy").setup({
 
       local telescope_builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<Leader>o", telescope_builtin.oldfiles, { desc = "Recently opened files" })
-      vim.keymap.set("n", "<Leader>b", telescope_builtin.buffers, { desc = "Buffers" })
-      vim.keymap.set("n", "<Leader>f", telescope_builtin.git_files, { desc = "Files" })
-      vim.keymap.set("n", "<Leader>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
-      vim.keymap.set("n", "<Leader>g", telescope_builtin.live_grep, { desc = "Grep" })
-      vim.keymap.set("n", "<Leader>d", telescope_builtin.diagnostics, { desc = "Diagnostics" })
+      vim.keymap.set("n", "<leader><space>o", telescope_builtin.oldfiles, { desc = "List recent files" })
+      vim.keymap.set("n", "<leader><space>b", telescope_builtin.buffers, { desc = "List buffers" })
+      vim.keymap.set("n", "<leader><space>f", telescope_builtin.git_files, { desc = "List git files" })
+      vim.keymap.set("n", "<leader><space>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
+      vim.keymap.set("n", "<leader><space>g", telescope_builtin.live_grep, { desc = "Grep" })
+
+      vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics, { desc = "List diagnostics" })
     end,
   },
   {
@@ -204,7 +203,7 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     opts = {},
     keys = {
-      { "<Leader>t", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, silent = true, desc = "Toggle file explorer" },
+      { "<leader>e", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, silent = true, desc = "Toggle file explorer" },
     },
   },
   { "j-hui/fidget.nvim", opts = {} },
@@ -230,21 +229,25 @@ require("mason-lspconfig").setup({
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    local opts = { buffer = ev.buf }
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations, opts)
-    vim.keymap.set("n", "<Leader>s", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "<Leader>D", require("telescope.builtin").lsp_type_definitions, opts)
-    vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
-    vim.keymap.set({ "n", "v" }, "<Leader>C", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
-    vim.keymap.set("n", "<Leader>lds", require("telescope.builtin").lsp_document_symbols, opts)
-    vim.keymap.set("n", "<Leader>lws", require("telescope.builtin").lsp_dynamic_workspace_symbols, opts)
-    vim.keymap.set("n", "<Leader>F", function()
+    local function map(key, action, desc)
+      vim.keymap.set('n', "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
+    end
+    map("d", require("telescope.builtin").lsp_definitions, "definitions")
+    map("i", require("telescope.builtin").lsp_implementations, "implementations")
+    map("t", require("telescope.builtin").lsp_type_definitions, "type definitions")
+    map("r", require("telescope.builtin").lsp_references, "references")
+    map("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
+    map("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
+
+    map("e", vim.lsp.buf.declaration, "declaration")
+    map("h", vim.lsp.buf.hover, "hover")
+    map("s", vim.lsp.buf.signature_help, "signature help")
+
+    map("R", vim.lsp.buf.rename, "rename")
+    map("C", vim.lsp.buf.code_action, "code action")
+    map("F", function()
       vim.lsp.buf.format({ async = true })
-    end, opts)
+    end, "format")
   end,
 })
 
@@ -263,7 +266,7 @@ cmp.setup({
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-a>"] = cmp.mapping.abort(),
     ["<CR>"] = cmp.mapping.confirm({
       select = true,
     }),
