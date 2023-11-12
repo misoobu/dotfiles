@@ -3,6 +3,7 @@ vim.opt.cursorline = true
 vim.opt.breakindent = true
 vim.opt.list = true
 vim.opt.listchars = { tab = "␉·" }
+vim.opt.mouse = ""
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
