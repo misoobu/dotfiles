@@ -78,7 +78,23 @@ require("lazy").setup({
     vim.cmd.colorscheme("catppuccin")
   end},
   { "nvim-tree/nvim-web-devicons" },
-  { "nvim-lualine/lualine.nvim", opts = {} },
+  { "nvim-lualine/lualine.nvim", opts = {
+    options = {
+      globalstatus = true,
+    },
+    sections = {
+      lualine_c = {{'buffers', symbols = { modified = '+'}}},
+      lualine_x = {},
+      lualine_y = {'progress'},
+      lualine_z = {'location'}
+    },
+    winbar = {
+      lualine_b = {{'filename', path = 1}},
+    },
+    inactive_winbar = {
+      lualine_c = {{'filename', path = 1}},
+    },
+  }},
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   {
     "nvim-treesitter/nvim-treesitter",
