@@ -24,10 +24,10 @@ vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>")
 vim.keymap.set('t', '<C-s>', "<C-\\><C-n>")
 
-vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove new<cr>", { desc = "New window toward left" })
-vim.keymap.set("n", "<Leader>wj", "<cmd>belowright new<cr>", { desc = "New window toward below" })
-vim.keymap.set("n", "<Leader>wk", "<cmd>aboveleft new<cr>", { desc = "New window toward above" })
-vim.keymap.set("n", "<Leader>wl", "<cmd>vertical rightbelow new<cr>", { desc = "New window toward right" })
+vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
+vim.keymap.set("n", "<Leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
+vim.keymap.set("n", "<Leader>wk", "<cmd>aboveleft split<cr>", { desc = "Split new window toward above" })
+vim.keymap.set("n", "<Leader>wl", "<cmd>vertical rightbelow split<cr>", { desc = "Split new window toward right" })
 
 vim.keymap.set("n", "<C-n>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set("n", "<C-p>", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
@@ -66,11 +66,19 @@ require("lazy").setup({
   { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function()
     require("catppuccin").setup({
       flavour = "mocha",
-      custom_highlights = function()
-        return {
-          Comment = { fg = "#eebebe" },
-        }
-      end,
+      color_overrides = {
+        mocha = {
+          overlay0 = '#b0b6d9',
+        },
+      },
+      highlight_overrides = {
+        mocha = function()
+          return {
+            LineNr = { fg = '#7a7d99' },
+            Whitespace = { fg = '#7a7d99' },
+          }
+        end,
+      }
     })
 
     vim.cmd.colorscheme("catppuccin")
@@ -79,15 +87,17 @@ require("lazy").setup({
   { "nvim-lualine/lualine.nvim", opts = {
     options = {
       globalstatus = true,
+      component_separators = '',
     },
     sections = {
+      lualine_b = {'branch', 'diff'},
       lualine_c = {{'buffers', symbols = { modified = '+'}}},
       lualine_x = {},
-      lualine_y = {'progress'},
-      lualine_z = {'location'}
+      lualine_y = {'diagnostics'},
+      lualine_z = {'progress'}
     },
     winbar = {
-      lualine_b = {{'filename', path = 1}},
+      lualine_a = {{'filename', path = 1}},
     },
     inactive_winbar = {
       lualine_c = {{'filename', path = 1}},
