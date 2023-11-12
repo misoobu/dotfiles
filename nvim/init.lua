@@ -142,6 +142,11 @@ require("lazy").setup({
   { "saadparwaiz1/cmp_luasnip" },
 
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  },
+
+  {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {
@@ -256,6 +261,7 @@ require("mason-lspconfig").setup({
     end,
   },
 })
+require("typescript-tools").setup({})
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
