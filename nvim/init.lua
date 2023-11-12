@@ -136,6 +136,8 @@ require("lazy").setup({
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp_servers = {
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
+        solargraph = {},
+        rust_analyzer = {},
       }
       require("mason-lspconfig").setup({
         ensure_installed = vim.tbl_keys(lsp_servers),
