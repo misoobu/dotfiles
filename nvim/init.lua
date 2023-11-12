@@ -158,6 +158,7 @@ require("lazy").setup({
         defaults = {
           mappings = {
             i = {
+              ["<C-h>"] = "which_key",
               ["<esc>"] = "close",
             },
           },
@@ -184,6 +185,14 @@ require("lazy").setup({
             disable_coordinates = true,
           },
         },
+        extensions = {
+          frecency = {
+            workspaces = {
+              ["hoge"]    = "~/bench/hoge",
+              ["dotfiles"]    = "~/dotfiles",
+            }
+          },
+        },
       })
 
       telescope.load_extension("fzf")
@@ -196,7 +205,18 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader><space>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
       vim.keymap.set("n", "<leader><space>g", telescope_builtin.live_grep, { desc = "Grep" })
 
+      vim.keymap.set("n", "<leader><space>h", telescope_builtin.command_history, { desc = "List recent commands" })
+      vim.keymap.set("n", "<leader><space>t", telescope_builtin.git_bcommits, { desc = "List buffer git commits" })
+      vim.keymap.set("n", "<leader><space>s", telescope_builtin.treesitter, { desc = "List symbols from treesitter" })
+
       vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics, { desc = "List diagnostics" })
+    end,
+  },
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension "frecency"
+      vim.keymap.set("n", "<leader><space>r", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
     end,
   },
   {
@@ -242,9 +262,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local function map(key, action, desc)
       vim.keymap.set('n', "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
     end
-    map("d", require("telescope.builtin").lsp_definitions, "definitions")
-    map("i", require("telescope.builtin").lsp_implementations, "implementations")
-    map("t", require("telescope.builtin").lsp_type_definitions, "type definitions")
+    map("d", function() require("telescope.builtin").lsp_definitions({jump_type = 'split'}) end, "definitions")
+    map("i", function() require("telescope.builtin").lsp_implementations({jump_type = 'split'}) end, "implementations")
+    map("t", function() require("telescope.builtin").lsp_type_definitions({jump_type = 'split'}) end, "type definitions")
     map("r", require("telescope.builtin").lsp_references, "references")
     map("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
     map("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
