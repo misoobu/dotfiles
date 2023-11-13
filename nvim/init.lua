@@ -19,11 +19,17 @@ vim.g.mapleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
+
 vim.keymap.set("n", "q", ":q<CR>")
 vim.keymap.set("n", "<C-k>", "i<CR><ESC>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
+
+-- <C-w>hjkl moves for i and t
+vim.keymap.set("i", "<C-w>", "<esc><C-w>")
+vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
 
 vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
 vim.keymap.set("n", "<Leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
@@ -37,12 +43,17 @@ local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear =
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
   pattern = "*",
-  command = "startinsert",
+  command = "setlocal nonumber",
 })
-vim.api.nvim_create_autocmd("TermOpen", {
+vim.api.nvim_create_autocmd("VimEnter", {
   group = my_autocmd_group,
   pattern = "*",
-  command = "setlocal nonumber",
+  callback = function()
+    vim.cmd("vnew")
+    vim.cmd("terminal")
+    vim.cmd("setlocal nonumber")
+    vim.cmd("wincmd l")
+  end,
 })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -190,7 +201,10 @@ require("lazy").setup({
           mappings = {
             i = {
               ["<C-h>"] = "which_key",
-              ["<esc>"] = "close",
+              ["<C-s>"] = "close",
+            },
+            n = {
+              ["<C-s>"] = "close",
             },
           },
           vimgrep_arguments = {

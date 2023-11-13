@@ -16,7 +16,7 @@ source ~/.zshrc.alias
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
-export EDITOR=nvim
+[[ -z "$EDITOR" ]] && export EDITOR="nvim"
 export LESS='-iMR'
 export CLICOLOR=1
 export LANG=en_US.UTF-8
