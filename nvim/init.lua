@@ -45,16 +45,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   command = "setlocal nonumber",
 })
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = my_autocmd_group,
-  pattern = "*",
-  callback = function()
-    vim.cmd("vnew")
-    vim.cmd("terminal")
-    vim.cmd("setlocal nonumber")
-    vim.cmd("wincmd l")
-  end,
-})
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
