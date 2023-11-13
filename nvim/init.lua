@@ -21,20 +21,20 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
 
-vim.keymap.set("n", "q", ":q<CR>")
-vim.keymap.set("n", "<C-k>", "i<CR><ESC>")
-vim.keymap.set("n", "<C-s>", ":w<CR>")
-vim.keymap.set("i", "<C-s>", "<ESC>")
+vim.keymap.set("n", "q", ":q<cr>")
+vim.keymap.set("n", "<C-k>", "i<cr><esc>")
+vim.keymap.set("n", "<C-s>", ":w<cr>")
+vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
 
 -- <C-w>hjkl moves for i and t
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
 vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
 
-vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
-vim.keymap.set("n", "<Leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
-vim.keymap.set("n", "<Leader>wk", "<cmd>aboveleft split<cr>", { desc = "Split new window toward above" })
-vim.keymap.set("n", "<Leader>wl", "<cmd>vertical rightbelow split<cr>", { desc = "Split new window toward right" })
+vim.keymap.set("n", "<leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
+vim.keymap.set("n", "<leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
+vim.keymap.set("n", "<leader>wk", "<cmd>aboveleft split<cr>", { desc = "Split new window toward above" })
+vim.keymap.set("n", "<leader>wl", "<cmd>vertical rightbelow split<cr>", { desc = "Split new window toward right" })
 
 vim.keymap.set("n", "<C-n>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set("n", "<C-p>", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
@@ -356,12 +356,12 @@ cmp.setup({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-space>"] = cmp.mapping.complete(),
     ["<C-a>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({
+    ["<cr>"] = cmp.mapping.confirm({
       select = true,
     }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_locally_jumpable() then
@@ -370,7 +370,7 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    ["<S-tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.locally_jumpable(-1) then
