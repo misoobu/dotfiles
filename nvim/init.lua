@@ -34,11 +34,6 @@ vim.keymap.set("n", "<C-n>", vim.diagnostic.goto_next, { desc = "Go to next diag
 vim.keymap.set("n", "<C-p>", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = my_autocmd_group,
-  pattern = "*",
-  command = ":%s/\\s\\+$//e",
-})
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
   pattern = "*",
@@ -265,6 +260,28 @@ require("lazy").setup({
     },
   },
   { "j-hui/fidget.nvim", opts = {} },
+
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>f",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        desc = "Format buffer",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        ["_"] = { "trim_whitespace" },
+      },
+      format_on_save = { timeout_ms = 500, lsp_fallback = true },
+    },
+  },
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
