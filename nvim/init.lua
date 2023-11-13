@@ -236,15 +236,15 @@ require("lazy").setup({
 
       local telescope_builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<leader><space>o", telescope_builtin.oldfiles, { desc = "List recent files" })
-      vim.keymap.set("n", "<leader><space>b", telescope_builtin.buffers, { desc = "List buffers" })
-      vim.keymap.set("n", "<leader><space>f", telescope_builtin.git_files, { desc = "List git files" })
-      vim.keymap.set("n", "<leader><space>c", telescope_builtin.grep_string, { desc = "Grep cursor word" })
-      vim.keymap.set("n", "<leader><space>g", telescope_builtin.live_grep, { desc = "Grep" })
+      vim.keymap.set("n", "<leader>to", telescope_builtin.oldfiles, { desc = "List recent files" })
+      vim.keymap.set("n", "<leader>tb", telescope_builtin.buffers, { desc = "List buffers" })
+      vim.keymap.set("n", "<leader>tf", telescope_builtin.git_files, { desc = "List git files" })
+      vim.keymap.set("n", "<leader>tc", telescope_builtin.grep_string, { desc = "Grep cursor word" })
+      vim.keymap.set("n", "<leader>tg", telescope_builtin.live_grep, { desc = "Grep" })
 
-      vim.keymap.set("n", "<leader><space>h", telescope_builtin.command_history, { desc = "List recent commands" })
-      vim.keymap.set("n", "<leader><space>t", telescope_builtin.git_bcommits, { desc = "List buffer git commits" })
-      vim.keymap.set("n", "<leader><space>s", telescope_builtin.treesitter, { desc = "List symbols from treesitter" })
+      vim.keymap.set("n", "<leader>th", telescope_builtin.command_history, { desc = "List recent commands" })
+      vim.keymap.set("n", "<leader>tt", telescope_builtin.git_bcommits, { desc = "List buffer git commits" })
+      vim.keymap.set("n", "<leader>ts", telescope_builtin.treesitter, { desc = "List symbols from treesitter" })
 
       vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics, { desc = "List diagnostics" })
     end,
@@ -253,7 +253,7 @@ require("lazy").setup({
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
       require("telescope").load_extension("frecency")
-      vim.keymap.set("n", "<leader><space>r", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
+      vim.keymap.set("n", "<leader>tr", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
     end,
   },
   {
