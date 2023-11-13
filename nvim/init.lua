@@ -23,7 +23,7 @@ vim.keymap.set("n", "q", ":q<CR>")
 vim.keymap.set("n", "<C-k>", "i<CR><ESC>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 vim.keymap.set("i", "<C-s>", "<ESC>")
-vim.keymap.set('t', '<C-s>', "<C-\\><C-n>")
+vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
 
 vim.keymap.set("n", "<Leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
 vim.keymap.set("n", "<Leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
@@ -59,47 +59,55 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function()
-    require("catppuccin").setup({
-      flavour = "mocha",
-      color_overrides = {
-        mocha = {
-          overlay0 = '#b0b6d9',
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha",
+        color_overrides = {
+          mocha = {
+            overlay0 = "#b0b6d9",
+          },
         },
-      },
-      highlight_overrides = {
-        mocha = function()
-          return {
-            LineNr = { fg = '#7a7d99' },
-            Whitespace = { fg = '#7a7d99' },
-          }
-        end,
-      }
-    })
+        highlight_overrides = {
+          mocha = function()
+            return {
+              LineNr = { fg = "#7a7d99" },
+              Whitespace = { fg = "#7a7d99" },
+            }
+          end,
+        },
+      })
 
-    vim.cmd.colorscheme("catppuccin")
-  end},
+      vim.cmd.colorscheme("catppuccin")
+    end,
+  },
   { "nvim-tree/nvim-web-devicons" },
-  { "nvim-lualine/lualine.nvim", opts = {
-    options = {
-      globalstatus = true,
-      component_separators = '',
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      options = {
+        globalstatus = true,
+        component_separators = "",
+      },
+      sections = {
+        lualine_b = { "branch", "diff" },
+        lualine_c = { { "buffers", symbols = { modified = "+" } } },
+        lualine_x = {},
+        lualine_y = { "diagnostics" },
+        lualine_z = { "progress" },
+      },
+      winbar = {
+        lualine_a = { { "filename", path = 1 } },
+      },
+      inactive_winbar = {
+        lualine_c = { { "filename", path = 1 } },
+      },
     },
-    sections = {
-      lualine_b = {'branch', 'diff'},
-      lualine_c = {{'buffers', symbols = { modified = '+'}}},
-      lualine_x = {},
-      lualine_y = {'diagnostics'},
-      lualine_z = {'progress'}
-    },
-    winbar = {
-      lualine_a = {{'filename', path = 1}},
-    },
-    inactive_winbar = {
-      lualine_c = {{'filename', path = 1}},
-    },
-  }},
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false }} },
+  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false } } },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -121,11 +129,11 @@ require("lazy").setup({
       })
     end,
   },
-  { 'RRethy/vim-illuminate', event = "VeryLazy" },
+  { "RRethy/vim-illuminate", event = "VeryLazy" },
 
   {
     "williamboman/mason-lspconfig.nvim",
-    dependencies = {"williamboman/mason.nvim", "neovim/nvim-lspconfig"},
+    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
     config = function()
       require("mason").setup()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -159,7 +167,7 @@ require("lazy").setup({
   {
     "pmizio/typescript-tools.nvim",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
-    ft = {"javascript", "typescript", "typescriptreact"},
+    ft = { "javascript", "typescript", "typescriptreact" },
     opts = {},
   },
 
@@ -211,9 +219,9 @@ require("lazy").setup({
         extensions = {
           frecency = {
             workspaces = {
-              ["hoge"]    = "~/bench/hoge",
-              ["dotfiles"]    = "~/dotfiles",
-            }
+              ["hoge"] = "~/bench/hoge",
+              ["dotfiles"] = "~/dotfiles",
+            },
           },
         },
       })
@@ -238,7 +246,7 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
-      require("telescope").load_extension "frecency"
+      require("telescope").load_extension("frecency")
       vim.keymap.set("n", "<leader><space>r", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
     end,
   },
@@ -256,7 +264,14 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     opts = {},
     keys = {
-      { "<leader>e", function() require("nvim-tree.api").tree.toggle({ find_file = true, focus = true }) end, silent = true, desc = "Toggle file explorer" },
+      {
+        "<leader>e",
+        function()
+          require("nvim-tree.api").tree.toggle({ find_file = true, focus = true })
+        end,
+        silent = true,
+        desc = "Toggle file explorer",
+      },
     },
   },
   { "j-hui/fidget.nvim", opts = {} },
@@ -288,11 +303,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
     local function map(key, action, desc)
-      vim.keymap.set('n', "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
+      vim.keymap.set("n", "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
     end
-    map("d", function() require("telescope.builtin").lsp_definitions({jump_type = 'split'}) end, "definitions")
-    map("i", function() require("telescope.builtin").lsp_implementations({jump_type = 'split'}) end, "implementations")
-    map("t", function() require("telescope.builtin").lsp_type_definitions({jump_type = 'split'}) end, "type definitions")
+    map("d", function()
+      require("telescope.builtin").lsp_definitions({ jump_type = "split" })
+    end, "definitions")
+    map("i", function()
+      require("telescope.builtin").lsp_implementations({ jump_type = "split" })
+    end, "implementations")
+    map("t", function()
+      require("telescope.builtin").lsp_type_definitions({ jump_type = "split" })
+    end, "type definitions")
     map("r", require("telescope.builtin").lsp_references, "references")
     map("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
     map("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
