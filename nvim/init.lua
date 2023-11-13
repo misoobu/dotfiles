@@ -112,9 +112,11 @@ require("lazy").setup({
       },
       winbar = {
         lualine_a = { { "filename", path = 1 } },
+        lualine_z = { "location" },
       },
       inactive_winbar = {
         lualine_c = { { "filename", path = 1 } },
+        lualine_x = { "location" },
       },
     },
   },
