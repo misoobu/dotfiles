@@ -36,8 +36,8 @@ vim.keymap.set("n", "<leader>wj", "<cmd>belowright split<cr>", { desc = "Split n
 vim.keymap.set("n", "<leader>wk", "<cmd>aboveleft split<cr>", { desc = "Split new window toward above" })
 vim.keymap.set("n", "<leader>wl", "<cmd>vertical rightbelow split<cr>", { desc = "Split new window toward right" })
 
-vim.keymap.set("n", "<C-n>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-vim.keymap.set("n", "<C-p>", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -135,8 +135,12 @@ require("lazy").setup({
   { "RRethy/vim-illuminate", event = "VeryLazy" },
 
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      { "j-hui/fidget.nvim", opts = {} },
+    },
     config = function()
       require("mason").setup()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -182,6 +186,13 @@ require("lazy").setup({
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
+      },
+      {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+          require("telescope").load_extension("frecency")
+          vim.keymap.set("n", "<leader>tr", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
+        end,
       },
     },
     event = "VeryLazy",
@@ -234,26 +245,22 @@ require("lazy").setup({
 
       telescope.load_extension("fzf")
 
-      local telescope_builtin = require("telescope.builtin")
+      local builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<leader>to", telescope_builtin.oldfiles, { desc = "List recent files" })
-      vim.keymap.set("n", "<leader>tb", telescope_builtin.buffers, { desc = "List buffers" })
-      vim.keymap.set("n", "<leader>tf", telescope_builtin.git_files, { desc = "List git files" })
-      vim.keymap.set("n", "<leader>tc", telescope_builtin.grep_string, { desc = "Grep cursor word" })
-      vim.keymap.set("n", "<leader>tg", telescope_builtin.live_grep, { desc = "Grep" })
+      local function map(key, action, desc)
+        vim.keymap.set("n", "<leader>" .. key, action, { desc = desc })
+      end
 
-      vim.keymap.set("n", "<leader>th", telescope_builtin.command_history, { desc = "List recent commands" })
-      vim.keymap.set("n", "<leader>tt", telescope_builtin.git_bcommits, { desc = "List buffer git commits" })
-      vim.keymap.set("n", "<leader>ts", telescope_builtin.treesitter, { desc = "List symbols from treesitter" })
+      map("to", builtin.oldfiles, "List recent files")
+      map("tb", builtin.buffers, "List buffers")
+      map("tf", builtin.git_files, "List git files")
+      map("tc", builtin.grep_string, "Grep cursor word")
+      map("tg", builtin.live_grep, "Grep")
+      map("th", builtin.command_history, "List recent commands")
+      map("tt", builtin.git_bcommits, "List buffer git commits")
+      map("ts", builtin.treesitter, "List symbols from treesitter")
 
-      vim.keymap.set("n", "<leader>d", telescope_builtin.diagnostics, { desc = "List diagnostics" })
-    end,
-  },
-  {
-    "nvim-telescope/telescope-frecency.nvim",
-    config = function()
-      require("telescope").load_extension("frecency")
-      vim.keymap.set("n", "<leader>tr", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
+      map("dl", builtin.diagnostics, "List diagnostics")
     end,
   },
   {
@@ -280,7 +287,6 @@ require("lazy").setup({
       },
     },
   },
-  { "j-hui/fidget.nvim", opts = {} },
 
   {
     "stevearc/conform.nvim",
@@ -295,6 +301,25 @@ require("lazy").setup({
         desc = "Format buffer",
       },
     },
+    init = function()
+      vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          vim.b.disable_autoformat = true
+        else
+          vim.g.disable_autoformat = true
+        end
+      end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+      })
+      vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.disable_autoformat = false
+        vim.g.disable_autoformat = false
+      end, {
+        desc = "Re-enable autoformat-on-save",
+      })
+    end,
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
@@ -317,6 +342,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local function map(key, action, desc)
       vim.keymap.set("n", "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
     end
+
     map("d", function()
       require("telescope.builtin").lsp_definitions({ jump_type = "split" })
     end, "definitions")
@@ -344,11 +370,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 local cmp = require("cmp")
 
-local luasnip = require("luasnip")
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -364,8 +389,8 @@ cmp.setup({
     ["<tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
+      elseif require("luasnip").expand_or_locally_jumpable() then
+        require("luasnip").expand_or_jump()
       else
         fallback()
       end
@@ -373,8 +398,8 @@ cmp.setup({
     ["<S-tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
+      elseif require("luasnip").locally_jumpable(-1) then
+        require("luasnip").jump(-1)
       else
         fallback()
       end
@@ -402,22 +427,4 @@ cmp.setup.cmdline(":", {
   }, {
     { name = "cmdline" },
   }),
-})
-
-vim.api.nvim_create_user_command("FormatDisable", function(args)
-  if args.bang then
-    -- FormatDisable! will disable formatting just for this buffer
-    vim.b.disable_autoformat = true
-  else
-    vim.g.disable_autoformat = true
-  end
-end, {
-  desc = "Disable autoformat-on-save",
-  bang = true,
-})
-vim.api.nvim_create_user_command("FormatEnable", function()
-  vim.b.disable_autoformat = false
-  vim.g.disable_autoformat = false
-end, {
-  desc = "Re-enable autoformat-on-save",
 })
