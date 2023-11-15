@@ -52,7 +52,7 @@ alias dc="docker-compose"
 
 # miscellaneous
 alias v="vim"
-alias n="nvim"
+alias ncd='nvim --server $NVIM --remote-send "<cmd>cd $(pwd)<cr>"'
 alias t="tig"
 alias ggv='git-grep-vim'
 alias ggr='git-grep-replace'

@@ -181,5 +181,9 @@ function precmd() {
   fi
 }
 
-# Lunch tmux on startup
-[ -z $TMUX ] && tmn
+# Lunch tmux/nvim on startup
+if [ -z $TMUX ]; then
+  tmn
+else
+  [ -z $NVIM ] && nvim
+fi
