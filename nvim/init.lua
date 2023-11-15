@@ -39,6 +39,19 @@ vim.keymap.set("n", "<leader>wl", "<cmd>vertical rightbelow split<cr>", { desc =
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 
+local function set_lsp_keymap(key, action, desc)
+  vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
+end
+
+set_lsp_keymap("e", vim.lsp.buf.declaration, "declaration")
+set_lsp_keymap("h", vim.lsp.buf.hover, "hover")
+set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
+set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
+set_lsp_keymap("C", vim.lsp.buf.code_action, "code action")
+set_lsp_keymap("F", function()
+  vim.lsp.buf.format({ async = true })
+end, "format")
+
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
@@ -139,6 +152,8 @@ require("lazy").setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
 
+      { "pmizio/typescript-tools.nvim" },
+
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
@@ -171,12 +186,15 @@ require("lazy").setup({
         },
       })
 
+      require("typescript-tools").setup({})
+
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
 
       cmp.setup({
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -192,8 +210,8 @@ require("lazy").setup({
           ["<tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif require("luasnip").expand_or_locally_jumpable() then
-              require("luasnip").expand_or_jump()
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
             else
               fallback()
             end
@@ -201,8 +219,8 @@ require("lazy").setup({
           ["<S-tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif require("luasnip").locally_jumpable(-1) then
-              require("luasnip").jump(-1)
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end
@@ -235,14 +253,6 @@ require("lazy").setup({
       require("fidget").setup({})
     end,
   },
-
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "williamboman/mason-lspconfig.nvim" },
-    ft = { "javascript", "typescript", "typescriptreact" },
-    opts = {},
-  },
-
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
@@ -252,13 +262,7 @@ require("lazy").setup({
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
-      {
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-          require("telescope").load_extension("frecency")
-          vim.keymap.set("n", "<leader>tr", "<cmd>Telescope frecency<cr>", { desc = "List frecent files" })
-        end,
-      },
+      { "nvim-telescope/telescope-frecency.nvim" },
     },
     event = "VeryLazy",
     config = function()
@@ -309,6 +313,7 @@ require("lazy").setup({
       })
 
       telescope.load_extension("fzf")
+      telescope.load_extension("frecency")
 
       local builtin = require("telescope.builtin")
 
@@ -325,7 +330,22 @@ require("lazy").setup({
       map("tt", builtin.git_bcommits, "List buffer git commits")
       map("ts", builtin.treesitter, "List symbols from treesitter")
 
+      map("tr", "<cmd>Telescope frecency<cr>", "List frecent files")
+
       map("dl", builtin.diagnostics, "List diagnostics")
+
+      set_lsp_keymap("d", function()
+        require("telescope.builtin").lsp_definitions({ jump_type = "split" })
+      end, "definitions")
+      set_lsp_keymap("i", function()
+        require("telescope.builtin").lsp_implementations({ jump_type = "split" })
+      end, "implementations")
+      set_lsp_keymap("t", function()
+        require("telescope.builtin").lsp_type_definitions({ jump_type = "split" })
+      end, "type definitions")
+      set_lsp_keymap("r", require("telescope.builtin").lsp_references, "references")
+      set_lsp_keymap("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
+      set_lsp_keymap("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
     end,
   },
   {
@@ -352,7 +372,6 @@ require("lazy").setup({
       },
     },
   },
-
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
@@ -378,6 +397,7 @@ require("lazy").setup({
         desc = "Disable autoformat-on-save",
         bang = true,
       })
+
       vim.api.nvim_create_user_command("FormatEnable", function()
         vim.b.disable_autoformat = false
         vim.g.disable_autoformat = false
@@ -399,36 +419,4 @@ require("lazy").setup({
       end,
     },
   },
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-  callback = function(ev)
-    local function map(key, action, desc)
-      vim.keymap.set("n", "<leader>l" .. key, action, { buffer = ev.buf, desc = "LSP: " .. desc })
-    end
-
-    map("d", function()
-      require("telescope.builtin").lsp_definitions({ jump_type = "split" })
-    end, "definitions")
-    map("i", function()
-      require("telescope.builtin").lsp_implementations({ jump_type = "split" })
-    end, "implementations")
-    map("t", function()
-      require("telescope.builtin").lsp_type_definitions({ jump_type = "split" })
-    end, "type definitions")
-    map("r", require("telescope.builtin").lsp_references, "references")
-    map("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
-    map("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
-
-    map("e", vim.lsp.buf.declaration, "declaration")
-    map("h", vim.lsp.buf.hover, "hover")
-    map("s", vim.lsp.buf.signature_help, "signature help")
-
-    map("R", vim.lsp.buf.rename, "rename")
-    map("C", vim.lsp.buf.code_action, "code action")
-    map("F", function()
-      vim.lsp.buf.format({ async = true })
-    end, "format")
-  end,
 })
