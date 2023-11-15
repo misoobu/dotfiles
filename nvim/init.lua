@@ -43,7 +43,7 @@ local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
 end
 
-set_lsp_keymap("e", vim.lsp.buf.declaration, "declaration")
+set_lsp_keymap("e", "<cmd>split | lua vim.lsp.buf.declaration()<cr>", "declaration (use definition instead)")
 set_lsp_keymap("h", vim.lsp.buf.hover, "hover")
 set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
 set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
