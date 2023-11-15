@@ -284,7 +284,6 @@ require("lazy").setup({
         defaults = {
           mappings = {
             i = {
-              ["<C-h>"] = "which_key",
               ["<C-s>"] = "close",
             },
             n = {
