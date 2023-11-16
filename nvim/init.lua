@@ -149,6 +149,7 @@ require("lazy").setup({
           "tsx",
           "ruby",
           "rust",
+          "solidity",
           "markdown",
           "markdown_inline",
         },
@@ -184,6 +185,7 @@ require("lazy").setup({
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
         solargraph = {},
         rust_analyzer = {},
+        solidity_ls_nomicfoundation = {},
       }
 
       require("mason-lspconfig").setup({
