@@ -334,16 +334,16 @@ require("lazy").setup({
         vim.keymap.set("n", "<leader>" .. key, action, { desc = desc })
       end
 
-      map("to", builtin.oldfiles, "List recent files")
-      map("tb", builtin.buffers, "List buffers")
-      map("tf", builtin.git_files, "List git files")
-      map("tc", builtin.grep_string, "Grep cursor word")
-      map("tg", builtin.live_grep, "Grep")
-      map("th", builtin.command_history, "List recent commands")
-      map("tt", builtin.git_bcommits, "List buffer git commits")
-      map("ts", builtin.treesitter, "List symbols from treesitter")
+      map("<space>o", builtin.oldfiles, "List recent files")
+      map("<space>b", builtin.buffers, "List buffers")
+      map("<space>f", builtin.git_files, "List git files")
+      map("<space>c", builtin.grep_string, "Grep cursor word")
+      map("<space>g", builtin.live_grep, "Grep")
+      map("<space>h", builtin.command_history, "List recent commands")
+      map("<space>t", builtin.git_bcommits, "List buffer git commits")
+      map("<space>s", builtin.treesitter, "List symbols from treesitter")
 
-      map("tr", "<cmd>Telescope frecency<cr>", "List frecent files")
+      map("<space>r", "<cmd>Telescope frecency<cr>", "List frecent files")
 
       map("dl", builtin.diagnostics, "List diagnostics")
 
