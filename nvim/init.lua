@@ -396,15 +396,6 @@ require("lazy").setup({
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
-    keys = {
-      {
-        "<leader>f",
-        function()
-          require("conform").format({ async = true, lsp_fallback = true })
-        end,
-        desc = "Format buffer",
-      },
-    },
     init = function()
       vim.api.nvim_create_user_command("FormatDisable", function(args)
         if args.bang then
