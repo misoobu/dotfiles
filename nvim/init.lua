@@ -31,18 +31,23 @@ vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
 vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
 
-vim.keymap.set("n", "<leader>wh", "<cmd>vertical leftabove split<cr>", { desc = "Split new window toward left" })
-vim.keymap.set("n", "<leader>wj", "<cmd>belowright split<cr>", { desc = "Split new window toward below" })
-vim.keymap.set("n", "<leader>wk", "<cmd>aboveleft split<cr>", { desc = "Split new window toward above" })
-vim.keymap.set("n", "<leader>wl", "<cmd>vertical rightbelow split<cr>", { desc = "Split new window toward right" })
+local function set_window_keymap(key, action, desc)
+  vim.keymap.set("n", "<leader>w" .. key, action, { desc = "Window: " .. desc })
+end
+set_window_keymap("h", "<cmd>vertical leftabove split<cr>", "split toward left")
+set_window_keymap("j", "<cmd>belowright split<cr>", "split toward below")
+set_window_keymap("k", "<cmd>aboveleft split<cr>", "split toward above")
+set_window_keymap("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
 
-vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
-vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+local function set_diagnostic_keymap(key, action, desc)
+  vim.keymap.set("n", "<leader>d" .. key, action, { desc = "Diagnostic: " .. desc })
+end
+set_diagnostic_keymap("n", vim.diagnostic.goto_next, "go to next")
+set_diagnostic_keymap("p", vim.diagnostic.goto_prev, "go to prev")
 
 local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
 end
-
 set_lsp_keymap("e", "<cmd>split | lua vim.lsp.buf.declaration()<cr>", "declaration (use definition instead)")
 set_lsp_keymap("h", vim.lsp.buf.hover, "hover")
 set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
@@ -333,19 +338,21 @@ require("lazy").setup({
       local function map(key, action, desc)
         vim.keymap.set("n", "<leader>" .. key, action, { desc = desc })
       end
+      local function map_file(key, action, desc)
+        map("f" .. key, action, "File: " .. desc)
+      end
 
-      map("<space>o", builtin.oldfiles, "List recent files")
-      map("<space>b", builtin.buffers, "List buffers")
-      map("<space>f", builtin.git_files, "List git files")
-      map("<space>c", builtin.grep_string, "Grep cursor word")
-      map("<space>g", builtin.live_grep, "Grep")
+      map_file("f", builtin.git_files, "list git files")
+      map_file("g", builtin.live_grep, "grep")
+      map_file("c", builtin.grep_string, "grep cursor word")
+      map_file("b", builtin.buffers, "list buffers")
+      map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
+
       map("<space>h", builtin.command_history, "List recent commands")
       map("<space>t", builtin.git_bcommits, "List buffer git commits")
       map("<space>s", builtin.treesitter, "List symbols from treesitter")
 
-      map("<space>r", "<cmd>Telescope frecency<cr>", "List frecent files")
-
-      map("dl", builtin.diagnostics, "List diagnostics")
+      set_diagnostic_keymap("l", builtin.diagnostics, "list")
 
       set_lsp_keymap("d", function()
         require("telescope.builtin").lsp_definitions({ jump_type = "split" })
