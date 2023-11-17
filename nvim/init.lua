@@ -349,8 +349,8 @@ require("lazy").setup({
       map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
 
       map("<space>h", builtin.command_history, "List recent commands")
-      map("<space>t", builtin.git_bcommits, "List buffer git commits")
-      map("<space>s", builtin.treesitter, "List symbols from treesitter")
+      map("<space>g", builtin.git_bcommits, "List buffer git commits")
+      map("<space>t", builtin.treesitter, "List symbols from treesitter")
 
       set_diagnostic_keymap("l", builtin.diagnostics, "list")
 
