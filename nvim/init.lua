@@ -135,15 +135,15 @@ require("lazy").setup({
         lualine_c = { { "buffers", symbols = { modified = "+" } } },
         lualine_x = {},
         lualine_y = { "diagnostics" },
-        lualine_z = { "progress" },
+        lualine_z = { "location" },
       },
       winbar = {
         lualine_a = { { "filename", path = 1 } },
-        lualine_z = { "location" },
+        lualine_z = { "progress" },
       },
       inactive_winbar = {
         lualine_c = { { "filename", path = 1 } },
-        lualine_x = { "location" },
+        lualine_x = { "progress" },
       },
     },
   },
