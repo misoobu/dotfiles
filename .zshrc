@@ -119,6 +119,14 @@ function git-grep-vim () {
   fi
 }
 
+function n () {
+  if [ -z $NVIM ]; then
+    nvim
+  else
+    nvim --server $NVIM --remote $(pwd)/$1
+  fi
+}
+
 function git-grep-replace() {
   # for mac
   git grep -I -l -e "$1" | xargs sed -i '' -e "s/$1/$2/g"
