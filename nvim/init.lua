@@ -390,17 +390,15 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", opts = {} },
   {
     "nvim-tree/nvim-tree.lua",
-    opts = {},
-    keys = {
-      {
-        "<leader>e",
-        function()
-          require("nvim-tree.api").tree.toggle({ find_file = true, focus = true })
-        end,
-        silent = true,
-        desc = "Toggle file explorer",
-      },
-    },
+    event = "VeryLazy",
+    config = function()
+      require("nvim-tree").setup({
+        sync_root_with_cwd = true,
+      })
+      vim.keymap.set("n", "<leader>e", function()
+        require("nvim-tree.api").tree.toggle({ find_file = true, focus = true })
+      end, { desc = "Toggle file explorer" })
+    end,
   },
   {
     "stevearc/conform.nvim",
