@@ -57,6 +57,7 @@ alias ggv='git-grep-vim'
 alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias c="cargo"
+alias p="pnpm"
 
 alias m="mv -i"
 alias r="move-to-trash"
