@@ -321,6 +321,7 @@ require("lazy").setup({
         },
         pickers = {
           git_files = {
+            use_git_root = false,
             show_untracked = true,
           },
           grep_string = {
