@@ -367,7 +367,11 @@ require("lazy").setup({
       map_file("b", builtin.buffers, "list buffers")
       map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
 
-      map("<space>h", builtin.command_history, "List recent commands")
+      map_file("t", function()
+        builtin.buffers({ default_text = "term: " })
+      end, "list term buffers")
+
+      map("<space>c", builtin.command_history, "List recent commands")
       map("<space>g", builtin.git_bcommits, "List buffer git commits")
       map("<space>t", builtin.treesitter, "List symbols from treesitter")
 
