@@ -24,6 +24,7 @@ vim.keymap.set("n", "<C-k>", "i<cr><esc>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
+vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set(
   "n",
   "gx",
