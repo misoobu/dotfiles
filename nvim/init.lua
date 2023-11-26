@@ -16,8 +16,6 @@ vim.opt.smartcase = true
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
 
 vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
 
@@ -392,6 +390,10 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim", opts = {} },
   {
     "nvim-tree/nvim-tree.lua",
+    init = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+    end,
     event = "VeryLazy",
     config = function()
       require("nvim-tree").setup({
