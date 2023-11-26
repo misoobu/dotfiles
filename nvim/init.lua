@@ -24,7 +24,12 @@ vim.keymap.set("n", "<C-k>", "i<cr><esc>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
-vim.keymap.set("n", "gx", "<cmd>silent !open <cfile><cr>", { desc = "Open <cfile> with system `open`" })
+vim.keymap.set(
+  "n",
+  "gx",
+  "<cmd>silent !open <cfile><cr>",
+  { desc = "Open <cfile> with system `open`" }
+)
 
 -- <C-w>hjkl moves for i and t
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
@@ -47,7 +52,11 @@ set_diagnostic_keymap("p", vim.diagnostic.goto_prev, "go to prev")
 local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
 end
-set_lsp_keymap("e", "<cmd>split | lua vim.lsp.buf.declaration()<cr>", "declaration (use definition instead)")
+set_lsp_keymap(
+  "e",
+  "<cmd>split | lua vim.lsp.buf.declaration()<cr>",
+  "declaration (use definition instead)"
+)
 set_lsp_keymap("h", vim.lsp.buf.hover, "hover")
 set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
 set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
@@ -375,7 +384,11 @@ require("lazy").setup({
       end, "type definitions")
       set_lsp_keymap("r", require("telescope.builtin").lsp_references, "references")
       set_lsp_keymap("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
-      set_lsp_keymap("w", require("telescope.builtin").lsp_dynamic_workspace_symbols, "workspace symbols")
+      set_lsp_keymap(
+        "w",
+        require("telescope.builtin").lsp_dynamic_workspace_symbols,
+        "workspace symbols"
+      )
     end,
   },
   {
