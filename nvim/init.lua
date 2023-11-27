@@ -339,6 +339,9 @@ require("lazy").setup({
           live_grep = {
             disable_coordinates = true,
           },
+          buffers = {
+            ignore_current_buffer = true,
+          },
         },
         extensions = {
           frecency = {
