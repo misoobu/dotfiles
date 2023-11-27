@@ -94,7 +94,7 @@ bindkey '^p' peco-find-file
 function peco-find-file-and-open-with-vim() {
   file=$(_peco-find-file "select file for vim")
   if [ -n "$file" ]; then
-    BUFFER="nvim $file"
+    BUFFER="n $file"
     zle accept-line
   fi
 }
@@ -121,7 +121,7 @@ function git-grep-vim () {
 
 function n () {
   if [ -z $NVIM ]; then
-    nvim
+    nvim $1
   else
     nvim --server $NVIM --remote $(pwd)/$1
   fi
