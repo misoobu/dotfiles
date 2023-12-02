@@ -301,6 +301,7 @@ require("lazy").setup({
         build = "make",
       },
       { "nvim-telescope/telescope-frecency.nvim" },
+      { "nvim-telescope/telescope-file-browser.nvim" },
     },
     event = "VeryLazy",
     config = function()
@@ -355,6 +356,7 @@ require("lazy").setup({
 
       telescope.load_extension("fzf")
       telescope.load_extension("frecency")
+      telescope.load_extension("file_browser")
 
       local builtin = require("telescope.builtin")
 
@@ -370,6 +372,7 @@ require("lazy").setup({
       map_file("c", builtin.grep_string, "grep cursor word")
       map_file("b", builtin.buffers, "list buffers")
       map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
+      map_file("e", "<cmd>Telescope file_browser<cr>", "browse (explore)")
 
       map_file("t", function()
         builtin.buffers({ default_text = "term: " })
@@ -409,22 +412,6 @@ require("lazy").setup({
     opts = {},
   },
   { "lewis6991/gitsigns.nvim", opts = {} },
-  {
-    "nvim-tree/nvim-tree.lua",
-    init = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-    end,
-    event = "VeryLazy",
-    config = function()
-      require("nvim-tree").setup({
-        sync_root_with_cwd = true,
-      })
-      vim.keymap.set("n", "<leader>e", function()
-        require("nvim-tree.api").tree.toggle({ find_file = true, focus = true })
-      end, { desc = "Toggle file explorer" })
-    end,
-  },
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
