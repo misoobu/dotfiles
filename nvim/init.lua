@@ -353,6 +353,7 @@ require("lazy").setup({
           },
           file_browser = {
             hidden = true,
+            hide_parent_dir = true,
           },
         },
       })
