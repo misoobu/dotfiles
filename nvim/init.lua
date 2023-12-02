@@ -351,6 +351,9 @@ require("lazy").setup({
               ["dotfiles"] = "~/dotfiles",
             },
           },
+          file_browser = {
+            hidden = true,
+          },
         },
       })
 

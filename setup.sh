@@ -12,5 +12,6 @@ ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.zshrc.alias ~/.zshrc.alias
 ln -sf ~/dotfiles/nvim ~/.config/
+ln -sf ~/dotfiles/.fdignore ~/.fdignore
 
 # You should install homebrew (https://brew.sh/), and run `brew bundle install`
