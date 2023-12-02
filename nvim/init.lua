@@ -25,12 +25,6 @@ vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
-vim.keymap.set(
-  "n",
-  "gx",
-  "<cmd>silent !open <cfile><cr>",
-  { desc = "Open <cfile> with system `open`" }
-)
 
 -- <C-w>hjkl moves for i and t
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
