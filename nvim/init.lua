@@ -304,6 +304,11 @@ require("lazy").setup({
 
       telescope.setup({
         defaults = {
+          sorting_strategy = "ascending",
+          layout_strategy = "horizontal",
+          layout_config = {
+            prompt_position = "top",
+          },
           mappings = {
             i = {
               ["<C-s>"] = "close",
@@ -349,6 +354,12 @@ require("lazy").setup({
           file_browser = {
             hidden = true,
             hide_parent_dir = true,
+            grouped = true,
+            mappings = {
+              ["i"] = {
+                ["<C-h>"] = require("telescope._extensions.file_browser.actions").backspace,
+              },
+            },
           },
         },
       })
