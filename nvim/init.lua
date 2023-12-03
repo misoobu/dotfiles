@@ -31,6 +31,10 @@ vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
 vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
 
+vim.keymap.set("i", "<C-space>", "<esc><leader>", { remap = true })
+vim.keymap.set("t", "<C-space>", "<C-\\><C-n><leader>", { remap = true })
+vim.keymap.set("n", "<C-space>", "<leader>", { remap = true })
+
 local function set_window_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>w" .. key, action, { desc = "Window: " .. desc })
 end
@@ -235,7 +239,7 @@ require("lazy").setup({
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-space>"] = cmp.mapping.complete(),
+          -- ["<C-space>"] = cmp.mapping.complete(),
           ["<C-a>"] = cmp.mapping.abort(),
           ["<cr>"] = cmp.mapping.confirm({
             select = true,
