@@ -242,7 +242,7 @@ require("lazy").setup({
           -- ["<C-space>"] = cmp.mapping.complete(),
           ["<C-a>"] = cmp.mapping.abort(),
           ["<cr>"] = cmp.mapping.confirm({
-            select = true,
+            -- select = true
           }),
           ["<tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
