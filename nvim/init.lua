@@ -133,27 +133,25 @@ require("lazy").setup({
   { "nvim-tree/nvim-web-devicons" },
   {
     "nvim-lualine/lualine.nvim",
-    init = function()
-      vim.opt.laststatus = 0
-      vim.api.nvim_set_hl(0, "Statusline", { link = "Normal" })
-      vim.api.nvim_set_hl(0, "StatuslineNC", { link = "Normal" })
-      vim.cmd("set statusline=%{repeat(' ',winwidth('.'))}")
-    end,
     opts = {
       options = {
         component_separators = "",
       },
-      sections = {},
-      inactive_sections = {},
-      winbar = {
+      sections = {
         lualine_a = { { "filename", path = 1 } },
-        lualine_b = { "branch", "diff" },
+        lualine_b = { "branch" },
+        lualine_c = { "diff" },
+        lualine_x = {},
         lualine_y = { "diagnostics" },
         lualine_z = { "progress" },
       },
-      inactive_winbar = {
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
         lualine_c = { { "filename", path = 1 } },
         lualine_x = { "progress" },
+        lualine_y = {},
+        lualine_z = {},
       },
     },
   },
