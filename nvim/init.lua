@@ -134,9 +134,6 @@ require("lazy").setup({
   {
     "nvim-lualine/lualine.nvim",
     opts = {
-      options = {
-        component_separators = "",
-      },
       sections = {
         lualine_a = { { "filename", path = 1 } },
         lualine_b = { "branch" },
