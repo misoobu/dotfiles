@@ -383,7 +383,8 @@ require("lazy").setup({
       map_file("c", builtin.grep_string, "grep cursor word")
       map_file("b", builtin.buffers, "list buffers")
       map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
-      map_file("e", "<cmd>Telescope file_browser<cr>", "browse (explore)")
+      map_file("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
+      map_file("p", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "explore path")
 
       map_file("t", function()
         builtin.buffers({ default_text = "term: " })
