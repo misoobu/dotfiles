@@ -90,6 +90,19 @@ vim.filetype.add({
 })
 vim.treesitter.language.register("markdown", "mdx")
 
+-- Auto-reload files when modified externally
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  group = my_autocmd_group,
+  pattern = "*",
+  command = "if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif",
+})
+-- Notification after file change
+vim.api.nvim_create_autocmd({ "FileChangedShellPost" }, {
+  group = my_autocmd_group,
+  pattern = "*",
+  command = "echo 'File changed on disk. Buffer reloaded.'",
+})
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
