@@ -25,7 +25,6 @@ vim.keymap.set("n", "<C-k>", "i<cr><esc>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
-vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 
 -- <C-w>hjkl moves for i and t
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
@@ -179,6 +178,13 @@ require("lazy").setup({
     end,
   },
   { "RRethy/vim-illuminate", event = "VeryLazy" },
+  {
+    "nvimdev/hlsearch.nvim",
+    event = "BufRead",
+    config = function()
+      require("hlsearch").setup()
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
