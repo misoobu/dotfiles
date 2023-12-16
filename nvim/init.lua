@@ -42,11 +42,16 @@ set_window_keymap("j", "<cmd>belowright split<cr>", "split toward below")
 set_window_keymap("k", "<cmd>aboveleft split<cr>", "split toward above")
 set_window_keymap("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
 
-local function set_diagnostic_keymap(key, action, desc)
-  vim.keymap.set("n", "<leader>d" .. key, action, { desc = "Diagnostic: " .. desc })
+local function set_diagnostic_keymap(key, action, desc, key_override)
+  vim.keymap.set(
+    "n",
+    key_override and key or ("<leader>d" .. key),
+    action,
+    { desc = "Diagnostic: " .. desc }
+  )
 end
-set_diagnostic_keymap("n", vim.diagnostic.goto_next, "go to next")
-set_diagnostic_keymap("p", vim.diagnostic.goto_prev, "go to prev")
+set_diagnostic_keymap("<C-n>", vim.diagnostic.goto_next, "go to next", true)
+set_diagnostic_keymap("<C-p>", vim.diagnostic.goto_prev, "go to prev", true)
 
 local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
