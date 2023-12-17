@@ -228,7 +228,13 @@ require("lazy").setup({
       local lsp_servers = {
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
         solargraph = {},
-        rust_analyzer = {},
+        rust_analyzer = {
+          ["rust-analyzer"] = {
+            cargo = {
+              features = "all",
+            },
+          },
+        },
         solidity_ls_nomicfoundation = {},
       }
 
