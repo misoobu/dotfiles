@@ -233,6 +233,9 @@ require("lazy").setup({
             cargo = {
               features = "all",
             },
+            diagnostics = {
+              disabled = { "inactive-code" },
+            },
           },
         },
         solidity_ls_nomicfoundation = {},
