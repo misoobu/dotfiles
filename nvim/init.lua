@@ -329,7 +329,7 @@ require("lazy").setup({
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
-      { "nvim-telescope/telescope-frecency.nvim" },
+      -- { "nvim-telescope/telescope-frecency.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
     },
     event = "VeryLazy",
@@ -379,12 +379,12 @@ require("lazy").setup({
           },
         },
         extensions = {
-          frecency = {
-            workspaces = {
-              ["hoge"] = "~/bench/hoge",
-              ["dotfiles"] = "~/dotfiles",
-            },
-          },
+          -- frecency = {
+          --   workspaces = {
+          --     ["hoge"] = "~/bench/hoge",
+          --     ["dotfiles"] = "~/dotfiles",
+          --   },
+          -- },
           file_browser = {
             hidden = true,
             hide_parent_dir = true,
@@ -399,7 +399,7 @@ require("lazy").setup({
       })
 
       telescope.load_extension("fzf")
-      telescope.load_extension("frecency")
+      -- telescope.load_extension("frecency")
       telescope.load_extension("file_browser")
 
       local builtin = require("telescope.builtin")
@@ -415,7 +415,7 @@ require("lazy").setup({
       map_file("g", builtin.live_grep, "grep")
       map_file("c", builtin.grep_string, "grep cursor word")
       map_file("b", builtin.buffers, "list buffers")
-      map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
+      -- map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
       map_file("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
       map_file("p", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "explore path")
 
