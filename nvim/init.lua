@@ -259,21 +259,17 @@ require("lazy").setup({
       local luasnip = require("luasnip")
 
       cmp.setup({
+        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item(),
-          ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          -- ["<C-space>"] = cmp.mapping.complete(),
           ["<C-a>"] = cmp.mapping.abort(),
-          ["<cr>"] = cmp.mapping.confirm({
-            -- select = true
-          }),
+          ["<cr>"] = cmp.mapping.confirm(),
           ["<tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
