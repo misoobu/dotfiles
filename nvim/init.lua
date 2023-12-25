@@ -88,18 +88,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-  group = my_autocmd_group,
-  pattern = "*",
-  callback = function()
-    vim.defer_fn(function()
-      if vim.fn.has("mac") == 1 then
-        vim.fn.jobstart({ "osascript", "-e", 'tell application "System Events" to key code 102' })
-      end
-    end, 100)
-  end,
-})
-
 vim.filetype.add({
   extension = {
     mdx = "mdx",

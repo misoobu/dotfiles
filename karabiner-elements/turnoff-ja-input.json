@@ -1,0 +1,16 @@
+{
+  "title": "alacrittyでC-sしたときに日本語入力もオフに",
+  "rules": [
+    {
+      "description": "alacrittyでC-sしたときに日本語入力もオフに",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "s", "modifiers": { "mandatory": ["left_control"] } },
+          "to": [ { "key_code": "lang2" }, { "key_code": "s", "modifiers": ["left_control"] } ],
+          "conditions": [ { "type": "frontmost_application_if", "bundle_identifiers": ["^org\\.alacritty" ] } ]
+        }
+      ]
+    }
+  ]
+}
