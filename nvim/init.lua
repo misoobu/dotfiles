@@ -204,6 +204,20 @@ require("lazy").setup({
     end,
   },
   {
+    "zbirenbaum/copilot-cmp",
+    dependencies = {
+      "zbirenbaum/copilot.lua",
+    },
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+
+      require("copilot_cmp").setup()
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
@@ -292,6 +306,7 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "copilot" },
         }, {
           { name = "buffer" },
         }),
