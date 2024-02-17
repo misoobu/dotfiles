@@ -223,8 +223,6 @@ require("lazy").setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
 
-      { "pmizio/typescript-tools.nvim" },
-
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
@@ -253,6 +251,7 @@ require("lazy").setup({
           },
         },
         solidity_ls_nomicfoundation = {},
+        vtsls = {},
       }
 
       require("mason-lspconfig").setup({
@@ -266,8 +265,6 @@ require("lazy").setup({
           end,
         },
       })
-
-      require("typescript-tools").setup({})
 
       local cmp = require("cmp")
       local luasnip = require("luasnip")
@@ -330,6 +327,10 @@ require("lazy").setup({
 
       require("fidget").setup({})
     end,
+  },
+  {
+    "yioneko/nvim-vtsls",
+    event = "VeryLazy",
   },
   {
     "nvim-telescope/telescope.nvim",
