@@ -251,7 +251,7 @@ require("lazy").setup({
           },
         },
         solidity_ls_nomicfoundation = {},
-        vtsls = {},
+        tsserver = {},
       }
 
       require("mason-lspconfig").setup({
@@ -327,10 +327,6 @@ require("lazy").setup({
 
       require("fidget").setup({})
     end,
-  },
-  {
-    "yioneko/nvim-vtsls",
-    event = "VeryLazy",
   },
   {
     "nvim-telescope/telescope.nvim",
