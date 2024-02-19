@@ -68,6 +68,11 @@ set_lsp_keymap("C", vim.lsp.buf.code_action, "code action")
 set_lsp_keymap("F", function()
   vim.lsp.buf.format({ async = true })
 end, "format")
+set_lsp_keymap("X", function()
+  vim.cmd("LspRestart")
+  vim.diagnostic.reset()
+  vim.cmd("edit")
+end, "Restart")
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
