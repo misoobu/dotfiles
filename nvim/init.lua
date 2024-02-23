@@ -217,6 +217,17 @@ require("lazy").setup({
       require("copilot").setup({
         suggestion = { enabled = false },
         panel = { enabled = false },
+        filetypes = {
+          javascript = true,
+          javascriptreact = true,
+          typescript = true,
+          typescriptreact = true,
+          solidity = true,
+          ruby = true,
+          rust = true,
+          lua = true,
+          ["*"] = false,
+        },
       })
 
       require("copilot_cmp").setup()
