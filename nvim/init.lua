@@ -208,36 +208,38 @@ require("lazy").setup({
       require("hlsearch").setup()
     end,
   },
-  {
-    "zbirenbaum/copilot-cmp",
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-    },
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          javascript = true,
-          javascriptreact = true,
-          typescript = true,
-          typescriptreact = true,
-          solidity = true,
-          ruby = true,
-          rust = true,
-          lua = true,
-          ["*"] = false,
-        },
-      })
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   dependencies = {
+  --     "zbirenbaum/copilot.lua",
+  --   },
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --       filetypes = {
+  --         javascript = true,
+  --         javascriptreact = true,
+  --         typescript = true,
+  --         typescriptreact = true,
+  --         solidity = true,
+  --         ruby = true,
+  --         rust = true,
+  --         lua = true,
+  --         ["*"] = false,
+  --       },
+  --     })
 
-      require("copilot_cmp").setup()
-    end,
-  },
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+
+      { "pmizio/typescript-tools.nvim" },
 
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },
@@ -267,7 +269,6 @@ require("lazy").setup({
           },
         },
         solidity_ls_nomicfoundation = {},
-        tsserver = {},
       }
 
       require("mason-lspconfig").setup({
@@ -281,6 +282,8 @@ require("lazy").setup({
           end,
         },
       })
+
+      require("typescript-tools").setup({})
 
       local cmp = require("cmp")
       local luasnip = require("luasnip")
@@ -319,7 +322,7 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "copilot" },
+          -- { name = "copilot" },
         }, {
           { name = "buffer" },
         }),
