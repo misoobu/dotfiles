@@ -208,31 +208,31 @@ require("lazy").setup({
       require("hlsearch").setup()
     end,
   },
-  {
-    "zbirenbaum/copilot-cmp",
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-    },
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          javascript = true,
-          javascriptreact = true,
-          typescript = true,
-          typescriptreact = true,
-          solidity = true,
-          ruby = true,
-          rust = true,
-          lua = true,
-          ["*"] = false,
-        },
-      })
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   dependencies = {
+  --     "zbirenbaum/copilot.lua",
+  --   },
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --       filetypes = {
+  --         javascript = true,
+  --         javascriptreact = true,
+  --         typescript = true,
+  --         typescriptreact = true,
+  --         solidity = true,
+  --         ruby = true,
+  --         rust = true,
+  --         lua = true,
+  --         ["*"] = false,
+  --       },
+  --     })
 
-      require("copilot_cmp").setup()
-    end,
-  },
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -322,7 +322,7 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "copilot" },
+          -- { name = "copilot" },
         }, {
           { name = "buffer" },
         }),
