@@ -74,6 +74,18 @@ set_lsp_keymap("X", function()
   vim.cmd("edit")
 end, "Restart")
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "rounded",
+})
+
+vim.diagnostic.config({
+  float = { border = "rounded" },
+})
+
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
@@ -236,9 +248,6 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-
       { "pmizio/typescript-tools.nvim" },
 
       { "hrsh7th/cmp-nvim-lsp" },
@@ -252,10 +261,9 @@ require("lazy").setup({
       { "j-hui/fidget.nvim" },
     },
     config = function()
-      require("mason").setup()
-
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lsp_servers = {
+        -- `brew install lua-language-server`
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
         solargraph = {},
         rust_analyzer = {
@@ -268,22 +276,22 @@ require("lazy").setup({
             },
           },
         },
+        -- `npm install -g @nomicfoundation/solidity-language-server`
         solidity_ls_nomicfoundation = {},
       }
 
-      require("mason-lspconfig").setup({
-        ensure_installed = vim.tbl_keys(lsp_servers),
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({
-              capabilities = lsp_capabilities,
-              settings = lsp_servers[server_name],
-            })
-          end,
+      for server_name, server_settings in pairs(lsp_servers) do
+        require("lspconfig")[server_name].setup({
+          capabilities = lsp_capabilities,
+          settings = server_settings,
+        })
+      end
+
+      require("typescript-tools").setup({
+        settings = {
+          separate_diagnostic_server = false,
         },
       })
-
-      require("typescript-tools").setup({})
 
       local cmp = require("cmp")
       local luasnip = require("luasnip")
