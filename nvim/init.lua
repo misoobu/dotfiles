@@ -112,6 +112,12 @@ vim.filetype.add({
 })
 vim.treesitter.language.register("markdown", "mdx")
 
+vim.api.nvim_create_user_command("MyBd", function()
+  vim.cmd('bufdo if &buftype != "terminal" && !&modified | bdelete | endif')
+end, {
+  desc = "Delete all saved, non-terminal buffers",
+})
+
 -- Auto-reload files when modified externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   group = my_autocmd_group,
