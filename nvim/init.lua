@@ -262,9 +262,11 @@ require("lazy").setup({
     },
     config = function()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
       local lsp_servers = {
         -- `brew install lua-language-server`
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
+        -- `gem install solargraph`
         solargraph = {},
         rust_analyzer = {
           ["rust-analyzer"] = {
