@@ -336,6 +336,10 @@ require("lazy").setup({
         }, {
           { name = "buffer" },
         }),
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
       })
 
       cmp.setup.cmdline({ "/", "?" }, {
