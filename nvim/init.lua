@@ -72,6 +72,10 @@ set_lsp_keymap("X", function()
   vim.diagnostic.reset()
   vim.cmd("edit")
 end, "Restart")
+set_lsp_keymap("I", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+  -- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, "toggle inlay for the current buffer")
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
