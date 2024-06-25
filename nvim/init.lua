@@ -61,7 +61,6 @@ set_lsp_keymap(
   "<cmd>split | lua vim.lsp.buf.declaration()<cr>",
   "declaration (use definition instead)"
 )
-set_lsp_keymap("h", vim.lsp.buf.hover, "hover")
 set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
 set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
 set_lsp_keymap("C", vim.lsp.buf.code_action, "code action")
