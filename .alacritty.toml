@@ -1,0 +1,22 @@
+[font]
+size = 15.0
+
+[font.bold]
+style = "SemiBold"
+
+[font.bold_italic]
+style = "SemiBold Italic"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "PlemolJP35 Console NF"
+style = "Regular"
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "none"
+startup_mode = "Maximized"

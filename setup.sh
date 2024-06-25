@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-ln -sf ~/dotfiles/.alacritty.yml ~/.alacritty.yml
+ln -sf ~/dotfiles/.alacritty.toml ~/.alacritty.toml
 mkdir -p ~/.bundle
 ln -sf ~/dotfiles/.bundle_config ~/.bundle/config
 ln -sf ~/dotfiles/.gemrc ~/.gemrc
