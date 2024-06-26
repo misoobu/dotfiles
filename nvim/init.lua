@@ -215,7 +215,18 @@ require("lazy").setup({
       })
     end,
   },
-  { "RRethy/vim-illuminate", event = "VeryLazy" },
+  {
+    "RRethy/vim-illuminate",
+    event = "VeryLazy",
+    config = function()
+      require("illuminate").configure({
+        providers = {
+          "lsp",
+          "treesitter",
+        },
+      })
+    end,
+  },
   {
     "nvimdev/hlsearch.nvim",
     event = "BufRead",
