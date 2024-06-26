@@ -271,6 +271,7 @@ require("lazy").setup({
         lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
         -- `gem install solargraph`
         solargraph = {},
+        -- `brew install rust-analyzer`
         rust_analyzer = {
           ["rust-analyzer"] = {
             cargo = {
