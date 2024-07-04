@@ -4,9 +4,9 @@ brew 'ghq'
 brew 'hub'
 brew 'git-delta'
 
+brew 'mise'
 brew 'direnv'
 brew 'rbenv'
-brew 'nodenv'
 
 brew 'peco'
 brew 'tmux'

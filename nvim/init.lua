@@ -19,6 +19,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 
 vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
+vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
 
 vim.keymap.set("n", "q", ":q<cr>")
 vim.keymap.set("n", "<C-k>", "i<cr><esc>")
