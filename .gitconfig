@@ -23,3 +23,5 @@
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [tag]
 	gpgSign = true
+[credential "https://github.com"]
+	username = misoobu
