@@ -57,6 +57,7 @@ set_diagnostic_keymap("<C-p>", vim.diagnostic.goto_prev, "go to prev", true)
 local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
 end
+set_lsp_keymap("d", "<cmd>split | lua vim.lsp.buf.definition()<cr>", "definition")
 set_lsp_keymap(
   "e",
   "<cmd>split | lua vim.lsp.buf.declaration()<cr>",
@@ -486,9 +487,6 @@ require("lazy").setup({
 
       set_diagnostic_keymap("l", builtin.diagnostics, "list")
 
-      set_lsp_keymap("d", function()
-        require("telescope.builtin").lsp_definitions({ jump_type = "split" })
-      end, "definitions")
       set_lsp_keymap("i", function()
         require("telescope.builtin").lsp_implementations({ jump_type = "split" })
       end, "implementations")
