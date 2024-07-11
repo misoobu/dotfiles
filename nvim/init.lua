@@ -513,7 +513,7 @@ require("lazy").setup({
     end,
     opts = {},
   },
-  { "lewis6991/gitsigns.nvim", opts = {} },
+  { "lewis6991/gitsigns.nvim", opts = { signs_staged_enable = false } },
   {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
