@@ -1,15 +1,6 @@
 # xxenv
 if which mise > /dev/null; then eval "$(mise activate zsh)"; fi
 if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
-if which rbenv  > /dev/null; then eval "$(rbenv init -)";    fi
-if which pyenv > /dev/null; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-fi
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
 
 # Source
 source ~/.zshrc.alias
@@ -200,10 +191,3 @@ fi
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-# bun completions
-[ -s "/Users/t/.bun/_bun" ] && source "/Users/t/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

@@ -6,7 +6,6 @@ brew 'git-delta'
 
 brew 'mise'
 brew 'direnv'
-brew 'rbenv'
 
 brew 'peco'
 brew 'tmux'
