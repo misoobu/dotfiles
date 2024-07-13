@@ -158,8 +158,7 @@ zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
 zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u "
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f "
-PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}
- '
+PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}'
 
 function preexec() {
   timer=${timer:-$SECONDS}
