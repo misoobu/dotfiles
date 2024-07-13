@@ -1,5 +1,5 @@
 # xxenv
-eval "$(mise activate zsh)"
+if which mise > /dev/null; then eval "$(mise activate zsh)"; fi
 if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
 if which rbenv  > /dev/null; then eval "$(rbenv init -)";    fi
 if which pyenv > /dev/null; then
