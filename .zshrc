@@ -142,6 +142,17 @@ function move-to-trash() {
   done
 }
 
+function ncd() {
+  if [ -n "$1" ]; then
+    cd "$1" || {
+      echo "Failed to change directory to $1"
+      return 1
+    }
+  fi
+
+  nvim --server "$NVIM" --remote-send "<cmd>cd $(pwd)<cr>"
+}
+
 # Util
 if type brew &>/dev/null; then
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
