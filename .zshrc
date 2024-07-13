@@ -31,7 +31,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 stty stop undef           # reclaim ctrl-q and ctrl-s
 setopt no_flow_control    # reclaim ctrl-q and ctrl-s
 setopt auto_cd            # cd if the command is the name of a directory
-setopt auto_pushd         # automatically pushd when cd
 setopt pushd_ignore_dups
 setopt share_history
 setopt hist_ignore_all_dups
@@ -39,7 +38,6 @@ setopt hist_ignore_space
 setopt prompt_subst       # for showing git info (see below)
 
 # Function
-# function chpwd() { ls -aF } # ls after cd
 
 function peco-select-history() {
   local tac
