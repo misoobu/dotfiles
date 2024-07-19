@@ -1,2 +1,2 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(mise activate zsh --shims)"
+if which mise > /dev/null; then eval "$(mise activate zsh --shims)"; fi
