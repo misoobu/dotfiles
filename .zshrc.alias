@@ -58,5 +58,9 @@ alias -g J="| jq ."
 alias c="cargo"
 alias p="pnpm"
 
+alias n="npm"
+alias nr="npm run"
+alias nx="npm exec --no"
+
 alias m="mv -i"
 alias r="move-to-trash"
