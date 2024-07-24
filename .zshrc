@@ -107,7 +107,7 @@ function git-grep-vim () {
   fi
 }
 
-function n () {
+function v () {
   if [ -z $NVIM ]; then
     nvim $1
   else
