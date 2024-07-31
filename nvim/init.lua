@@ -308,7 +308,11 @@ require("lazy").setup({
         })
       end
 
-      require("typescript-tools").setup({})
+      require("typescript-tools").setup({
+        settings = {
+          separate_diagnostic_server = false,
+        },
+      })
 
       local cmp = require("cmp")
       local luasnip = require("luasnip")
