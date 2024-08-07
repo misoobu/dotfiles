@@ -283,29 +283,43 @@ require("lazy").setup({
       -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
       local lsp_servers = {
         -- `brew install lua-language-server`
-        lua_ls = { Lua = { diagnostics = { globals = { "vim" } } } },
+        lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
         -- `gem install solargraph`
         solargraph = {},
         -- `brew install rust-analyzer`
         rust_analyzer = {
-          ["rust-analyzer"] = {
-            cargo = {
-              features = "all",
-            },
-            diagnostics = {
-              disabled = { "inactive-code" },
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                features = "all",
+              },
+              diagnostics = {
+                disabled = { "inactive-code" },
+              },
             },
           },
         },
         -- `npm install -g @nomicfoundation/solidity-language-server`
         solidity_ls_nomicfoundation = {},
+        -- `npm install -g @tailwindcss/language-server`
+        tailwindcss = {
+          filetypes = { "typescriptreact" },
+        },
       }
 
-      for server_name, server_settings in pairs(lsp_servers) do
-        require("lspconfig")[server_name].setup({
+      for server_name, server_config in pairs(lsp_servers) do
+        local setup_options = {
           capabilities = lsp_capabilities,
-          settings = server_settings,
-        })
+        }
+
+        if server_config.settings then
+          setup_options.settings = server_config.settings
+        end
+        if server_config.filetypes then
+          setup_options.filetypes = server_config.filetypes
+        end
+
+        require("lspconfig")[server_name].setup(setup_options)
       end
 
       require("typescript-tools").setup({
