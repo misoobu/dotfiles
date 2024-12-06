@@ -203,6 +203,7 @@ require("lazy").setup({
           "typescript",
           "tsx",
           "ruby",
+          "python",
           "rust",
           "solidity",
           "html",
@@ -305,6 +306,8 @@ require("lazy").setup({
         tailwindcss = {
           filetypes = { "typescriptreact" },
         },
+        -- `npm install -g pyright`
+        pyright = {},
       }
 
       for server_name, server_config in pairs(lsp_servers) do
