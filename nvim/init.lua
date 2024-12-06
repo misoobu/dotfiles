@@ -239,6 +239,15 @@ require("lazy").setup({
       require("hlsearch").setup()
     end,
   },
+  {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+        disable_inline_completion = true, -- disables inline completion for use with cmp
+        disable_keymaps = true, -- disables built in keymaps for more manual control
+      })
+    end,
+  },
   -- {
   --   "zbirenbaum/copilot-cmp",
   --   dependencies = {
@@ -369,6 +378,7 @@ require("lazy").setup({
           { name = "nvim_lsp" },
           { name = "luasnip" },
           -- { name = "copilot" },
+          { name = "supermaven" },
         }, {
           { name = "buffer" },
         }),
