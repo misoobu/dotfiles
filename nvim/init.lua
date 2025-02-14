@@ -16,6 +16,8 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.laststatus = 3 -- for avante
+
 vim.g.mapleader = " "
 
 vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
@@ -238,6 +240,23 @@ require("lazy").setup({
     config = function()
       require("hlsearch").setup()
     end,
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    opts = {},
+    build = "make",
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+    },
   },
   {
     "neovim/nvim-lspconfig",
