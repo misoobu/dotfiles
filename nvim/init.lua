@@ -313,7 +313,7 @@ require("lazy").setup({
         solidity_ls_nomicfoundation = {},
         -- `npm install -g @tailwindcss/language-server`
         tailwindcss = {
-          filetypes = { "typescriptreact" },
+          filetypes = { "javascriptreact", "typescriptreact" },
         },
         -- `npm install -g pyright`
         pyright = {},
