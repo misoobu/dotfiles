@@ -15,7 +15,7 @@ family = "PlemolJP35 Console NF"
 style = "Regular"
 
 [window]
-# decorations = "None"
+decorations = "Transparent"
 startup_mode = "Maximized"
 
 [mouse]
