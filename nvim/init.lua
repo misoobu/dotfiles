@@ -240,40 +240,6 @@ require("lazy").setup({
     end,
   },
   {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup({
-        disable_inline_completion = true, -- disables inline completion for use with cmp
-        disable_keymaps = true, -- disables built in keymaps for more manual control
-      })
-    end,
-  },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   dependencies = {
-  --     "zbirenbaum/copilot.lua",
-  --   },
-  --   config = function()
-  --     require("copilot").setup({
-  --       suggestion = { enabled = false },
-  --       panel = { enabled = false },
-  --       filetypes = {
-  --         javascript = true,
-  --         javascriptreact = true,
-  --         typescript = true,
-  --         typescriptreact = true,
-  --         solidity = true,
-  --         ruby = true,
-  --         rust = true,
-  --         lua = true,
-  --         ["*"] = false,
-  --       },
-  --     })
-
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- },
-  {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "pmizio/typescript-tools.nvim" },
@@ -377,8 +343,6 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          -- { name = "copilot" },
-          { name = "supermaven" },
         }, {
           { name = "buffer" },
         }),
