@@ -263,6 +263,15 @@ require("lazy").setup({
     },
   },
   {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({
+        disable_inline_completion = true, -- disables inline completion for use with cmp
+        disable_keymaps = true, -- disables built in keymaps for more manual control
+      })
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "pmizio/typescript-tools.nvim" },
@@ -366,6 +375,7 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
+          { name = "supermaven" },
         }, {
           { name = "buffer" },
         }),
