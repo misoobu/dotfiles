@@ -16,8 +16,6 @@ vim.opt.smartcase = true
 
 vim.opt.clipboard = "unnamedplus"
 
-vim.opt.laststatus = 3 -- for avante
-
 vim.g.mapleader = " "
 
 vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
