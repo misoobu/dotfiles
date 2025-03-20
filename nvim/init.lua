@@ -290,8 +290,8 @@ require("lazy").setup({
       local lsp_servers = {
         -- `brew install lua-language-server`
         lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
-        -- `gem install solargraph`
-        solargraph = {},
+        -- `gem install ruby-lsp`
+        ruby_lsp = {},
         -- `brew install rust-analyzer`
         rust_analyzer = {
           settings = {
