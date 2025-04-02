@@ -248,6 +248,9 @@ require("lazy").setup({
       file_selector = {
         provider = "telescope",
       },
+      behaviour = {
+        enable_claude_text_editor_tool_mode = true,
+      },
     },
     build = "make",
     dependencies = {
