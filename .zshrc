@@ -111,7 +111,7 @@ function v () {
   if [ -z $NVIM ]; then
     nvim $1
   else
-    nvim --server $NVIM --remote $(pwd)/$1
+    nvim --server $NVIM --remote $1
   fi
 }
 
