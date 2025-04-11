@@ -18,7 +18,8 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.g.mapleader = " "
 
-vim.env.EDITOR = "nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
+vim.env.EDITOR =
+  "uvx --from 'neovim-remote==2.5.1' nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
 
 vim.keymap.set("n", "q", ":q<cr>")
 vim.keymap.set("n", "<C-k>", "i<cr><esc>")
@@ -315,8 +316,7 @@ require("lazy").setup({
         tailwindcss = {
           filetypes = { "javascriptreact", "typescriptreact" },
         },
-        -- `npm install -g pyright`
-        pyright = {},
+        basedpyright = {},
       }
 
       for server_name, server_config in pairs(lsp_servers) do
