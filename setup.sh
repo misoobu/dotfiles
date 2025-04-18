@@ -14,5 +14,7 @@ ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.zshrc.alias ~/.zshrc.alias
 ln -s ~/dotfiles/nvim ~/.config/
 ln -s ~/dotfiles/.fdignore ~/.fdignore
+mkdir -p ~/.claude
+ln -s ~/dotfiles/.CLAUDE_global.md ~/.claude/CLAUDE.md
 
 # You should install homebrew (https://brew.sh/), and run `brew bundle install`
