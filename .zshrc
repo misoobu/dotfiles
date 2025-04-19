@@ -156,10 +156,11 @@ function ncd() {
   nvim --server "$NVIM" --remote-send "<cmd>cd $(pwd)<cr>"
 }
 
-ndiag() {
+# List diagnostics (errors, warnings, etc.) from Neovim for a specific file
+ndiagnose() {
   local file=$1
   if [[ -z $file ]]; then
-    echo "Usage: ndiag <file>" >&2
+    echo "Usage: ndiagnose <file>" >&2
     return 1
   fi
 
