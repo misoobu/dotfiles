@@ -156,6 +156,38 @@ function ncd() {
   nvim --server "$NVIM" --remote-send "<cmd>cd $(pwd)<cr>"
 }
 
+ndiag() {
+  local file=$1
+  if [[ -z $file ]]; then
+    echo "Usage: ndiag <file>" >&2
+    return 1
+  fi
+
+  local expr
+  expr="luaeval(\"(function(path) \
+      local bufnr = vim.fn.bufnr(path, true); \
+      vim.fn.bufload(bufnr); \
+      vim.wait(500, function() return #vim.diagnostic.get(bufnr) > 0 end, 50); \
+      local sev={[1]='Error',[2]='Warn',[3]='Info',[4]='Hint'}; \
+      local out={}; \
+      for _,d in ipairs(vim.diagnostic.get(bufnr)) do \
+        table.insert(out, string.format('%s:%d:%d [%s] %s', \
+          vim.fn.fnamemodify(path,':.'), d.lnum+1, d.col, \
+          sev[d.severity], d.message)); \
+      end; \
+      return table.concat(out, '\\\\n'); \
+    end)('$file')\")"
+
+  local result
+  result=$(nvim --headless --server "$NVIM" --remote-expr "$expr")
+
+  if [[ -n $result ]]; then
+    printf '%s\n' "$result"
+  else
+    echo "Success: No diagnostics."
+  fi
+}
+
 # Util
 if type brew &>/dev/null; then
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
