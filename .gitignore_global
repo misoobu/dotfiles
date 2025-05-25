@@ -1,3 +1,4 @@
 .DS_Store
 .envrc
 CLAUDE.local.md
+.claude/
