@@ -5,6 +5,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "␉·" }
 vim.opt.mouse = ""
 vim.opt.swapfile = false
+vim.o.winborder = "rounded"
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -78,18 +79,6 @@ set_lsp_keymap("I", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   -- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, "toggle inlay for the current buffer")
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = "rounded",
-})
-
-vim.diagnostic.config({
-  float = { border = "rounded" },
-})
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
