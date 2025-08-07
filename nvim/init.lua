@@ -305,15 +305,7 @@ require("lazy").setup({
         tailwindcss = {
           filetypes = { "javascriptreact", "typescriptreact" },
         },
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                typeCheckingMode = "basic",
-              },
-            },
-          },
-        },
+        basedpyright = {},
       }
 
       for server_name, server_config in pairs(lsp_servers) do
