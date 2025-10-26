@@ -111,7 +111,15 @@ function v () {
   if [ -z $NVIM ]; then
     nvim $1
   else
-    nvim --server $NVIM --remote $1
+    case "$1" in
+      /*) abs="$1" ;;
+      ~*) abs="${HOME}${1#\~}" ;;
+      *) abs="$(pwd)/$1" ;;
+    esac
+
+    abs="$(cd "$(dirname "$abs")" && pwd)/$(basename "$abs")"
+    nvim --server "$NVIM" --remote "$abs"
+
   fi
 }
 
