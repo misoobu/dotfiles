@@ -1,0 +1,3 @@
+- Commit to Git with a detailed message after making a code change. E.g., `git add <files> && git commit -m "..."`
+- Proactively search the web to find up-to-date and accurate information.
+- Always keep AGENTS.md up to date.
