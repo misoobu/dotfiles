@@ -1,3 +1,3 @@
-- Commit to Git with a detailed message after making a code change. E.g., `git add <files> && git commit -m "...this can be a multi-line message..."`
-- Proactively search the web to find up-to-date and accurate information.
-- Keep AGENTS.md up to date. This file is not a changelog, so you should update its content directly instead of writing about what's new.
+- Commit to Git with a detailed multi-line message after making a code change.
+- Search the web to find up-to-date and accurate information.
+- Keep AGENTS.md up to date after making a code change. This file is not a changelog, so you should update its content directly instead of adding what's new.
