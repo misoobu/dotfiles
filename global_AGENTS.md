@@ -1,3 +1,2 @@
-- Commit to Git with a detailed multi-line message after making a code change.
-- Search the web to find up-to-date and accurate information.
-- Keep AGENTS.md up to date after making a code change. This file is not a changelog, so you should update its content directly instead of adding what's new.
+- Commit your code changes to Git with a detailed message.
+- Keep AGENTS.md up to date whenever you make major changes.
