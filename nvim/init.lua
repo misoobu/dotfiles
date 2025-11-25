@@ -229,31 +229,31 @@ require("lazy").setup({
       require("hlsearch").setup()
     end,
   },
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false,
-    opts = {
-      file_selector = {
-        provider = "telescope",
-      },
-      behaviour = {
-        enable_claude_text_editor_tool_mode = true,
-      },
-    },
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      --- The below dependencies are optional,
-      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    },
-  },
+  -- {
+  --   "yetone/avante.nvim",
+  --   event = "VeryLazy",
+  --   lazy = false,
+  --   version = false,
+  --   opts = {
+  --     file_selector = {
+  --       provider = "telescope",
+  --     },
+  --     behaviour = {
+  --       enable_claude_text_editor_tool_mode = true,
+  --     },
+  --   },
+  --   build = "make",
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     --- The below dependencies are optional,
+  --     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+  --     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --   },
+  -- },
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
