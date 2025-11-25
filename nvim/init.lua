@@ -309,19 +309,13 @@ require("lazy").setup({
         sourcekit = {},
       }
 
+      vim.lsp.config("*", {
+        capabilities = lsp_capabilities,
+      })
+
       for server_name, server_config in pairs(lsp_servers) do
-        local setup_options = {
-          capabilities = lsp_capabilities,
-        }
-
-        if server_config.settings then
-          setup_options.settings = server_config.settings
-        end
-        if server_config.filetypes then
-          setup_options.filetypes = server_config.filetypes
-        end
-
-        require("lspconfig")[server_name].setup(setup_options)
+        vim.lsp.config(server_name, server_config)
+        vim.lsp.enable(server_name)
       end
 
       require("typescript-tools").setup({})
