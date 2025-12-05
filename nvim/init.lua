@@ -201,6 +201,7 @@ require("lazy").setup({
           "json",
           "markdown",
           "markdown_inline",
+          "kotlin",
         },
         sync_install = true,
         highlight = { enable = true },
@@ -307,6 +308,8 @@ require("lazy").setup({
         },
         basedpyright = {},
         sourcekit = {},
+        -- `brew install JetBrains/utils/kotlin-lsp`
+        kotlin_lsp = {},
       }
 
       vim.lsp.config("*", {
