@@ -119,6 +119,27 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   command = "if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif",
 })
 
+vim.o.showtabline = 2
+
+function _G.MyTabLine()
+  local s = ""
+  local cur = vim.fn.tabpagenr()
+  local last = vim.fn.tabpagenr("$")
+
+  for tab = 1, last do
+    s = s .. (tab == cur and "%#TabLineSel#" or "%#TabLine#")
+
+    local cwd = vim.fn.getcwd(-1, tab) -- tab-local cwd (:tcd)
+    local name = vim.fn.fnamemodify(cwd, ":t") -- directory name only
+
+    s = s .. " " .. tab .. ":" .. name .. " "
+  end
+
+  return s .. "%#TabLineFill#"
+end
+
+vim.o.tabline = "%!v:lua.MyTabLine()"
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
