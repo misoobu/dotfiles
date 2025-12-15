@@ -17,5 +17,6 @@ ln -s ~/dotfiles/.fdignore ~/.fdignore
 mkdir -p ~/.claude
 ln -s ~/dotfiles/.CLAUDE_global.md ~/.claude/CLAUDE.md
 ln -s ~/dotfiles/global_AGENTS.md ~/.codex/AGENTS.md
+ln -s ~/dotfiles/ghostty_config.txt ~/.config/ghostty/config
 
 # You should install homebrew (https://brew.sh/), and run `brew bundle install`
