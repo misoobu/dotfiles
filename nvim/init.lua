@@ -99,6 +99,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+local group = vim.api.nvim_create_augroup("tab_bootstrap", { clear = true })
+vim.api.nvim_create_autocmd("TabNewEntered", {
+  group = group,
+  desc = "Auto-setup new tabs",
+  nested = true, -- allow autocmds triggered by the commands below
+  callback = function()
+    vim.cmd("rightbelow vsplit")
+    vim.cmd("terminal")
+    vim.cmd("setlocal nonumber")
+    vim.cmd("startinsert")
+  end,
+})
+
 vim.filetype.add({
   extension = {
     mdx = "mdx",

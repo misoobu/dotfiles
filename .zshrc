@@ -161,7 +161,7 @@ function ncd() {
     }
   fi
 
-  nvim --server "$NVIM" --remote-send "<cmd>cd $(pwd)<cr>"
+  nvim --server "$NVIM" --remote-send "<cmd>tcd $(pwd)<cr>"
 }
 
 # List diagnostics (errors, warnings, etc.) from Neovim for a specific file
@@ -233,12 +233,8 @@ function precmd() {
   fi
 }
 
-# Lunch tmux/nvim on startup
-if [ -z $TMUX ]; then
-  tmn
-else
-  [ -z $NVIM ] && nvim
-fi
+# Lunch nvim on startup
+[ -z $NVIM ] && nvim
 
 # tabtab source for packages
 # uninstall by removing these lines
