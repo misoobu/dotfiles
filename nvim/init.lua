@@ -59,26 +59,7 @@ local function set_lsp_keymap(key, action, desc)
   vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
 end
 set_lsp_keymap("d", "<cmd>split | lua vim.lsp.buf.definition()<cr>", "definition")
-set_lsp_keymap(
-  "e",
-  "<cmd>split | lua vim.lsp.buf.declaration()<cr>",
-  "declaration (use definition instead)"
-)
-set_lsp_keymap("s", vim.lsp.buf.signature_help, "signature help")
 set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
-set_lsp_keymap("C", vim.lsp.buf.code_action, "code action")
-set_lsp_keymap("F", function()
-  vim.lsp.buf.format({ async = true })
-end, "format")
-set_lsp_keymap("X", function()
-  vim.cmd("LspRestart")
-  vim.diagnostic.reset()
-  vim.cmd("edit")
-end, "Restart")
-set_lsp_keymap("I", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
-  -- vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, "toggle inlay for the current buffer")
 
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -110,19 +91,6 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
     vim.cmd("setlocal nonumber")
     vim.cmd("startinsert")
   end,
-})
-
-vim.filetype.add({
-  extension = {
-    mdx = "mdx",
-  },
-})
-vim.treesitter.language.register("markdown", "mdx")
-
-vim.api.nvim_create_user_command("MyBd", function()
-  vim.cmd('bufdo if &buftype != "terminal" && !&modified | bdelete | endif')
-end, {
-  desc = "Delete all saved, non-terminal buffers",
 })
 
 -- Auto-reload files when modified externally
@@ -273,7 +241,6 @@ require("lazy").setup({
           "ruby",
           "python",
           "rust",
-          "solidity",
           "html",
           "css",
           "json",
@@ -308,31 +275,6 @@ require("lazy").setup({
       require("hlsearch").setup()
     end,
   },
-  -- {
-  --   "yetone/avante.nvim",
-  --   event = "VeryLazy",
-  --   lazy = false,
-  --   version = false,
-  --   opts = {
-  --     file_selector = {
-  --       provider = "telescope",
-  --     },
-  --     behaviour = {
-  --       enable_claude_text_editor_tool_mode = true,
-  --     },
-  --   },
-  --   build = "make",
-  --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
-  --     "stevearc/dressing.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "MunifTanjim/nui.nvim",
-  --     --- The below dependencies are optional,
-  --     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-  --     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-  --     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-  --   },
-  -- },
   {
     "supermaven-inc/supermaven-nvim",
     config = function()
@@ -359,7 +301,7 @@ require("lazy").setup({
     },
     config = function()
       local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+      -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
       local lsp_servers = {
         -- `brew install lua-language-server`
         lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
@@ -378,8 +320,6 @@ require("lazy").setup({
             },
           },
         },
-        -- `npm install -g @nomicfoundation/solidity-language-server`
-        solidity_ls_nomicfoundation = {},
         -- `npm install -g @tailwindcss/language-server`
         tailwindcss = {
           filetypes = { "javascriptreact", "typescriptreact" },
@@ -476,7 +416,6 @@ require("lazy").setup({
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
       },
-      -- { "nvim-telescope/telescope-frecency.nvim" },
       { "nvim-telescope/telescope-file-browser.nvim" },
     },
     event = "VeryLazy",
@@ -526,12 +465,6 @@ require("lazy").setup({
           },
         },
         extensions = {
-          -- frecency = {
-          --   workspaces = {
-          --     ["hoge"] = "~/bench/hoge",
-          --     ["dotfiles"] = "~/dotfiles",
-          --   },
-          -- },
           file_browser = {
             hidden = true,
             hide_parent_dir = true,
@@ -546,7 +479,6 @@ require("lazy").setup({
       })
 
       telescope.load_extension("fzf")
-      -- telescope.load_extension("frecency")
       telescope.load_extension("file_browser")
 
       local builtin = require("telescope.builtin")
@@ -562,7 +494,6 @@ require("lazy").setup({
       map_file("g", builtin.live_grep, "grep")
       map_file("c", builtin.grep_string, "grep cursor word")
       map_file("b", builtin.buffers, "list buffers")
-      -- map_file("r", "<cmd>Telescope frecency<cr>", "list recent files")
       map_file("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
       map_file("p", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "explore path")
 
