@@ -455,6 +455,11 @@ require("lazy").setup({
     },
     { "lewis6991/gitsigns.nvim", opts = { signs_staged_enable = false } },
     {
+      "esmuellert/codediff.nvim",
+      dependencies = { "MunifTanjim/nui.nvim" },
+      cmd = "CodeDiff",
+    },
+    {
       "stevearc/conform.nvim",
       event = { "BufWritePre" },
       cmd = { "ConformInfo" },
