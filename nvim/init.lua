@@ -217,30 +217,18 @@ require("lazy").setup({
     {
       "RRethy/vim-illuminate",
       event = "VeryLazy",
-      config = function()
-        require("illuminate").configure({
-          providers = {
-            "lsp",
-            "treesitter",
-          },
-        })
-      end,
     },
     {
       "nvimdev/hlsearch.nvim",
       event = "BufRead",
-      config = function()
-        require("hlsearch").setup()
-      end,
+      opts = {},
     },
     {
       "supermaven-inc/supermaven-nvim",
-      config = function()
-        require("supermaven-nvim").setup({
-          disable_inline_completion = true, -- disables inline completion for use with cmp
-          disable_keymaps = true, -- disables built in keymaps for more manual control
-        })
-      end,
+      opts = {
+        disable_inline_completion = true, -- disables inline completion for use with cmp
+        disable_keymaps = true, -- disables built in keymaps for more manual control
+      },
     },
     {
       "neovim/nvim-lspconfig",
