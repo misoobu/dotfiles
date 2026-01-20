@@ -48,7 +48,7 @@ function peco-select-history() {
   BUFFER=$(\history -n 1 | \
     eval $tac | \
     awk '!a[$0]++' | \
-    peco --query "$LBUFFER" --prompt '[select history]')
+    peco --selection-prefix ">" --query "$LBUFFER" --prompt '[select history]')
   CURSOR=$#BUFFER
   zle redisplay
 }
@@ -61,7 +61,7 @@ function _peco-find-file() {
   else
     source_files=$(find . -type f)
   fi
-  echo $source_files | peco --prompt "[$1]"
+  echo $source_files | peco --selection-prefix ">" --prompt "[$1]"
 }
 
 function peco-find-file() {
@@ -90,7 +90,7 @@ zle -N peco-find-file-and-open-with-vim
 bindkey '^v' peco-find-file-and-open-with-vim
 
 function peco-select-ghq() {
-  selected_repo=$(ghq list | peco --prompt '[select ghq repo]')
+  selected_repo=$(ghq list | peco --selection-prefix ">" --prompt '[select ghq repo]')
   if [ -n "$selected_repo" ]; then
     BUFFER="${BUFFER}$(ghq root)/${selected_repo}"
     CURSOR=$#BUFFER
@@ -101,7 +101,7 @@ zle -N peco-select-ghq
 bindkey '^g' peco-select-ghq
 
 function git-grep-vim () {
-  found=$(git grep -I --line-number -e $1 | cut -c 1-200 | peco --prompt '[select line to open]')
+  found=$(git grep -I --line-number -e $1 | cut -c 1-200 | peco --selection-prefix ">" --prompt '[select line to open]')
   if [ -n "$found" ]; then
     nvim $(print "$found" | head -n 1 | awk -F : '{print "-c " $2 " " $1}')
   fi
