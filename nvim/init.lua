@@ -22,6 +22,8 @@ vim.g.mapleader = " "
 vim.env.EDITOR =
   "uvx --from 'neovim-remote==2.5.1' nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
 
+local augroup = vim.api.nvim_create_augroup("augroup", { clear = true })
+
 vim.keymap.set("n", "q", ":q<cr>")
 vim.keymap.set("n", "<C-k>", "i<cr><esc>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
@@ -44,46 +46,38 @@ set_window_keymap("j", "<cmd>belowright split<cr>", "split toward below")
 set_window_keymap("k", "<cmd>aboveleft split<cr>", "split toward above")
 set_window_keymap("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
 
-local function set_diagnostic_keymap(key, action, desc, key_override)
-  vim.keymap.set(
-    "n",
-    key_override and key or ("<leader>d" .. key),
-    action,
-    { desc = "Diagnostic: " .. desc }
-  )
-end
-set_diagnostic_keymap("<C-n>", vim.diagnostic.goto_next, "go to next", true)
-set_diagnostic_keymap("<C-p>", vim.diagnostic.goto_prev, "go to prev", true)
+-- Diagnostic
+vim.keymap.set("n", "<C-n>", function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end)
+vim.keymap.set("n", "<C-p>", function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end)
 
+-- Terminal
 local function open_terminal_split()
   vim.cmd("rightbelow vsplit")
   vim.cmd("terminal")
-  vim.opt_local.number = false
   vim.cmd("startinsert")
 end
-
-local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
-  group = my_autocmd_group,
+  group = augroup,
   callback = function()
     vim.opt_local.number = false
   end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = my_autocmd_group,
-  pattern = "*",
+  group = augroup,
+  nested = true,
   callback = function()
     if not vim.env.NVIM then
       open_terminal_split()
     end
   end,
 })
-
-local group = vim.api.nvim_create_augroup("tab_bootstrap", { clear = true })
 vim.api.nvim_create_autocmd("TabNewEntered", {
-  group = group,
-  desc = "Auto-setup new tabs",
-  nested = true, -- allow autocmds triggered by the commands below
+  group = augroup,
+  nested = true,
   callback = function()
     vim.cmd("tcd ~")
     open_terminal_split()
@@ -92,13 +86,11 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
 
 -- Auto-reload files when modified externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-  group = my_autocmd_group,
-  pattern = "*",
+  group = augroup,
   command = "if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif",
 })
 
-vim.o.showtabline = 2
-
+-- Tabline
 function _G.MyTabLine()
   local s = ""
   local cur = vim.fn.tabpagenr()
@@ -115,7 +107,7 @@ function _G.MyTabLine()
 
   return s .. "%#TabLineFill#"
 end
-
+vim.o.showtabline = 2
 vim.o.tabline = "%!v:lua.MyTabLine()"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
