@@ -314,7 +314,8 @@ require("lazy").setup({
           tailwindcss = {
             filetypes = { "javascriptreact", "typescriptreact" },
           },
-          basedpyright = {},
+          -- `uv add --dev ty` per project
+          ty = { cmd = { "uv", "run", "ty", "server" } },
           sourcekit = {},
           -- `brew install JetBrains/utils/kotlin-lsp`
           kotlin_lsp = {},
