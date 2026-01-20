@@ -121,26 +121,6 @@ end
 
 vim.o.tabline = "%!v:lua.MyTabLine()"
 
-local function ui_send(data)
-  if vim.api.nvim_ui_send then
-    vim.api.nvim_ui_send(data)
-  else
-    io.stdout:write(data)
-    io.stdout:flush()
-  end
-end
-
-vim.api.nvim_create_autocmd("TermRequest", {
-  desc = "Forward OSC 9 notifications from :terminal to host terminal",
-  callback = function(ev)
-    local seq = ev.data.sequence
-    -- OSC 9: ESC ] 9 ; ... BEL  (or ST)
-    if seq:match("^\027%]9;") then
-      ui_send(seq)
-    end
-  end,
-})
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
