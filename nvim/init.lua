@@ -165,7 +165,7 @@ require("lazy").setup({
         },
       },
     },
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
     {
       "nvim-treesitter/nvim-treesitter",
       lazy = false,
@@ -216,7 +216,7 @@ require("lazy").setup({
       end,
     },
     { "RRethy/vim-illuminate", event = "VeryLazy" },
-    { "nvimdev/hlsearch.nvim", event = "BufRead" },
+    { "nvimdev/hlsearch.nvim", event = "BufRead", opts = {} },
     {
       "saghen/blink.cmp",
       version = "1.*",
