@@ -86,6 +86,7 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
   desc = "Auto-setup new tabs",
   nested = true, -- allow autocmds triggered by the commands below
   callback = function()
+    vim.cmd("tcd ~")
     vim.cmd("rightbelow vsplit")
     vim.cmd("terminal")
     vim.cmd("setlocal nonumber")
