@@ -318,6 +318,8 @@ require("lazy").setup({
           sourcekit = {},
           -- `brew install JetBrains/utils/kotlin-lsp`
           kotlin_lsp = {},
+          -- `npm install -g @typescript/native-preview`
+          tsgo = { cmd = { "npx", "tsgo", "--lsp", "--stdio" } },
         }
 
         for name, config in pairs(configs) do
@@ -326,7 +328,6 @@ require("lazy").setup({
         end
       end,
     },
-    { "pmizio/typescript-tools.nvim" },
     {
       "nvim-telescope/telescope.nvim",
       version = "*",
