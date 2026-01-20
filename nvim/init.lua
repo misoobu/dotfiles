@@ -55,21 +55,26 @@ end
 set_diagnostic_keymap("<C-n>", vim.diagnostic.goto_next, "go to next", true)
 set_diagnostic_keymap("<C-p>", vim.diagnostic.goto_prev, "go to prev", true)
 
+local function open_terminal_split()
+  vim.cmd("rightbelow vsplit")
+  vim.cmd("terminal")
+  vim.opt_local.number = false
+  vim.cmd("startinsert")
+end
+
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
-  pattern = "*",
-  command = "setlocal nonumber",
+  callback = function()
+    vim.opt_local.number = false
+  end,
 })
 vim.api.nvim_create_autocmd("VimEnter", {
   group = my_autocmd_group,
   pattern = "*",
   callback = function()
     if not vim.env.NVIM then
-      vim.cmd("rightbelow vsplit")
-      vim.cmd("terminal")
-      vim.cmd("setlocal nonumber")
-      vim.cmd("startinsert")
+      open_terminal_split()
     end
   end,
 })
@@ -81,10 +86,7 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
   nested = true, -- allow autocmds triggered by the commands below
   callback = function()
     vim.cmd("tcd ~")
-    vim.cmd("rightbelow vsplit")
-    vim.cmd("terminal")
-    vim.cmd("setlocal nonumber")
-    vim.cmd("startinsert")
+    open_terminal_split()
   end,
 })
 
