@@ -24,17 +24,17 @@ vim.keymap.set("n", "q", ":q<cr>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
----- <C-w>hjkl works for in i and t like in n
+---- Make <C-w>hjkl work in insert and terminal like normal mode
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
 vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
----- Window split
+---- Window splits
 local function map_window_split_key(key, action, desc)
   vim.keymap.set("n", "<leader>w" .. key, action, { desc = "Window: " .. desc })
 end
-map_window_split_key("h", "<cmd>vertical leftabove split<cr>", "split toward left")
-map_window_split_key("j", "<cmd>belowright split<cr>", "split toward below")
-map_window_split_key("k", "<cmd>aboveleft split<cr>", "split toward above")
-map_window_split_key("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
+map_window_split_key("h", "<cmd>vertical leftabove split<cr>", "split to the left")
+map_window_split_key("j", "<cmd>belowright split<cr>", "split below")
+map_window_split_key("k", "<cmd>aboveleft split<cr>", "split above")
+map_window_split_key("l", "<cmd>vertical rightbelow split<cr>", "split to the right")
 
 -- Diagnostic
 vim.keymap.set("n", "<C-n>", function()
@@ -224,8 +224,8 @@ require("lazy").setup({
         {
           "supermaven-inc/supermaven-nvim",
           opts = {
-            disable_inline_completion = true, -- disables inline completion for use with cmp
-            disable_keymaps = true, -- disables built in keymaps for more manual control
+            disable_inline_completion = true, -- disables inline completion when using cmp
+            disable_keymaps = true, -- disables built-in keymaps for more manual control
             condition = function()
               local name = vim.fn.expand("%:t")
               return name:match("^%.env($|%.)") ~= nil
@@ -257,7 +257,7 @@ require("lazy").setup({
     {
       "neovim/nvim-lspconfig",
       config = function()
-        -- default: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+        -- Defaults: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
         local configs = {
           -- `brew install lua-language-server`
           lua_ls = {
@@ -408,19 +408,19 @@ require("lazy").setup({
           vim.keymap.set("n", "<leader>f" .. key, action, { desc = "Telescope: " .. desc })
         end
 
-        map_telescope("f", builtin.git_files, "list git files")
+        map_telescope("f", builtin.git_files, "list Git files")
         map_telescope("g", builtin.live_grep, "grep")
-        map_telescope("c", builtin.grep_string, "grep cursor word")
-        map_telescope("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
+        map_telescope("c", builtin.grep_string, "grep word under cursor")
+        map_telescope("e", "<cmd>Telescope file_browser<cr>", "explore current directory")
         map_telescope(
           "p",
           "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",
-          "explore path"
+          "explore file directory"
         )
 
         map_telescope("t", function()
           builtin.buffers({ default_text = "term: " })
-        end, "list term buffers")
+        end, "list terminal buffers")
 
         local function map_lsp(key, action, desc)
           vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
@@ -449,7 +449,7 @@ require("lazy").setup({
           function()
             require("which-key").show({ global = false })
           end,
-          desc = "Buffer Local Keymaps (which-key)",
+          desc = "Buffer-local keymaps (which-key)",
         },
       },
     },
@@ -492,7 +492,7 @@ require("lazy").setup({
             vim.g.disable_autoformat = true
           end
         end, {
-          desc = "Disable autoformat-on-save",
+          desc = "Disable auto-format on save",
           bang = true,
         })
 
@@ -500,7 +500,7 @@ require("lazy").setup({
           vim.b.disable_autoformat = false
           vim.g.disable_autoformat = false
         end, {
-          desc = "Re-enable autoformat-on-save",
+          desc = "Re-enable auto-format on save",
         })
       end,
       opts = {
