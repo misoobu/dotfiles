@@ -65,14 +65,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
-vim.api.nvim_create_autocmd("TabNewEntered", {
-  group = augroup,
-  nested = true,
-  callback = function()
-    vim.cmd("tcd ~")
-    open_terminal_split()
-  end,
-})
+vim.api.nvim_create_user_command("T", function()
+  vim.cmd("tabnew")
+  vim.cmd("tcd ~")
+  open_terminal_split()
+end, { desc = "Open a new tab with a terminal split" })
 
 -- Auto-reload files when modified externally
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
