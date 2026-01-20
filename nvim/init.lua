@@ -1,3 +1,4 @@
+-- Basic
 vim.opt.number = true
 vim.opt.cursorline = true
 vim.opt.breakindent = true
@@ -6,45 +7,34 @@ vim.opt.listchars = { tab = "␉·" }
 vim.opt.mouse = ""
 vim.opt.swapfile = false
 vim.o.winborder = "rounded"
-
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
-
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-
 vim.opt.clipboard = "unnamedplus"
-
 vim.g.mapleader = " "
-
 vim.env.EDITOR =
   "uvx --from 'neovim-remote==2.5.1' nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
-
 local augroup = vim.api.nvim_create_augroup("augroup", { clear = true })
 
+-- Keymap
 vim.keymap.set("n", "q", ":q<cr>")
-vim.keymap.set("n", "<C-k>", "i<cr><esc>")
 vim.keymap.set("n", "<C-s>", ":w<cr>")
 vim.keymap.set("i", "<C-s>", "<esc>")
 vim.keymap.set("t", "<C-s>", "<C-\\><C-n>")
-
--- <C-w>hjkl moves for i and t
+---- <C-w>hjkl works for in i and t like in n
 vim.keymap.set("i", "<C-w>", "<esc><C-w>")
 vim.keymap.set("t", "<C-w>", "<C-\\><C-n><C-w>")
-
-vim.keymap.set("i", "<C-space>", "<esc><leader>", { remap = true })
-vim.keymap.set("t", "<C-space>", "<C-\\><C-n><leader>", { remap = true })
-vim.keymap.set("n", "<C-space>", "<leader>", { remap = true })
-
-local function set_window_keymap(key, action, desc)
+---- Window split
+local function map_window_split_key(key, action, desc)
   vim.keymap.set("n", "<leader>w" .. key, action, { desc = "Window: " .. desc })
 end
-set_window_keymap("h", "<cmd>vertical leftabove split<cr>", "split toward left")
-set_window_keymap("j", "<cmd>belowright split<cr>", "split toward below")
-set_window_keymap("k", "<cmd>aboveleft split<cr>", "split toward above")
-set_window_keymap("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
+map_window_split_key("h", "<cmd>vertical leftabove split<cr>", "split toward left")
+map_window_split_key("j", "<cmd>belowright split<cr>", "split toward below")
+map_window_split_key("k", "<cmd>aboveleft split<cr>", "split toward above")
+map_window_split_key("l", "<cmd>vertical rightbelow split<cr>", "split toward right")
 
 -- Diagnostic
 vim.keymap.set("n", "<C-n>", function()
@@ -110,6 +100,7 @@ end
 vim.o.showtabline = 2
 vim.o.tabline = "%!v:lua.MyTabLine()"
 
+-- Plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -122,7 +113,6 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
   {
     "catppuccin/nvim",
