@@ -165,7 +165,7 @@ require("lazy").setup({
         },
       },
     },
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false } } },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl" },
     {
       "nvim-treesitter/nvim-treesitter",
       lazy = false,
@@ -215,43 +215,86 @@ require("lazy").setup({
         })
       end,
     },
+    { "RRethy/vim-illuminate", event = "VeryLazy" },
+    { "nvimdev/hlsearch.nvim", event = "BufRead" },
     {
-      "RRethy/vim-illuminate",
-      event = "VeryLazy",
-    },
-    {
-      "nvimdev/hlsearch.nvim",
-      event = "BufRead",
-      opts = {},
-    },
-    {
-      "supermaven-inc/supermaven-nvim",
+      "saghen/blink.cmp",
+      version = "1.*",
+      dependencies = {
+        {
+          "supermaven-inc/supermaven-nvim",
+          opts = {
+            disable_inline_completion = true, -- disables inline completion for use with cmp
+            disable_keymaps = true, -- disables built in keymaps for more manual control
+            condition = function()
+              local name = vim.fn.expand("%:t")
+              return name:match("^%.env($|%.)") ~= nil
+            end,
+          },
+        },
+        {
+          "huijiro/blink-cmp-supermaven",
+        },
+      },
       opts = {
-        disable_inline_completion = true, -- disables inline completion for use with cmp
-        disable_keymaps = true, -- disables built in keymaps for more manual control
+        keymap = {
+          -- https://cmp.saghen.dev/configuration/keymap.html#default
+          ["<C-a>"] = { "show", "show_documentation", "hide_documentation" },
+        },
+        completion = { documentation = { auto_show = true } },
+        sources = {
+          default = { "lsp", "path", "supermaven", "snippets", "buffer" },
+          providers = {
+            supermaven = {
+              name = "supermaven",
+              module = "blink-cmp-supermaven",
+              async = true,
+            },
+          },
+        },
       },
     },
     {
       "neovim/nvim-lspconfig",
-      dependencies = {
-        { "pmizio/typescript-tools.nvim" },
-
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/cmp-buffer" },
-        { "hrsh7th/cmp-path" },
-        { "hrsh7th/cmp-cmdline" },
-        { "hrsh7th/nvim-cmp" },
-        { "L3MON4D3/LuaSnip" },
-        { "saadparwaiz1/cmp_luasnip" },
-
-        { "j-hui/fidget.nvim" },
-      },
       config = function()
-        local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-        -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-        local lsp_servers = {
+        -- default: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+        local configs = {
           -- `brew install lua-language-server`
-          lua_ls = { settings = { Lua = { diagnostics = { globals = { "vim" } } } } },
+          lua_ls = {
+            -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#lua_ls
+            on_init = function(client)
+              if client.workspace_folders then
+                local path = client.workspace_folders[1].name
+                if
+                  path ~= vim.fn.stdpath("config")
+                  and (
+                    vim.uv.fs_stat(path .. "/.luarc.json")
+                    or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+                  )
+                then
+                  return
+                end
+              end
+
+              client.config.settings.Lua =
+                vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                  runtime = {
+                    version = "LuaJIT",
+                    path = {
+                      "lua/?.lua",
+                      "lua/?/init.lua",
+                    },
+                  },
+                  workspace = {
+                    checkThirdParty = false,
+                    library = {
+                      vim.env.VIMRUNTIME,
+                      "${3rd}/luv/library",
+                    },
+                  },
+                })
+            end,
+          },
           -- `gem install ruby-lsp`
           ruby_lsp = {},
           -- `brew install rust-analyzer`
@@ -277,83 +320,13 @@ require("lazy").setup({
           kotlin_lsp = {},
         }
 
-        vim.lsp.config("*", {
-          capabilities = lsp_capabilities,
-        })
-
-        for server_name, server_config in pairs(lsp_servers) do
-          vim.lsp.config(server_name, server_config)
-          vim.lsp.enable(server_name)
+        for name, config in pairs(configs) do
+          vim.lsp.config(name, config)
+          vim.lsp.enable(name)
         end
-
-        require("typescript-tools").setup({})
-
-        local cmp = require("cmp")
-        local luasnip = require("luasnip")
-
-        cmp.setup({
-          preselect = cmp.PreselectMode.None,
-          snippet = {
-            expand = function(args)
-              luasnip.lsp_expand(args.body)
-            end,
-          },
-          mapping = cmp.mapping.preset.insert({
-            ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-a>"] = cmp.mapping.abort(),
-            ["<cr>"] = cmp.mapping.confirm(),
-            ["<tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()
-              elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-              else
-                fallback()
-              end
-            end, { "i", "s" }),
-            ["<S-tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_prev_item()
-              elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-              else
-                fallback()
-              end
-            end, { "i", "s" }),
-          }),
-          sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
-            { name = "supermaven" },
-          }, {
-            { name = "buffer" },
-          }),
-          window = {
-            -- completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
-          },
-        })
-
-        cmp.setup.cmdline({ "/", "?" }, {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = {
-            { name = "buffer" },
-          },
-        })
-
-        cmp.setup.cmdline(":", {
-          mapping = cmp.mapping.preset.cmdline(),
-          sources = cmp.config.sources({
-            { name = "path" },
-          }, {
-            { name = "cmdline" },
-          }),
-        })
-
-        require("fidget").setup({})
       end,
     },
+    { "pmizio/typescript-tools.nvim" },
     {
       "nvim-telescope/telescope.nvim",
       version = "*",
