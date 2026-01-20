@@ -55,12 +55,6 @@ end
 set_diagnostic_keymap("<C-n>", vim.diagnostic.goto_next, "go to next", true)
 set_diagnostic_keymap("<C-p>", vim.diagnostic.goto_prev, "go to prev", true)
 
-local function set_lsp_keymap(key, action, desc)
-  vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
-end
-set_lsp_keymap("d", "<cmd>split | lua vim.lsp.buf.definition()<cr>", "definition")
-set_lsp_keymap("R", vim.lsp.buf.rename, "rename")
-
 local my_autocmd_group = vim.api.nvim_create_augroup("MyAutocmdGroup", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
   group = my_autocmd_group,
@@ -367,7 +361,7 @@ require("lazy").setup({
   },
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
+    version = "*",
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -441,43 +435,39 @@ require("lazy").setup({
 
       local builtin = require("telescope.builtin")
 
-      local function map(key, action, desc)
-        vim.keymap.set("n", "<leader>" .. key, action, { desc = desc })
-      end
-      local function map_file(key, action, desc)
-        map("f" .. key, action, "File: " .. desc)
+      local function map_telescope(key, action, desc)
+        vim.keymap.set("n", "<leader>f" .. key, action, { desc = "Telescope: " .. desc })
       end
 
-      map_file("f", builtin.git_files, "list git files")
-      map_file("g", builtin.live_grep, "grep")
-      map_file("c", builtin.grep_string, "grep cursor word")
-      map_file("b", builtin.buffers, "list buffers")
-      map_file("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
-      map_file("p", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>", "explore path")
+      map_telescope("f", builtin.git_files, "list git files")
+      map_telescope("g", builtin.live_grep, "grep")
+      map_telescope("c", builtin.grep_string, "grep cursor word")
+      map_telescope("e", "<cmd>Telescope file_browser<cr>", "explore cwd")
+      map_telescope(
+        "p",
+        "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>",
+        "explore path"
+      )
 
-      map_file("t", function()
+      map_telescope("t", function()
         builtin.buffers({ default_text = "term: " })
       end, "list term buffers")
 
-      map("<space>c", builtin.command_history, "List recent commands")
-      map("<space>g", builtin.git_bcommits, "List buffer git commits")
-      map("<space>t", builtin.treesitter, "List symbols from treesitter")
+      local function map_lsp(key, action, desc)
+        vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
+      end
+      -- NOTE: Use global `grn` for `vim.lsp.buf.rename`
 
-      set_diagnostic_keymap("l", builtin.diagnostics, "list")
-
-      set_lsp_keymap("i", function()
-        require("telescope.builtin").lsp_implementations({ jump_type = "split" })
+      map_lsp("d", function()
+        builtin.lsp_definitions({ jump_type = "split" })
+      end, "definitions")
+      map_lsp("i", function()
+        builtin.lsp_implementations({ jump_type = "split" })
       end, "implementations")
-      set_lsp_keymap("t", function()
-        require("telescope.builtin").lsp_type_definitions({ jump_type = "split" })
+      map_lsp("t", function()
+        builtin.lsp_type_definitions({ jump_type = "split" })
       end, "type definitions")
-      set_lsp_keymap("r", require("telescope.builtin").lsp_references, "references")
-      set_lsp_keymap("o", require("telescope.builtin").lsp_document_symbols, "document symbols")
-      set_lsp_keymap(
-        "w",
-        require("telescope.builtin").lsp_dynamic_workspace_symbols,
-        "workspace symbols"
-      )
+      map_lsp("r", builtin.lsp_references, "references")
     end,
   },
   {
