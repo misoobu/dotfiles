@@ -130,39 +130,15 @@ local function ui_send(data)
   end
 end
 
-local function is_notification(seq)
-  return seq:match("^\027%]9;") or seq:match("^\027%]777;notify;") or seq:match("^\027%]99;")
-end
-
 vim.api.nvim_create_autocmd("TermRequest", {
+  desc = "Forward OSC 9 notifications from :terminal to host terminal",
   callback = function(ev)
     local seq = ev.data.sequence
-    if is_notification(seq) then
+    -- OSC 9: ESC ] 9 ; ... BEL  (or ST)
+    if seq:match("^\027%]9;") then
       ui_send(seq)
     end
   end,
-})
-
-local function broadcast_to_terminals(seq)
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == "terminal" then
-      local ok, chan = pcall(vim.api.nvim_buf_get_var, buf, "terminal_job_id")
-      if ok and chan then
-        vim.api.nvim_chan_send(chan, seq)
-      end
-    end
-  end
-end
-
-vim.api.nvim_create_autocmd("FocusGained", {
-  callback = function()
-    broadcast_to_terminals("\x1b[I")
-  end, -- CSI I
-})
-vim.api.nvim_create_autocmd("FocusLost", {
-  callback = function()
-    broadcast_to_terminals("\x1b[O")
-  end, -- CSI O
 })
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
