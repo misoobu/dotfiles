@@ -1,2 +1,1 @@
 - Commit the changes to Git with a detailed message after making changes.
-- Keep AGENTS.md up to date after making major changes.
