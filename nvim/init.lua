@@ -89,7 +89,7 @@ function _G.MyTabLine()
     local cwd = vim.fn.getcwd(-1, tab) -- tab-local cwd (:tcd)
     local name = vim.fn.fnamemodify(cwd, ":t") -- directory name only
 
-    s = s .. " " .. tab .. ":" .. name .. " "
+    s = s .. " " .. (tab == cur and "*" or tab) .. ":" .. name .. " "
   end
 
   return s .. "%#TabLineFill#"
@@ -442,7 +442,7 @@ require("lazy").setup({
     {
       "folke/which-key.nvim",
       event = "VeryLazy",
-      opts = {},
+      opts = { preset = "modern" },
       keys = {
         {
           "<leader>?",
