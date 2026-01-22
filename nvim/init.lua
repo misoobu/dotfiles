@@ -226,6 +226,7 @@ require("lazy").setup({
           opts = {
             disable_inline_completion = true, -- disables inline completion when using cmp
             disable_keymaps = true, -- disables built-in keymaps for more manual control
+            log_level = "off",
             condition = function()
               local name = vim.fn.expand("%:t")
               return name:match("^%.env($|%.)") ~= nil
