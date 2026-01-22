@@ -316,7 +316,9 @@ require("lazy").setup({
             filetypes = { "javascriptreact", "typescriptreact" },
           },
           -- `uv add --dev ty` per project
-          ty = { cmd = { "uv", "run", "ty", "server" } },
+          ty = {
+            cmd = { "sh", "-c", "uv -qq run ty server 2>/dev/null || uvx -qq ty server" },
+          },
           sourcekit = {},
           -- `brew install JetBrains/utils/kotlin-lsp`
           kotlin_lsp = {},
