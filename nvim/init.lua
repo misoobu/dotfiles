@@ -165,7 +165,7 @@ require("lazy").setup({
         },
       },
     },
-    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+    { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false } } },
     {
       "nvim-treesitter/nvim-treesitter",
       lazy = false,
