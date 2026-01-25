@@ -233,9 +233,6 @@ function precmd() {
   fi
 }
 
-# Lunch nvim on startup
-[ -z $NVIM ] && nvim
-
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true

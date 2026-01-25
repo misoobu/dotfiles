@@ -4,3 +4,4 @@ macos-non-native-fullscreen = visible-menu
 background = #000000
 copy-on-select = clipboard
 mouse-hide-while-typing = true
+command = zsh -c nvim
