@@ -1,1 +1,2 @@
-- Commit the changes to Git with a detailed message after making changes.
+- Commit to Git after changes: the message starts with an imperative summary (the effect), and optionally adds background or rationale when it is non-obvious from the diff.
+- After making changes, update AGENTS.md if it exists and contains outdated information.
