@@ -16,7 +16,7 @@ vim.opt.smartcase = true
 vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.env.EDITOR =
-  "uvx --from 'neovim-remote==2.5.1' nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
+  "uvx -qq --from 'neovim-remote==2.5.1' nvr --nostart -cc split --remote-wait +'set bufhidden=delete'"
 local augroup = vim.api.nvim_create_augroup("augroup", { clear = true })
 
 -- Keymap
