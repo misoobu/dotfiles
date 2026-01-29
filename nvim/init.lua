@@ -98,6 +98,13 @@ end
 vim.o.showtabline = 2
 vim.o.tabline = "%!v:lua.MyTabLine()"
 
+-- Tag terminal buffers with the tabpage they were last used in.
+vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, {
+  callback = function(ev)
+    vim.b[ev.buf].term_tab = vim.api.nvim_get_current_tabpage()
+  end,
+})
+
 -- Plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -423,10 +430,6 @@ require("lazy").setup({
           "explore file directory"
         )
 
-        map_telescope("t", function()
-          builtin.buffers({ default_text = "term: " })
-        end, "list terminal buffers")
-
         local function map_lsp(key, action, desc)
           vim.keymap.set("n", "<leader>l" .. key, action, { desc = "LSP: " .. desc })
         end
@@ -442,6 +445,91 @@ require("lazy").setup({
           builtin.lsp_type_definitions({ jump_type = "split" })
         end, "type definitions")
         map_lsp("r", builtin.lsp_references, "references")
+
+        local function tab_terminal_buffers(opts)
+          opts = opts or {}
+
+          local pickers = require("telescope.pickers")
+          local finders = require("telescope.finders")
+          local conf = require("telescope.config").values
+          local previewers = require("telescope.previewers")
+          local actions = require("telescope.actions")
+          local action_state = require("telescope.actions.state")
+
+          local tab = vim.api.nvim_get_current_tabpage()
+
+          local results = {}
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.bo[buf].buftype == "terminal" and vim.b[buf].term_tab == tab then
+              -- Skip terminals currently displayed in THIS tab.
+              -- bufwinid() only searches the current tabpage. :h bufwinid
+              if vim.fn.bufwinid(buf) == -1 then
+                results[#results + 1] = buf
+              end
+
+              -- If you instead want "not displayed anywhere", use:
+              -- if #vim.fn.win_findbuf(buf) == 0 then results[#results+1] = buf end
+            end
+          end
+
+          if #results == 0 then
+            vim.notify("No hidden terminals tagged to this tab")
+            return
+          end
+
+          pickers
+            .new(opts, {
+              prompt_title = "Hidden terminals (this tab)",
+              finder = finders.new_table({
+                results = results,
+                entry_maker = function(buf)
+                  local title = vim.b[buf].term_title
+                  if type(title) ~= "string" or title == "" then
+                    title = vim.api.nvim_buf_get_name(buf)
+                  end
+                  local display = string.format("buf %d  %s", buf, title)
+                  return {
+                    value = buf,
+                    display = display,
+                    ordinal = display,
+                  }
+                end,
+              }),
+              sorter = conf.generic_sorter(opts),
+
+              -- Right-side preview like builtin.buffers()
+              previewer = previewers.new_buffer_previewer({
+                define_preview = function(self, entry, _)
+                  local buf = entry.value
+                  if not vim.api.nvim_buf_is_valid(buf) then
+                    return
+                  end
+
+                  local total = vim.api.nvim_buf_line_count(buf)
+                  local from = math.max(total - 300, 0) -- last 300 lines
+                  local lines = vim.api.nvim_buf_get_lines(buf, from, total, false)
+
+                  vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+                end,
+              }),
+
+              -- Force the classic "results left, preview right" layout
+              -- layout_strategy = "horizontal",
+              -- layout_config = { preview_width = 0.55 },
+
+              attach_mappings = function(prompt_bufnr, _)
+                actions.select_default:replace(function()
+                  actions.close(prompt_bufnr)
+                  local buf = action_state.get_selected_entry().value
+                  vim.api.nvim_set_current_buf(buf)
+                end)
+                return true
+              end,
+            })
+            :find()
+        end
+
+        map_telescope("t", tab_terminal_buffers, "terminal buffers tagged to tab")
       end,
     },
     {
