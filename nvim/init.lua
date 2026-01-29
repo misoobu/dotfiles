@@ -46,6 +46,7 @@ end)
 
 -- Terminal
 local function open_terminal_split()
+  vim.cmd("terminal")
   vim.cmd("rightbelow vsplit")
   vim.cmd("terminal")
   vim.cmd("startinsert")
@@ -458,31 +459,6 @@ require("lazy").setup({
       },
     },
     { "lewis6991/gitsigns.nvim", opts = { signs_staged_enable = false } },
-    {
-      "esmuellert/codediff.nvim",
-      dependencies = { "MunifTanjim/nui.nvim" },
-      cmd = "CodeDiff",
-      init = function()
-        vim.api.nvim_create_user_command("CD", function(args)
-          if args.bang then
-            vim.cmd("CodeDiff HEAD~1")
-          elseif args.args ~= "" then
-            local num = tonumber(args.args)
-            if num and tostring(num) == args.args then
-              vim.cmd("CodeDiff HEAD~" .. num .. "^ HEAD~" .. num)
-            else
-              vim.cmd("CodeDiff " .. args.args)
-            end
-          else
-            vim.cmd("CodeDiff")
-          end
-        end, {
-          desc = "CodeDiff shortcut",
-          bang = true,
-          nargs = "*",
-        })
-      end,
-    },
     {
       "stevearc/conform.nvim",
       event = { "BufWritePre" },
