@@ -1,12 +1,15 @@
 bind main G !@hub browse -- commit/%(commit)
-bind diff G !@hub browse -- commit/%(commit)
 set ignore-case = smart-case
 
 set main-view-date = custom
-set main-view-date-format = "%Y/%m/%d %H:%M"
+set main-view-date-format = "%y/%m/%d %I:%M %p"
+set main-view-date-local = true
+
 set blame-view-date = custom
 set blame-view-date-format = "%y/%m/%d"
-set diff-highlight = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight
+set blame-view-date-local = true
+
+bind main D !>sh -c 'c="%(commit)"; if [ "$c" = "0000000000000000000000000000000000000000" ]; then echo "tig: no commit selected (staged/unstaged pseudo entry). Use status/stage view." >&2; exit 2; fi; git show "$c" | delta --paging always'
 
 # Make the current (highlighted) line readable
 color cursor 16 yellow

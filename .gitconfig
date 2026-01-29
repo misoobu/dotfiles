@@ -2,7 +2,7 @@
 	useConfigOnly = true
 [core]
 	excludesfile = ~/dotfiles/.gitignore_global
-	pager = delta --paging always --color-only
+	pager = delta --paging always
 	commentChar = ";"
 [pager]
 	branch = false
@@ -30,3 +30,7 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[merge]
+	conflictStyle = zdiff3
+[delta]
+	navigate = true
