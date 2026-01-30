@@ -1,2 +1,2 @@
-- Commit to Git after changes: the message starts with an imperative summary (the effect), and adds background or rationale.
+- Commit to Git after changes: start the commit message with an imperative summary of the intent/effect, then add details as a bullet list (original request, background, rationale, and any useful notes).
 - After making changes, update AGENTS.md if it exists and contains outdated information.
