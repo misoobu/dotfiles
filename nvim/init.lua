@@ -46,7 +46,6 @@ end)
 
 -- Terminal
 local function open_terminal_split()
-  vim.cmd("terminal")
   vim.cmd("rightbelow vsplit")
   vim.cmd("terminal")
   vim.cmd("startinsert")
@@ -466,9 +465,6 @@ require("lazy").setup({
               if vim.fn.bufwinid(buf) == -1 then
                 results[#results + 1] = buf
               end
-
-              -- If you instead want "not displayed anywhere", use:
-              -- if #vim.fn.win_findbuf(buf) == 0 then results[#results+1] = buf end
             end
           end
 
@@ -483,21 +479,24 @@ require("lazy").setup({
               finder = finders.new_table({
                 results = results,
                 entry_maker = function(buf)
-                  local title = vim.b[buf].term_title
-                  if type(title) ~= "string" or title == "" then
-                    title = vim.api.nvim_buf_get_name(buf)
+                  local lines = vim.api.nvim_buf_get_lines(buf, -50, -1, false)
+                  local s = ""
+                  for i = #lines, 1, -1 do
+                    s = (lines[i] or ""):gsub("\r", ""):match("%S.*") or ""
+                    if s ~= "" then
+                      break
+                    end
                   end
-                  local display = string.format("buf %d  %s", buf, title)
+                  local title = vim.fn.strcharpart(s, 0, 50)
                   return {
                     value = buf,
-                    display = display,
-                    ordinal = display,
+                    display = title,
+                    ordinal = title,
                   }
                 end,
               }),
               sorter = conf.generic_sorter(opts),
 
-              -- Right-side preview like builtin.buffers()
               previewer = previewers.new_buffer_previewer({
                 define_preview = function(self, entry, _)
                   local buf = entry.value
@@ -512,10 +511,6 @@ require("lazy").setup({
                   vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
                 end,
               }),
-
-              -- Force the classic "results left, preview right" layout
-              -- layout_strategy = "horizontal",
-              -- layout_config = { preview_width = 0.55 },
 
               attach_mappings = function(prompt_bufnr, _)
                 actions.select_default:replace(function()
