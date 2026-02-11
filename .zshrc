@@ -136,16 +136,51 @@ zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
 zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u"
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f"
-PROMPT='%{$fg[yellow]%}%~%{$reset_color%}${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_timer}
+PROMPT_FULL='%{$fg[yellow]%}%~%{$reset_color%}${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_error}${prompt_timer}
 '
+PROMPT_TRANSIENT='%F{240}·%f '
+PROMPT="$PROMPT_FULL"
+
+if (( $+widgets[zle-line-init] )); then
+  zle -A zle-line-init __prompt_original_zle_line_init
+fi
+if (( $+widgets[zle-line-finish] )); then
+  zle -A zle-line-finish __prompt_original_zle_line_finish
+fi
+
+function zle-line-init() {
+  if (( $+widgets[__prompt_original_zle_line_init] )); then
+    zle __prompt_original_zle_line_init
+  fi
+
+  PROMPT="$PROMPT_FULL"
+  zle reset-prompt
+}
+zle -N zle-line-init
+
+function zle-line-finish() {
+  if (( $+widgets[__prompt_original_zle_line_finish] )); then
+    zle __prompt_original_zle_line_finish
+  fi
+
+  PROMPT="$PROMPT_TRANSIENT"
+  zle reset-prompt
+}
+zle -N zle-line-finish
 
 function preexec() {
   timer=${timer:-$SECONDS}
 }
 
 function precmd() {
+  local last_status=$?
   vcs_info
+  prompt_error=""
   prompt_timer=""
+
+  if (( last_status != 0 )); then
+    prompt_error=" %F{red}exit:${last_status}%f"
+  fi
 
   if [[ -n $timer ]]; then
     local timer_show=$((SECONDS - timer))
