@@ -140,8 +140,7 @@ typeset -g PROMPT_COLOR_UNSTAGED='%F{214}'
 typeset -g PROMPT_COLOR_ACTION='%F{220}'
 typeset -g PROMPT_COLOR_ERROR='%F{196}'
 typeset -g PROMPT_COLOR_TIMER='%F{81}'
-typeset -g PROMPT_COLOR_MARK='%F{45}'
-typeset -g PROMPT_COLOR_TRANSIENT='%F{244}'
+typeset -g PROMPT_COLOR_MARK='%F{244}'
 
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "${PROMPT_COLOR_STAGED}+%f" # => %c
@@ -150,7 +149,7 @@ zstyle ':vcs_info:*' formats "${PROMPT_COLOR_BRANCH}%b%f%c%u"
 zstyle ':vcs_info:*' actionformats "${PROMPT_COLOR_ACTION}[%b|%a]%f"
 PROMPT_FULL='${PROMPT_COLOR_PATH}%~%f${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_error}${prompt_timer}
 ${PROMPT_COLOR_MARK}$ %f'
-PROMPT_TRANSIENT='${PROMPT_COLOR_TRANSIENT}$ %f'
+PROMPT_TRANSIENT='${PROMPT_COLOR_MARK}$ %f'
 PROMPT="$PROMPT_FULL"
 
 if (( $+widgets[zle-line-init] )); then
