@@ -131,14 +131,26 @@ fi
 # Git info
 autoload -Uz colors && colors
 autoload -Uz vcs_info
+
+# Prompt colors
+typeset -g PROMPT_COLOR_PATH='%F{75}'
+typeset -g PROMPT_COLOR_BRANCH='%F{252}'
+typeset -g PROMPT_COLOR_STAGED='%F{70}'
+typeset -g PROMPT_COLOR_UNSTAGED='%F{214}'
+typeset -g PROMPT_COLOR_ACTION='%F{220}'
+typeset -g PROMPT_COLOR_ERROR='%F{196}'
+typeset -g PROMPT_COLOR_TIMER='%F{81}'
+typeset -g PROMPT_COLOR_MARK='%F{45}'
+typeset -g PROMPT_COLOR_TRANSIENT='%F{244}'
+
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
-zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u"
-zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f"
-PROMPT_FULL='%{$fg[yellow]%}%~%{$reset_color%}${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_error}${prompt_timer}
-%{$fg[yellow]%}$ %{$reset_color%}'
-PROMPT_TRANSIENT='%F{240}$%f '
+zstyle ':vcs_info:git:*' stagedstr "${PROMPT_COLOR_STAGED}+%f" # => %c
+zstyle ':vcs_info:git:*' unstagedstr "${PROMPT_COLOR_UNSTAGED}+%f" # => %u
+zstyle ':vcs_info:*' formats "${PROMPT_COLOR_BRANCH}%b%f%c%u"
+zstyle ':vcs_info:*' actionformats "${PROMPT_COLOR_ACTION}[%b|%a]%f"
+PROMPT_FULL='${PROMPT_COLOR_PATH}%~%f${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_error}${prompt_timer}
+${PROMPT_COLOR_MARK}$ %f'
+PROMPT_TRANSIENT='${PROMPT_COLOR_TRANSIENT}$ %f'
 PROMPT="$PROMPT_FULL"
 
 if (( $+widgets[zle-line-init] )); then
@@ -179,13 +191,13 @@ function precmd() {
   prompt_timer=""
 
   if (( last_status != 0 )); then
-    prompt_error=" %F{red}exit:${last_status}%f"
+    prompt_error=" ${PROMPT_COLOR_ERROR}exit:${last_status}%f"
   fi
 
   if [[ -n $timer ]]; then
     local timer_show=$((SECONDS - timer))
     if (( timer_show >= 3 )); then
-      prompt_timer=" %F{cyan}${timer_show}s%f"
+      prompt_timer=" ${PROMPT_COLOR_TIMER}${timer_show}s%f"
     fi
     unset timer
   fi
