@@ -9,7 +9,7 @@ brew 'direnv'
 
 brew 'peco'
 brew 'tmux'
-brew 'tree'
+brew 'eza'
 brew 'neovim'
 brew 'jq'
 

@@ -1,6 +1,6 @@
 # system
 alias e="exit"
-alias l="ls -al -F"
+alias l='eza --all --long --grid --classify=always --icons=always --ignore-glob=".git|.DS_Store" --group-directories-first --binary --git --no-permissions --no-user --no-time'
 alias pbc="pbcopy"
 alias pbp="pbpaste"
 alias pb="pbpaste | pbcopy" # for reset style
@@ -57,6 +57,7 @@ alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias c="cargo"
 alias p="pnpm"
+alias tree="eza --tree"
 
 alias n="npm"
 alias nr="npm run"
