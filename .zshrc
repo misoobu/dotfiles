@@ -133,10 +133,11 @@ autoload -Uz colors && colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{green}+%f" # => %c
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
-zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u "
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}!%f" # => %u
+zstyle ':vcs_info:*' formats "%F{white}%b%f %c%u "
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f "
-PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}%{$fg[yellow]%}%# %{$reset_color%}'
+PROMPT='%{$fg[yellow]%}%~ %{$reset_color%}${vcs_info_msg_0_}${prompt_timer}
+%{$fg[yellow]%}%# %{$reset_color%}'
 
 function preexec() {
   timer=${timer:-$SECONDS}
@@ -144,17 +145,14 @@ function preexec() {
 
 function precmd() {
   vcs_info
+  prompt_timer=""
 
-  if [ $timer ]; then
-    timer_show=$(($SECONDS - $timer))
-    if [ "$timer_show" -lt "3" ]; then
-      export RPROMPT=""
-    else
-      export RPROMPT="%F{cyan}${timer_show}s%{$reset_color%}"
+  if [[ -n $timer ]]; then
+    local timer_show=$((SECONDS - timer))
+    if (( timer_show >= 3 )); then
+      prompt_timer="%F{cyan}${timer_show}s%f "
     fi
     unset timer
-  else
-    export RPROMPT=""
   fi
 }
 
