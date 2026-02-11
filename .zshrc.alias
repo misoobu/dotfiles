@@ -3,13 +3,11 @@ alias e="exit"
 alias l='eza --all --long --grid --classify=always --icons=always --ignore-glob=".git|.DS_Store" --group-directories-first --binary --git --no-permissions --no-user --no-time'
 alias pbc="pbcopy"
 alias pbp="pbpaste"
-alias pb="pbpaste | pbcopy" # for reset style
 alias o="open"
 alias ...="cd ../.." # make same as ..
 alias -g L="| less"
 alias -g G="| grep"
 alias -g C="| pbcopy"
-alias -g D="; say done"
 
 # git
 alias g="git"
@@ -31,14 +29,11 @@ alias gf="git fetch --prune --all --jobs=4"
 alias gps="git push"
 alias gps-f="git push --force-with-lease"
 alias gcom="git checkout main"
-alias gcod="git checkout develop"
 alias gcp="git cherry-pick"
 alias grb="git rebase"
 alias grbm="gf && git rebase origin/main"
 alias gmum="gf && git merge --ff-only main upstream/main"
-alias gsmu="git submodule update"
 alias gpsom="git push origin main"
-alias gpsod="git push origin develop"
 alias gx="git add . && git commit -m 'gx' && git reset --hard HEAD~"
 
 # tmux
@@ -46,22 +41,13 @@ alias tmn="tmux -2 new-session"
 alias tml="tmux ls"
 alias tma="tmux -2 attach -t"
 
-# docker
-alias d="docker"
-alias dc="docker-compose"
-
 # miscellaneous
 alias t="tig"
 alias ggv='git-grep-vim'
 alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias c="cargo"
-alias p="pnpm"
 alias tree="eza --tree"
 
 alias n="npm"
 alias nr="npm run"
-alias nx="npm exec --no"
-
-alias m="mv -i"
-alias r="move-to-trash"
