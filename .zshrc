@@ -79,16 +79,6 @@ function peco-find-file() {
 zle -N peco-find-file
 bindkey '^p' peco-find-file
 
-function peco-find-file-and-open-with-vim() {
-  file=$(_peco-find-file "select file for vim")
-  if [ -n "$file" ]; then
-    BUFFER="n $file"
-    zle accept-line
-  fi
-}
-zle -N peco-find-file-and-open-with-vim
-bindkey '^v' peco-find-file-and-open-with-vim
-
 function peco-select-ghq() {
   selected_repo=$(ghq list | peco --selection-prefix ">" --prompt '[select ghq repo]')
   if [ -n "$selected_repo" ]; then
@@ -99,13 +89,6 @@ function peco-select-ghq() {
 }
 zle -N peco-select-ghq
 bindkey '^g' peco-select-ghq
-
-function git-grep-vim () {
-  found=$(git grep -I --line-number -e $1 | cut -c 1-200 | peco --selection-prefix ">" --prompt '[select line to open]')
-  if [ -n "$found" ]; then
-    nvim $(print "$found" | head -n 1 | awk -F : '{print "-c " $2 " " $1}')
-  fi
-}
 
 function v () {
   if [ -z $NVIM ]; then
@@ -123,34 +106,9 @@ function v () {
   fi
 }
 
-function vt () {
-  nvim --server $NVIM --remote-send "<cmd>terminal $*<cr>"
-}
-
 function git-grep-replace() {
   # for mac
   git grep -I -l -e "$1" | xargs sed -i '' -e "s/$1/$2/g"
-}
-
-# https://github.com/h-matsuo/macOS-trash
-function move-to-trash() {
-  # for mac
-  for NAME in "${@}"; do
-    if [ ! -e $NAME ]; then
-      echo not found: $NAME
-      break
-    fi
-
-    TARGET=$(cd $(dirname $NAME); pwd)/$(basename $NAME)
-
-    echo removing: $TARGET
-
-    osascript -e """
-    tell application \"Finder\"
-        move POSIX file \"${TARGET}\" to trash
-    end tell
-    """ > /dev/null
-  done
 }
 
 function ncd() {
@@ -162,39 +120,6 @@ function ncd() {
   fi
 
   nvim --server "$NVIM" --remote-send "<cmd>tcd $(pwd)<cr>"
-}
-
-# List diagnostics (errors, warnings, etc.) from Neovim for a specific file
-ndiagnose() {
-  local file=$1
-  if [[ -z $file ]]; then
-    echo "Usage: ndiagnose <file>" >&2
-    return 1
-  fi
-
-  local expr
-  expr="luaeval(\"(function(path) \
-      local bufnr = vim.fn.bufnr(path, true); \
-      vim.fn.bufload(bufnr); \
-      vim.wait(500, function() return #vim.diagnostic.get(bufnr) > 0 end, 50); \
-      local sev={[1]='Error',[2]='Warn',[3]='Info',[4]='Hint'}; \
-      local out={}; \
-      for _,d in ipairs(vim.diagnostic.get(bufnr)) do \
-        table.insert(out, string.format('%s:%d:%d [%s] %s', \
-          vim.fn.fnamemodify(path,':.'), d.lnum+1, d.col, \
-          sev[d.severity], d.message)); \
-      end; \
-      return table.concat(out, '\\\\n'); \
-    end)('$file')\")"
-
-  local result
-  result=$(nvim --headless --server "$NVIM" --remote-expr "$expr")
-
-  if [[ -n $result ]]; then
-    printf '%s\n' "$result"
-  else
-    echo "Success: No diagnostics."
-  fi
 }
 
 # Util

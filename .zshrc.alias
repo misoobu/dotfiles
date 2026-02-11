@@ -43,7 +43,6 @@ alias tma="tmux -2 attach -t"
 
 # miscellaneous
 alias t="tig"
-alias ggv='git-grep-vim'
 alias ggr='git-grep-replace'
 alias -g J="| jq ."
 alias c="cargo"
