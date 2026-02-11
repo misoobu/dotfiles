@@ -12,6 +12,7 @@ ln -s ~/dotfiles/.vimrc ~/.vimrc
 ln -s ~/dotfiles/.zprofile ~/.zprofile
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.zshrc.alias ~/.zshrc.alias
+ln -s ~/dotfiles/.zshrc.prompt ~/.zshrc.prompt
 ln -s ~/dotfiles/nvim ~/.config/
 ln -s ~/dotfiles/.fdignore ~/.fdignore
 mkdir -p ~/.claude
