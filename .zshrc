@@ -137,8 +137,8 @@ zstyle ':vcs_info:git:*' unstagedstr "%F{red}+%f" # => %u
 zstyle ':vcs_info:*' formats "%F{white}%b%f%c%u"
 zstyle ':vcs_info:*' actionformats "%F{magenta}[%b|%a]%f"
 PROMPT_FULL='%{$fg[yellow]%}%~%{$reset_color%}${vcs_info_msg_0_:+ ${vcs_info_msg_0_}}${prompt_error}${prompt_timer}
-'
-PROMPT_TRANSIENT='%F{240}·%f '
+%{$fg[yellow]%}$ %{$reset_color%}'
+PROMPT_TRANSIENT='%F{240}$%f '
 PROMPT="$PROMPT_FULL"
 
 if (( $+widgets[zle-line-init] )); then
