@@ -481,12 +481,17 @@ require("lazy").setup({
                 entry_maker = function(buf)
                   local lines = vim.api.nvim_buf_get_lines(buf, -50, -1, false)
                   local s = ""
+                  local non_empty_from_bottom = {}
                   for i = #lines, 1, -1 do
                     s = (lines[i] or ""):gsub("\r", ""):match("%S.*") or ""
                     if s ~= "" then
-                      break
+                      non_empty_from_bottom[#non_empty_from_bottom + 1] = s
+                      if #non_empty_from_bottom == 2 then
+                        break
+                      end
                     end
                   end
+                  s = non_empty_from_bottom[2] or non_empty_from_bottom[1] or ""
                   local title = vim.fn.strcharpart(s, 0, 50)
                   return {
                     value = buf,
@@ -505,7 +510,7 @@ require("lazy").setup({
                   end
 
                   local total = vim.api.nvim_buf_line_count(buf)
-                  local from = math.max(total - 300, 0) -- last 300 lines
+                  local from = math.max(total - 30, 0)
                   local lines = vim.api.nvim_buf_get_lines(buf, from, total, false)
 
                   vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
