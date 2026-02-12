@@ -1,32 +1,25 @@
-# Source
+# Sources
 source ~/.zshrc.alias
 source ~/.zshrc.prompt
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
-[[ -z "$EDITOR" ]] && export EDITOR="nvim"
-export LESS='-iMR'
-export CLICOLOR=1
-export LANG=en_US.UTF-8
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
-bindkey -e
-disable r
+export EDITOR="nvim"    # use nvim as default editor
+export LESS='-iMR'      # less: smart case search, verbose prompt, keep colors
+HISTFILE=~/.zsh_history # zsh history file location
+HISTSIZE=1000000        # max history entries kept in memory
+SAVEHIST=1000000        # max history entries written to disk
+disable r               # disable `r` history rerun shortcut
 
-# Completion
-autoload -Uz compinit && compinit # https://docs.brew.sh/Shell-Completion
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
+# Options
+stty stop undef             # disable terminal XOFF binding on Ctrl-S
+setopt no_flow_control      # keep Ctrl-S/Ctrl-Q for shell keybindings
+setopt auto_cd              # `dir` behaves like `cd dir`
+setopt share_history        # share history across all open zsh sessions
+setopt hist_ignore_all_dups # remove older duplicates when adding history
+setopt hist_ignore_space    # do not save commands that start with a space
 
-# Option
-stty stop undef             # reclaim ctrl-q and ctrl-s
-setopt no_flow_control      # reclaim ctrl-q and ctrl-s
-setopt auto_cd              # cd if the command is the name of a directory
-setopt share_history
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-
-# Function
+# Functions
 
 function peco-select-history() {
   local tac
@@ -114,6 +107,10 @@ function ncd() {
 
 # Utils
 if type brew &>/dev/null; then
+  # Completion
+  autoload -Uz compinit && compinit # https://docs.brew.sh/Shell-Completion
+  zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
+
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
