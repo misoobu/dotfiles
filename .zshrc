@@ -4,12 +4,12 @@ source ~/.zshrc.prompt
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
-export EDITOR="nvim"    # use nvim as default editor
-export LESS='-iMR'      # less: smart case search, verbose prompt, keep colors
-HISTFILE=~/.zsh_history # zsh history file location
-HISTSIZE=1000000        # max history entries kept in memory
-SAVEHIST=1000000        # max history entries written to disk
-disable r               # disable `r` history rerun shortcut
+[[ -z "$EDITOR" ]] && export EDITOR="nvim" # use nvim as default editor
+export LESS='-iMR'                         # less: smart case search, verbose prompt, keep colors
+HISTFILE=~/.zsh_history                    # zsh history file location
+HISTSIZE=1000000                           # max history entries kept in memory
+SAVEHIST=1000000                           # max history entries written to disk
+disable r                                  # disable `r` history rerun shortcut
 
 # Options
 stty stop undef             # disable terminal XOFF binding on Ctrl-S
