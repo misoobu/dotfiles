@@ -10,6 +10,7 @@ HISTFILE=~/.zsh_history                    # zsh history file location
 HISTSIZE=1000000                           # max history entries kept in memory
 SAVEHIST=1000000                           # max history entries written to disk
 disable r                                  # disable `r` history rerun shortcut
+bindkey -e                                 # use Emacs key bindings
 
 # Options
 stty stop undef             # disable terminal XOFF binding on Ctrl-S
