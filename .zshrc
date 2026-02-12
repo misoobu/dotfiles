@@ -1,8 +1,6 @@
-# xxenv
-if which direnv > /dev/null; then eval "$(direnv hook zsh)"; fi
-
 # Source
 source ~/.zshrc.alias
+source ~/.zshrc.prompt
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # General
@@ -17,24 +15,16 @@ bindkey -e
 disable r
 
 # Completion
-if type brew &>/dev/null; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}" # https://docs.brew.sh/Shell-Completion
-  # FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
+autoload -Uz compinit && compinit # https://docs.brew.sh/Shell-Completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 
 # Option
-stty stop undef           # reclaim ctrl-q and ctrl-s
-setopt no_flow_control    # reclaim ctrl-q and ctrl-s
-setopt auto_cd            # cd if the command is the name of a directory
-setopt pushd_ignore_dups
+stty stop undef             # reclaim ctrl-q and ctrl-s
+setopt no_flow_control      # reclaim ctrl-q and ctrl-s
+setopt auto_cd              # cd if the command is the name of a directory
 setopt share_history
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-setopt prompt_subst       # for showing git info (see below)
 
 # Function
 
@@ -122,15 +112,8 @@ function ncd() {
   nvim --server "$NVIM" --remote-send "<cmd>tcd $(pwd)<cr>"
 }
 
-# Util
+# Utils
 if type brew &>/dev/null; then
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-# Prompt
-source ~/.zshrc.prompt
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true

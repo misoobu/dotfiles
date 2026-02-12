@@ -1,8 +1,8 @@
-# Prompt
+setopt prompt_subst
+
 autoload -Uz colors && colors
 autoload -Uz vcs_info
 
-# Prompt colors
 typeset -g PROMPT_COLOR_PATH='%F{75}'
 typeset -g PROMPT_COLOR_BRANCH='%F{252}'
 typeset -g PROMPT_COLOR_STAGED='%F{70}'
