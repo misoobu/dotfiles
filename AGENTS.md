@@ -1,0 +1,1 @@
+/Users/t/dotfiles/global_AGENTS.md
