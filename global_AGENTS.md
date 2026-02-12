@@ -1,2 +1,2 @@
-- Commit to Git after changes: Start the commit message with a short, one-line summary. Prefix it with the affected component in the repo, then state the intent/effect. Add helpful context as needed (request, background, approach, rationale, etc.).
+- Commit to Git after changes: Start the commit message with a short, one-line summary of the change. Prefix it with the affected component if it's in a monorepo, then state the intent/effect. Add helpful context as needed (request, background, approach, rationale, etc.).
 - After making changes, update AGENTS.md if it exists and contains outdated information.
