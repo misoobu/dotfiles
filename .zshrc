@@ -112,5 +112,7 @@ if type brew &>/dev/null; then
   zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # case-insensitive
 
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  bindkey '^n' forward-word
+
   source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
