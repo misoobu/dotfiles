@@ -1,2 +1,2 @@
-- Commit to Git after changes: Start the commit message with a short, one-line summary of the change. Prefix it with the affected component if it's in a monorepo, then state the intent/effect. Add helpful context as needed (request, background, approach, rationale, etc.).
-- After making changes, update AGENTS.md if it exists and contains outdated information.
+- Commit to Git after changes: Start the commit message with a short summary of the change, focusing on intent and effect. Add helpful context as needed (the user's request, background, approach, rationale, etc.). E.g., `git add <files> && git commit "<summary>\n\n- <msg1>\n- <msg2>"`
+- After making changes, update `AGENTS.md` if it exists and is outdated.
