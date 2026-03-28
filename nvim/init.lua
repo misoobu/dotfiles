@@ -303,8 +303,8 @@ require("lazy").setup({
                 })
             end,
           },
-          -- `gem install rubocop`
-          rubocop = {},
+          -- `gem install ruby-lsp`
+          ruby_lsp = {},
           -- `brew install rust-analyzer`
           rust_analyzer = {
             settings = {
