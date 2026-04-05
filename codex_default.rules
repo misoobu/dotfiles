@@ -1,0 +1,25 @@
+prefix_rule(
+    pattern = ["git", "add"],
+    decision = "allow",
+    match = [
+        "git add .",
+        "git add -A",
+    ],
+    not_match = [
+        "git status",
+        "git commit -m update",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "commit"],
+    decision = "allow",
+    match = [
+        "git commit -m update",
+        "git commit --amend --no-edit",
+    ],
+    not_match = [
+        "git add .",
+        "git push origin main",
+    ],
+)
