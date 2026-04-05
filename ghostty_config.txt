@@ -1,5 +1,6 @@
 font-size = 15
 fullscreen = non-native-visible-menu
+macos-non-native-fullscreen = visible-menu
 background = #000000
 copy-on-select = clipboard
 mouse-hide-while-typing = true
